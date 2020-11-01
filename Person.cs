@@ -17,6 +17,7 @@ namespace ProjetV1
         public string Adress { get; set; }
         public DateTime DateBirth { get; set; }
         public string PlaceBirth { get; set; } 
+        public List<Course> Timetable { get; set; }
 
 
 
