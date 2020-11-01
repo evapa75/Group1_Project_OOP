@@ -17,7 +17,7 @@ namespace ProjetV1
         public string Adress { get; set; }
         public DateTime DateBirth { get; set; }
         public string PlaceBirth { get; set; }     
-
+        List<Course> listCourse = new List<Course>();
 
 
 
