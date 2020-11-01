@@ -16,8 +16,7 @@ namespace ProjetV1
         public string PhoneNumber { get; set; }
         public string Adress { get; set; }
         public DateTime DateBirth { get; set; }
-        public string PlaceBirth { get; set; }     
-        List<Course> listCourse = new List<Course>();
+        public string PlaceBirth { get; set; } 
 
 
 
