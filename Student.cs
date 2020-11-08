@@ -9,7 +9,6 @@ namespace ProjetV1
         public string StudentID { get; set; }
         public bool Fees { get; set; }
         public string ModePayment { get; set; }
-        //public SortedList<string, List<Mark>> ListMarks { get; set; }
         
         
 
