@@ -8,6 +8,7 @@ namespace Group1_OOP
 
         static void Main(string[] args)
         {
+            /*
             List<Student> studentsList = new List<Student>();
             List<Administrator> adminsList = new List<Administrator>();
             List<Professor> professorsList = new List<Professor>();
@@ -23,7 +24,7 @@ namespace Group1_OOP
                 Console.WriteLine(administrator.ToString());
             }
 
-
+            */
             Console.ReadKey();
         }
     }
