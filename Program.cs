@@ -1,31 +1,30 @@
 ﻿using System;
+using System.Collections.Generic;
 
-namespace ProjetV1
+namespace Group1_OOP
 {
-    class Program
+    public class Program
     {
+
         static void Main(string[] args)
         {
-            
-            string firstName = "Laura";
-            string name = "Tran";
-            DateTime dateBirth = new DateTime(1999, 10, 7);
-
-            Student laura = new Student(firstName, name, dateBirth);
-            FacultyMember celia = new FacultyMember("Celia", "Barras", dateBirth, "Professor");
-
-            Console.WriteLine(laura.ToString());
-            Console.WriteLine();
-            Console.WriteLine(celia.ToString());
+            List<Student> studentsList = new List<Student>();
+            List<Administrator> adminsList = new List<Administrator>();
+            List<Professor> professorsList = new List<Professor>();
 
 
 
-            /* Debut de console
+            DateTime birth = new DateTime(1999, 12, 30);
+            Administrator admin = new Administrator("Célia", "Barras", birth);
+            admin.AddAdminisrator(adminsList);
 
-            Console.WriteLine("1 : Sign in");
-            Console.WriteLine("2 : Sign up");
+            foreach (Administrator administrator in adminsList)
+            {
+                Console.WriteLine(administrator.ToString());
+            }
 
-            */
+
+            Console.ReadKey();
         }
     }
 }

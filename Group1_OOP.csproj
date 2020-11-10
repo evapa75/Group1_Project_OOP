@@ -42,11 +42,15 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Administrator.cs" />
     <Compile Include="Course.cs" />
-    <Compile Include="FacultyMember.cs" />
+    <Compile Include="Mark.cs" />
     <Compile Include="Person.cs" />
+    <Compile Include="Professor.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="SortedList.cs" />
     <Compile Include="Student.cs" />
+    <Compile Include="Tutor.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>

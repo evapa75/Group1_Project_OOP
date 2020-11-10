@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ProjetV1
+namespace Group1_OOP
 {
     public abstract class Person
     {
@@ -16,14 +16,13 @@ namespace ProjetV1
         public string PhoneNumber { get; set; }
         public string Adress { get; set; }
         public DateTime DateBirth { get; set; }
-        public string PlaceBirth { get; set; } 
-        public List<Course> Timetable { get; set; }
+        public string PlaceBirth { get; set; }
+        
 
 
 
         public Person(string firstName, string name, DateTime dateBirth)
         {
-            //A recupérer lors de l'inscription : nom, prénom, date de naissance, lieu de naissance, emailperso, sexe, phoneNumber, Adress
             FirstName = firstName;
             Name = name;
             DateBirth = dateBirth;
