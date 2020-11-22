@@ -24,11 +24,13 @@ namespace Group1_OOP
             return $"{FirstName.ToLower()}.{Name.ToLower()}@faculty-vgc.ie";
         }
 
+        /*
         public void AddAdminisrator(List<Administrator> adminsList)
         {
             Administrator admin = new Administrator(this.FirstName, this.Name, this.DateBirth);
             adminsList.Add(admin);
         }
+        */
 
         public void FeesModification(List<Student> studentList)
         {
@@ -68,7 +70,7 @@ namespace Group1_OOP
             }
         }
 
-
+        /*
         public void CourseCreation(List<Course>schoolCourses)
         {
             Console.WriteLine("Subject of the course : ");
@@ -87,5 +89,6 @@ namespace Group1_OOP
                 CourseCreation(schoolCourses);
             }       
         }
+        */
     }
 }

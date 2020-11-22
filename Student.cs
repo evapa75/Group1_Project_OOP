@@ -26,6 +26,15 @@ namespace Group1_OOP
             StudentTutor = new Tutor();
         }
 
+        public Student(string firstName, string name, char sex, DateTime dateBirth, int year, string persoEmailAdress, string phoneNumber, string adress, string password, /*Professor tutor*/double fees)
+            : base(firstName, name, sex, dateBirth, persoEmailAdress, phoneNumber, adress, password)
+        {
+
+            Year = year;
+            //Tutor = tutor;
+            Fees = fees;
+        }
+
 
         public override string ToString()
         {
@@ -34,7 +43,7 @@ namespace Group1_OOP
 
         public void AddStudent(List<Student> studentsList)
         {
-            Student student = new Student(this.FirstName, this.Name, this.DateBirth, this.Year);
+            Student student = new Student(this.FirstName, this.Name, this.BirthDate, this.Year);
             studentsList.Add(student);
         }
 
@@ -47,8 +56,8 @@ namespace Group1_OOP
         public void FirstConnection()
         {
             Console.WriteLine("Please complete the informations");
-            Console.WriteLine("Sexe > F or M");
-            Sexe = Convert.ToChar(Console.ReadLine());
+            Console.WriteLine("Sex > F or M");
+            Sex = Convert.ToChar(Console.ReadLine());
             Console.WriteLine("EmailPerso");
             EmailPerso = Console.ReadLine();
             Console.WriteLine("Phone Number");
@@ -63,12 +72,14 @@ namespace Group1_OOP
             ModePayment = Console.ReadLine();
         }
 
+
+        /*
         public void Informations()
         {
             ConsoleKeyInfo cki;
             Console.WriteLine("Your informations >");
             Console.WriteLine(ToString());
-            Console.WriteLine($"Sexe : {Sexe}  Phone Number : {PhoneNumber}    Personal Email : {EmailPerso}\n " +
+            Console.WriteLine($"Sex : {Sex}  Phone Number : {PhoneNumber}    Personal Email : {EmailPerso}\n " +
                 $"Adress : {Adress}   Place of birth : {PlaceBirth} ");
             do
             {
@@ -108,6 +119,58 @@ namespace Group1_OOP
             }
             while (cki.Key != ConsoleKey.Escape);
         }
+        */
+
+        public void ShowAndModifyPersonalInformation()
+        {
+            bool finish = false;
+            while (finish == false)
+            {
+                Console.Clear();
+                Console.WriteLine($"Student Profile {FirstName} { Name.ToUpper()} \n\n");
+                Console.WriteLine("Personal identifying information : \n\n" +
+                    FirstName + " " + Name.ToUpper() +
+                    $"\nID : {ID}" +
+                    $"\nSex : {Sex}" +
+                    $"\nBirthdate : {BirthDate}\n\n");
+                Console.WriteLine("Contact information : \n\n" +
+                    $"Adress : {Adress}" +
+                    $"\nPhone Number : {PhoneNumber}" +
+                    $"\nSchool email adress : {EmailSchool}" +
+                    $"\nPersonnal email adress : {EmailPerso}\n\n\n");
+
+
+                Console.WriteLine("Do you want to modify some of your information? ");
+                Console.WriteLine("0 - Nothing\n" +
+                    "1 - Adress\n" +
+                    "2 - Phone number\n" +
+                    "3 - Personal email adress\n");
+                int nb = Convert.ToInt32(Console.ReadLine());
+
+                switch (nb)
+                {
+                    case 0:
+                        finish = true;
+                        break;
+
+                    case 1:
+                        Console.WriteLine("\nEnter your new address");
+                        Adress = Console.ReadLine();
+                        break;
+
+                    case 2:
+                        Console.WriteLine("\nEnter your new phone number");
+                        PhoneNumber = Console.ReadLine();
+                        break;
+
+                    case 3:
+                        Console.WriteLine("\nEnter your new personal email adress");
+                        EmailPerso = Console.ReadLine();
+                        break;
+                }
+            }
+        }
+
 
         public bool PaymentVerification() //A TERMINER
         {
@@ -127,10 +190,6 @@ namespace Group1_OOP
             return payment;
         }
 
-        public List<Course> StudentCourses(Program.)
-        {
-            foreach()
-        }
 
     }
 }

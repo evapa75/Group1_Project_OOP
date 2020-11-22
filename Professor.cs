@@ -16,6 +16,12 @@ namespace Group1_OOP
 
         }
 
+        public Professor(string firstName, string name, char sex, DateTime dateBirth, string persoEmailAdress, string phoneNumber, string adress, string password)
+            : base(firstName, name, sex, dateBirth, persoEmailAdress, phoneNumber, adress, password)
+        {
+
+        }
+
         public override string ToString()
         {
             return $"Professor => {base.ToString()}";
@@ -28,7 +34,7 @@ namespace Group1_OOP
 
         public void AddProfessor(List<Professor> professorsList)
         {
-            Professor teacher = new Professor(this.FirstName, this.Name, this.DateBirth);
+            Professor teacher = new Professor(this.FirstName, this.Name, this.BirthDate);
             professorsList.Add(teacher);
         }
     }
