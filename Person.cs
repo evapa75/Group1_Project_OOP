@@ -6,66 +6,80 @@ namespace Group1_OOP
 {
     public abstract class Person
     {
+        public bool LoginStatus { get; set; }
+        public string ID { get; }
+        public string Password { get; set; }
+
         public string FirstName { get; set; }
         public string Name { get; set; }
+        public DateTime Birthdate { get; set; }
         public int Age { get; set; }
-        public char Sexe { get; set; }
-        public string EmailPerso { get; set; }
-        public string EmailSchool { get; set; }
-        public string Password { get; set; }
+        public string Gender { get; set; }
+        public string PersoEmail { get; set; }
+        public string SchoolEmail { get; set; }
         public string PhoneNumber { get; set; }
         public string Adress { get; set; }
-        public DateTime DateBirth { get; set; }
-        public string PlaceBirth { get; set; }
-        
 
 
+        List<Student> studentList = new List<Student>();
+        List<Professor> professorList = new List<Professor>();
+        List<Administrator> adminList = new List<Administrator>();
 
-        public Person(string firstName, string name, DateTime dateBirth)
+
+        Timetable Timetable { get; set; }
+
+        public Person(string id, string firstName, string name, string gender, string birthdate, string persoEmailAdress, string phoneNumber, string adress, string password)
         {
+            ID = id;
             FirstName = firstName;
             Name = name;
-            DateBirth = dateBirth;
+            Gender = gender;
+            Birthdate = BirthdateCalculation(birthdate);
             Age = AgeCalculation();
-            EmailSchool = EmailAdress();
-            Password = FirstPassword();
+            SchoolEmail = SchoolEmailAdress();
+            PersoEmail = persoEmailAdress;
+            PhoneNumber = phoneNumber;
+            Adress = adress;
+            Password = password;
         }
+
+
 
 
         public override string ToString()
         {
-            return $"First name : {FirstName}       Name : {Name}       Date of birth : {DateBirth.ToShortDateString()}         Age : {Age}\n" +
-                $"      Email Adress : {EmailSchool}           Password : {Password}";
+            return $"ID: {ID} \nPassword: { Password} \nFirst name : {FirstName} \nName : {Name}  \nDate of birth : {Birthdate.ToShortDateString()}   \nAge : {Age}" +
+                $"\nSchool Email Adress : {SchoolEmail} \nPersonal email adress : {PersoEmail} \nPhone number : {PhoneNumber} \nAdress : {Adress}";
         }
 
         public int AgeCalculation()
         {
             int age = 0;
-            DateTime anniversary = new DateTime(DateTime.Today.Year, DateBirth.Month, DateBirth.Day);
-            if((anniversary.Month < DateTime.Today.Month) || ((anniversary.Month == DateTime.Today.Month) && (anniversary.Day <= DateTime.Today.Day)))
+            DateTime anniversary = new DateTime(DateTime.Today.Year, Birthdate.Month, Birthdate.Day);
+            if ((anniversary.Month < DateTime.Today.Month) || ((anniversary.Month == DateTime.Today.Month) && (anniversary.Day <= DateTime.Today.Day)))
             {
-                age = DateTime.Today.Year - DateBirth.Year;
+                age = DateTime.Today.Year - Birthdate.Year;
             }
             else
             {
-                age = DateTime.Today.Year - DateBirth.Year - 1;
+                age = DateTime.Today.Year - Birthdate.Year - 1;
             }
             return age;
         }
 
-
-        public string FirstPassword()
+        public DateTime BirthdateCalculation(string date)
         {
-            string pass = "";
-            Random random = new Random();
-            for(int i=0; i < 7; i++)
-            {
-                pass += (char)random.Next('a', 'z');
-            }
-            return pass;
+            int day = Convert.ToInt32(date[0] + "" + date[1]);
+            int month = Convert.ToInt32(date[3] + "" + date[4]);
+            int year = Convert.ToInt32(date[6] + "" + date[7] + "" + date[8] + "" + date[9]);
+            DateTime Birthdate = new DateTime(year, month, day);
+
+            return Birthdate;
         }
 
-        public abstract string EmailAdress();
+
+        public abstract string SchoolEmailAdress();
+
 
     }
 }
