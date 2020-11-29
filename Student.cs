@@ -1,135 +1,309 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.IO;
 using System.Text;
 
 namespace Group1_OOP
 {
     public class Student : Person
     {
-        public double Fees { get; set; }
         public int Year { get; set; }
-        public string StudentID { get; set; }
-        public bool FeesOK { get; set; }
+        public string Class { get; set; }
+        public double Fees { get; set; }
         public string ModePayment { get; set; }
-        public Tutor StudentTutor {get;set;}
-        List<Course> CoursesList { get; set; }
-        List<Course> Timetable { get; set; }
-        List<Professor> ProfessorsList { get; set; } //Récupère au fur et à mesure les noms des profs après qie l'emploi du temps soit crée
-        
+        public string TutorID { get; set; }
+
+        public List<Course> Courses { get; set; }
+        public Timetable Timetable { get; set; }
 
 
-        public Student(string firstName, string name, DateTime dateBirth, int year)
-            :base(firstName, name, dateBirth)
+        public Student(string id, string firstName, string name, string gender, string birthdate, string _class, string persoEmailAdress, string phoneNumber, string adress, string password, string tutorID, double fees)
+            : base(id, firstName, name, gender, birthdate, persoEmailAdress, phoneNumber, adress, password)
         {
-            Fees = 3500;
-            Year = year;
-            StudentTutor = new Tutor();
+            Class = _class;
+            char ch = _class[1];
+            Year = (int)Char.GetNumericValue(ch);
+            Fees = fees;
+            TutorID = tutorID;
+            Courses = new List<Course>();
+
+            //Remplissage de la liste de cours Courses
+            List<string> listCourses = new List<string>();
+            SortedList<string, List<string>> list = new SortedList<string, List<string>>();
+
+            int counter = 0;
+            StreamReader fichLect = new StreamReader("Timetables_Students.csv");
+            char[] sep = new char[1] { ';' };
+            string line = "";
+            string[] datas = new string[126];
+            while (fichLect.Peek() > 0)
+            {
+                line = fichLect.ReadLine(); //Lecture d'une ligne
+                if (counter == 1)
+                {
+                    datas = line.Split(sep);
+                    string studentID = datas[0];
+                    List<string> l = new List<string>();
+                    for (int i = 1; i < datas.Length; i++)
+                    {
+                        l.Add(datas[i]);
+                    }
+                    list.Add(studentID, l);
+                }
+                counter = 1;
+            }
+
+            int key = list.IndexOfKey(ID);
+            //Console.WriteLine(key);
+            for (int i = 0; i < datas.Length - 1; i++)
+            {
+                listCourses.Add(list.ElementAt(key).Value[i]);
+                //Console.WriteLine(list.ElementAt(key).Value[i]);
+            }
+
+            //Remplissage de la liste des cours
+            for (int i = 0; i < 125; i = i + 5)
+            {
+                Course c = new Course(Convert.ToDouble(listCourses[i]), listCourses[i + 1], listCourses[i + 2], Convert.ToInt32(listCourses[i + 3]), Convert.ToInt32(listCourses[i + 4]));
+                //Console.WriteLine(Convert.ToDouble(listCourses[i]) + ";" + listCourses[i + 1] + ";" + listCourses[i + 2] + ";" + listCourses[i + 3] + ";" + listCourses[i + 4]);
+                Courses.Add(c);
+            }
+
+            //Création de l'edt à partir de la liste de cours
+            Timetable = new Timetable(Courses);
         }
 
+        public override string SchoolEmailAdress()
+        {
+            return ID + "@student-vgc.ie";
+        }
 
         public override string ToString()
         {
-            return $"Status : Student     Year : {Year} \n {base.ToString()} \n  {StudentTutor}";
+            return $"Status : Student \nYear : {Year} \nClass : {Class} \n {base.ToString()} \n  ";
         }
 
-        public void AddStudent(List<Student> studentsList)
+        public void ShowAndModifyPersonalInformation()
         {
-            Student student = new Student(this.FirstName, this.Name, this.DateBirth, this.Year);
-            studentsList.Add(student);
-        }
-
-        public override string EmailAdress()
-        {
-            return $"{FirstName.ToLower()}.{Name.ToLower()}@student-vgc.ie";
-
-        }
-
-        public void FirstConnection()
-        {
-            Console.WriteLine("Please complete the informations");
-            Console.WriteLine("Sexe > F or M");
-            Sexe = Convert.ToChar(Console.ReadLine());
-            Console.WriteLine("EmailPerso");
-            EmailPerso = Console.ReadLine();
-            Console.WriteLine("Phone Number");
-            PhoneNumber = Console.ReadLine();
-            Console.WriteLine("Adress");
-            Adress = Console.ReadLine();
-            Console.WriteLine("Place of Birth");
-            PlaceBirth = Console.ReadLine();
-            Console.WriteLine("Choose your mode of payment");
-            Console.WriteLine("OS : one-shot transfer");
-            Console.WriteLine("MO : monthly transfer");
-            ModePayment = Console.ReadLine();
-        }
-
-        public void Informations()
-        {
-            ConsoleKeyInfo cki;
-            Console.WriteLine("Your informations >");
-            Console.WriteLine(ToString());
-            Console.WriteLine($"Sexe : {Sexe}  Phone Number : {PhoneNumber}    Personal Email : {EmailPerso}\n " +
-                $"Adress : {Adress}   Place of birth : {PlaceBirth} ");
-            do
+            bool finish = false;
+            while (finish == false)
             {
-                Console.WriteLine("Enter the number of the information you want to change");
-                Console.WriteLine("0 : nothing\n" +
-                    "1 : adress\n" +
-                    "2 : personnal email\n" +
-                    "3 : phone number\n" +
-                    "4 : tutors");
-                int nb = Convert.ToInt16(Console.ReadLine());
+                Console.Clear();
+                Console.WriteLine($"Student Profile {FirstName} { Name.ToUpper()} \n\n");
+                Console.WriteLine("Personal identifying information : \n\n" +
+                    FirstName + " " + Name.ToUpper() +
+                    $"\nID : {ID}" +
+                    $"\nYear of studies : {Year}" +
+                    $"\nClass : {Class}" +
+                    $"\nGender : {Gender}" +
+                    $"\nBirthdate : {Birthdate.ToShortDateString()}\n\n");
+                Console.WriteLine("Contact information : \n\n" +
+                    $"Adress : {Adress}" +
+                    $"\nPhone Number : {PhoneNumber}" +
+                    $"\nSchool email adress : {SchoolEmail}" +
+                    $"\nPersonnal email adress : {PersoEmail}\n\n\n");
+
+
+                Console.WriteLine("Do you want to modify some of your information? ");
+                Console.WriteLine("0 - Nothing\n" +
+                    "1 - Adress\n" +
+                    "2 - Phone number\n" +
+                    "3 - Personal email adress\n");
+                int nb = Convert.ToInt32(Console.ReadLine());
 
                 switch (nb)
                 {
                     case 0:
+                        finish = true;
                         break;
 
                     case 1:
-                        Console.WriteLine("Enter your new address");
+                        Console.WriteLine("\nEnter your new address");
                         Adress = Console.ReadLine();
                         break;
 
                     case 2:
-                        Console.WriteLine("Enter your new email adress");
-                        EmailPerso = Console.ReadLine();
-                        break;
-
-                    case 3:
-                        Console.WriteLine("Enter your new phone number");
+                        Console.WriteLine("\nEnter your new phone number");
                         PhoneNumber = Console.ReadLine();
                         break;
 
-                    case 4:
-                        StudentTutor.Modification();
+                    case 3:
+                        Console.WriteLine("\nEnter your new personal email adress");
+                        PersoEmail = Console.ReadLine();
                         break;
                 }
-                cki = Console.ReadKey();
             }
-            while (cki.Key != ConsoleKey.Escape);
         }
 
-        public bool PaymentVerification() //A TERMINER
+        public void ShowCourses()
         {
-            bool payment = false;
-            if(ModePayment == "OS")
+            Console.Clear();
+            bool finish = false;
+            while (finish == false)
             {
-                if(Fees == 0)
+                for (int i = 0; i < 40; i++)
                 {
-                    payment = true;
+                    Console.Write(" ");
+                }
+                Console.Write("YOUR COURSES \n\n");
+                for (int i = 0; i < Courses.Count; i++)
+                {
+                    if (Courses[i].Subject != "Free")
+                    {
+                        Console.WriteLine(Courses[i].Subject);
+                    }
+                }
+
+                Console.WriteLine("\n\n\nReturn to the dashboard ? \n1- YES \n2- NO");
+                int decision = Convert.ToInt32(Console.ReadLine());
+                if (decision == 1)
+                {
+                    finish = true;
                 }
             }
-            else if (ModePayment == "MO")
-            {
-                double FeesMonth = Fees / 8;
-                //Imposer une date, pour cette date à chaque mois, vérifier si c'est à 0 ou pas puis insérer dans une list les paiments
-            }
-            return payment;
+
+
         }
 
-        public List<Course> StudentCourses(Program.)
+        public void RegisterForACourse()
         {
-            foreach()
+            Console.Clear();
+            bool finish = false;
+            while (finish == false)
+            {
+                for (int i = 0; i < 70; i++)
+                {
+                    Console.Write(" ");
+                }
+                Console.Write("REGISTER FOR A COURSE \n\n");
+
+                Console.Write("Here is the list of all courses available at Virtual Global College :\n");
+
+                List<List<string>> listCourses = new List<List<string>>();
+
+                int counter = 0;
+                StreamReader fichLect = new StreamReader("Courses.csv");
+                char[] sep = new char[1] { ';' };
+                string line = "";
+                string[] datas = new string[4];
+
+
+                while (fichLect.Peek() > 0)
+                {
+                    line = fichLect.ReadLine(); //Lecture d'une ligne
+                    if (counter == 1)
+                    {
+                        datas = line.Split(sep);
+                        List<string> l = new List<string>();
+                        for (int i = 0; i < datas.Length; i++)
+                        {
+                            l.Add(datas[i]);
+                        }
+                        listCourses.Add(l);
+                    }
+                    counter = 1;
+                }
+
+                int index = 1;
+                foreach (List<string> l in listCourses)
+                {
+                    Console.WriteLine(index + "- " + l[0] + " - with Professor " + l[2] + " " + l[3]);
+                    index++;
+                }
+
+                Console.WriteLine("\n\nWhich course do you want to register for ?");
+                string choice = Console.ReadLine();
+                ApplicationForCourse application = new ApplicationForCourse(ID, FirstName, Name, Year, Class, Courses, Timetable, choice);
+                Console.WriteLine("\n\nYour request will be processed by an administrator as soon as possible.");
+
+                Console.WriteLine("\n\n\nReturn to the dashboard ? \n1- YES \n2- NO");
+                int decision = Convert.ToInt32(Console.ReadLine());
+                if (decision == 1)
+                {
+                    finish = true;
+                }
+            }
+        }
+
+        public void ShowAttendance()
+        {
+            Console.Clear();
+            bool finish = false;
+            while (finish == false)
+            {
+                for (int i = 0; i < 40; i++)
+                {
+                    Console.Write(" ");
+                }
+                Console.Write("ATTENDANCE \n\n");
+
+                foreach (Course c in Courses)
+                {
+                    if (c.Subject != "Free")
+                    {
+                        Console.WriteLine(c.Subject + " : " + c.Attendance + "/" + c.Number_of_times);
+                    }
+                }
+
+                Console.WriteLine("\n\n\nReturn to the dashboard ? \n1- YES \n2- NO");
+                int decision = Convert.ToInt32(Console.ReadLine());
+                if (decision == 1)
+                {
+                    finish = true;
+                }
+            }
+        }
+
+        public void PayementOfFees()
+        {
+            Console.Clear();
+            bool finish = false;
+            while (finish == false)
+            {
+                for (int i = 0; i < 40; i++)
+                {
+                    Console.Write(" ");
+                }
+                Console.Write("PAYEMENT OF FEES \n\n");
+
+                Console.WriteLine("The amount of your current fees to be paid is : " + Fees + " euros");
+                if (Fees != 0)
+                {
+                    Console.WriteLine("\nDo you want to pay some of them right now ? \n1- YES \n2- NO");
+                    switch (Console.ReadLine())
+                    {
+                        case "1":
+                            bool paid = false;
+                            while (paid == false)
+                            {
+                                Console.WriteLine("\n\nWhat amount do you want to pay right away ? ");
+                                double amount = Convert.ToDouble(Console.ReadLine());
+                                if (amount > 0 && amount <= Fees)
+                                {
+                                    Fees = Fees - amount;
+                                    if (Fees == 0)
+                                    {
+                                        Console.WriteLine("\nYou've paid all your fees");
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("\nHere is the new amount of your fees : " + Fees + " euros");
+                                    }
+                                    paid = true;
+                                }
+                            }
+                            break;
+                    }
+                }
+                Console.WriteLine("\n\n\nReturn to the dashboard ? \n1- YES \n2- NO");
+                int decision = Convert.ToInt32(Console.ReadLine());
+                if (decision == 1)
+                {
+                    finish = true;
+                }
+
+            }
         }
 
     }

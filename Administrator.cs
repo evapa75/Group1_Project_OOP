@@ -8,26 +8,70 @@ namespace Group1_OOP
 {
     public class Administrator : Person
     {
-        public Administrator(string firstName, string name, DateTime dateBirth)
-            : base(firstName, name, dateBirth)
+        public Administrator(string id, string firstName, string name, string gender, string birthdate, string persoEmailAdress, string phoneNumber, string adress, string password)
+            : base(id, firstName, name, gender, birthdate, persoEmailAdress, phoneNumber, adress, password)
         {
 
         }
 
         public override string ToString()
         {
-            return $"Administrator => {base.ToString()} ";
+            return $"Status : Administrator \n{base.ToString()} ";
         }
 
-        public override string EmailAdress()
+        public override string SchoolEmailAdress()
         {
-            return $"{FirstName.ToLower()}.{Name.ToLower()}@faculty-vgc.ie";
+            return ID + "@admin.faculty-vgc.ie";
         }
 
-        public void AddAdminisrator(List<Administrator> adminsList)
+        public void ShowAndModifyPersonalInformation()
         {
-            Administrator admin = new Administrator(this.FirstName, this.Name, this.DateBirth);
-            adminsList.Add(admin);
+            bool finish = false;
+            while (finish == false)
+            {
+                Console.Clear();
+                Console.WriteLine($"Administrator Profile {FirstName} { Name.ToUpper()} \n\n");
+                Console.WriteLine("Personal identifying information : \n\n" +
+                    FirstName + " " + Name.ToUpper() +
+                    $"\nID : {ID}" +
+                    $"\nGender : {Gender}" +
+                    $"\nBirthdate : {Birthdate.ToShortDateString()}\n\n");
+                Console.WriteLine("Contact information : \n\n" +
+                    $"Adress : {Adress}" +
+                    $"\nPhone Number : {PhoneNumber}" +
+                    $"\nSchool email adress : {SchoolEmail}" +
+                    $"\nPersonnal email adress : {PersoEmail}\n\n\n");
+
+
+                Console.WriteLine("Do you want to modify some of your information? ");
+                Console.WriteLine("0 - Nothing\n" +
+                    "1 - Adress\n" +
+                    "2 - Phone number\n" +
+                    "3 - Personal email adress\n");
+                int nb = Convert.ToInt32(Console.ReadLine());
+
+                switch (nb)
+                {
+                    case 0:
+                        finish = true;
+                        break;
+
+                    case 1:
+                        Console.WriteLine("\nEnter your new address");
+                        Adress = Console.ReadLine();
+                        break;
+
+                    case 2:
+                        Console.WriteLine("\nEnter your new phone number");
+                        PhoneNumber = Console.ReadLine();
+                        break;
+
+                    case 3:
+                        Console.WriteLine("\nEnter your new personal email adress");
+                        PersoEmail = Console.ReadLine();
+                        break;
+                }
+            }
         }
 
         public void FeesModification(List<Student> studentList)
@@ -37,15 +81,15 @@ namespace Group1_OOP
             Console.WriteLine("2 : all the student");
             //si possible, juste une année
             int nb = Convert.ToInt16(Console.ReadLine());
-            if(nb == 1)
+            if (nb == 1)
             {
                 Console.WriteLine("Enter the first name of the student");
                 string firstName = Console.ReadLine();
                 Console.WriteLine("Enter the last name of the student");
                 string lastName = Console.ReadLine();
-                foreach(Student student in studentList)
+                foreach (Student student in studentList)
                 {
-                    if(student.Name == lastName && student.FirstName == firstName)
+                    if (student.Name == lastName && student.FirstName == firstName)
                     {
                         Console.WriteLine("Fees of the student : " + student.Fees);
                         Console.WriteLine("New fees :");
@@ -66,26 +110,6 @@ namespace Group1_OOP
             {
                 Console.WriteLine("Aucune modification apportée");
             }
-        }
-
-
-        public void CourseCreation(List<Course>schoolCourses)
-        {
-            Console.WriteLine("Subject of the course : ");
-            string subject = Console.ReadLine();
-            Console.WriteLine("Which year : ");
-            int year = Convert.ToInt16(Console.ReadLine());
-            Console.WriteLine("Duration of the course (hh,mm)");
-            double duration = Convert.ToDouble(Console.ReadLine());
-
-            Course course = new Course(subject, year, duration);
-            schoolCourses.Add(course);
-            Console.WriteLine("Add a new course ? Yes or No");
-            string a = Console.ReadLine();
-            if (a == "Yes")
-            {
-                CourseCreation(schoolCourses);
-            }       
         }
     }
 }
