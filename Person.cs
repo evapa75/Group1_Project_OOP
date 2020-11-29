@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.IO;
 using System.Text;
 
 namespace Group1_OOP
@@ -25,8 +27,8 @@ namespace Group1_OOP
         List<Professor> professorList = new List<Professor>();
         List<Administrator> adminList = new List<Administrator>();
 
-
-        Timetable Timetable { get; set; }
+        public Timetable Timetable { get; set; }
+     
 
         public Person(string id, string firstName, string name, string gender, string birthdate, string persoEmailAdress, string phoneNumber, string adress, string password)
         {

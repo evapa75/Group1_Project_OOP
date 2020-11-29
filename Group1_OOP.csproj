@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Administrator.cs" />
     <Compile Include="ApplicationForCourse.cs" />
+    <Compile Include="ApplicationForRegistration.cs" />
     <Compile Include="Course.cs" />
     <Compile Include="CoursePlan.cs" />
     <Compile Include="Mark.cs" />
