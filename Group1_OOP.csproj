@@ -50,6 +50,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="SortedList.cs" />
     <Compile Include="Student.cs" />
+    <Compile Include="Timetable.cs" />
     <Compile Include="Tutor.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
