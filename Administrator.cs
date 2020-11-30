@@ -277,7 +277,7 @@ namespace Group1_OOP
         //    }       
         //}
 
-        public void ManagingStudentInformations(Student student) //A FAIRE
+        public void ManagingStudentInformations(Student student)
         {
             bool finish = false;
             while (finish == false)
