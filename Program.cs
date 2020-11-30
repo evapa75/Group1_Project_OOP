@@ -553,10 +553,11 @@ namespace Group1_OOP
                 counter = 1;
             }
 
-
+            /*
             studentList[0].Timetable.ShowTimetable();
             Console.WriteLine("\n\n\n");
             professorList[0].Timetable.ShowTimetable();
+            */
 
             Console.WriteLine("Welcome to the Virtual Global College Portal ! \n\n");
 
