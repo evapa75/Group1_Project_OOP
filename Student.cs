@@ -16,6 +16,7 @@ namespace Group1_OOP
 
         public List<Course> Courses { get; set; }
         public Timetable Timetable { get; set; }
+        public GradeBook GradeBook { get; set; }
 
 
         public Student(string id, string firstName, string name, string gender, string birthdate, string _class, string persoEmailAdress, string phoneNumber, string adress, string password, string tutorID, double fees)
@@ -72,6 +73,8 @@ namespace Group1_OOP
 
             //Création de l'edt à partir de la liste de cours
             Timetable = new Timetable(Courses);
+
+            GradeBook = new GradeBook(ID, Class, Courses);
         }
 
         public override string SchoolEmailAdress()
@@ -151,7 +154,7 @@ namespace Group1_OOP
                 {
                     if (Courses[i].Subject != "Free")
                     {
-                        Console.WriteLine(Courses[i].Subject);
+                        Console.WriteLine(Courses[i].Subject + " with " + Courses[i].Teacher);
                     }
                 }
 
@@ -215,7 +218,24 @@ namespace Group1_OOP
                 Console.WriteLine("\n\nWhich course do you want to register for ?");
                 string choice = Console.ReadLine();
                 ApplicationForCourse application = new ApplicationForCourse(ID, FirstName, Name, Year, Class, Courses, Timetable, choice);
-                Console.WriteLine("\n\nYour request will be processed by an administrator as soon as possible.");
+                
+                int number = 0;
+                foreach (Course c in Courses)
+                {
+                    if (c.Subject != "Free")
+                    {
+                        number++;
+                    }
+                }
+                if (number >= 10)
+                {
+                    Console.WriteLine("You have already reached the maximum of 10 courses possible.");
+                }
+                else
+                {
+                    Console.WriteLine("\n\nYour request will be processed by an administrator as soon as possible.");
+                }
+
 
                 Console.WriteLine("\n\n\nReturn to the dashboard ? \n1- YES \n2- NO");
                 int decision = Convert.ToInt32(Console.ReadLine());
@@ -228,10 +248,10 @@ namespace Group1_OOP
 
         public void ShowAttendance()
         {
-            Console.Clear();
             bool finish = false;
             while (finish == false)
             {
+                Console.Clear();
                 for (int i = 0; i < 40; i++)
                 {
                     Console.Write(" ");
@@ -255,12 +275,96 @@ namespace Group1_OOP
             }
         }
 
-        public void PayementOfFees()
+        //public GradeBook CreateGradeBook()
+        //{
+        //    string nomFichier = "GradeBookClass" + Class + ".csv";
+
+        //    List<string> ListProfID = new List<string>();
+        //    List<string> ListGrades = new List<string>();
+        //    SortedList<string, List<string>> list = new SortedList<string, List<string>>();
+
+        //    int counter = 0;
+        //    StreamReader fichLect = new StreamReader(nomFichier);
+        //    char[] sep = new char[1] { ';' };
+        //    string line = "";
+        //    string[] datas = new string[21];
+        //    while (fichLect.Peek() > 0)
+        //    {
+        //        line = fichLect.ReadLine(); //Lecture d'une ligne
+        //        if (counter == 1)
+        //        {
+        //            datas = line.Split(sep);
+        //            string studentID = datas[0];
+        //            List<string> l = new List<string>();
+        //            for (int i = 1; i < datas.Length; i++)
+        //            {
+        //                l.Add(datas[i]);
+        //            }
+        //            list.Add(studentID, l);
+        //        }
+        //        counter = 1;
+        //    }
+
+        //    int key = list.IndexOfKey(ID);
+        //    //Console.WriteLine(key);
+        //    for (int i = 0; i < datas.Length - 1; i=i+2)
+        //    {
+        //        ListProfID.Add(list.ElementAt(key).Value[i]);
+        //        ListGrades.Add(list.ElementAt(key).Value[i+1]);
+        //    }
+
+        //    List<string> Subjects = FindSubjects(ListProfID);
+
+        //    GradeBook gb = new GradeBook(Subjects, ListGrades);
+        //}
+
+        //public List<string> FindSubjects(List<string> ListProfID)
+        //{
+        //    List<string> Subjects = new List<string>();
+        //    foreach (string profID in ListProfID)
+        //    {
+        //        Course c  = Courses.Find(x => x.TeacherID_or_NameOfClass.Contains(profID));
+        //        Subjects.Add(c.Subject);
+        //    }
+        //    return Subjects;
+        //}
+
+
+
+
+        public void ShowGradeBook()
         {
-            Console.Clear();
             bool finish = false;
             while (finish == false)
             {
+                Console.Clear();
+                for (int i = 0; i < 40; i++)
+                {
+                    Console.Write(" ");
+                }
+                Console.Write("GRADEBOOK \n\n");
+                Console.WriteLine("Subjects :                         Grades\n");
+
+                for (int i = 0; i < Gradebook.Subjects.Count; i++)
+                {
+                    Console.WriteLine(Gradebook.Subjects[i] + " : " + Gradebook.Grades[i] + "\n");
+                }
+
+                Console.WriteLine("\n\n\nReturn to the dashboard ? \n1- YES \n2- NO");
+                int decision = Convert.ToInt32(Console.ReadLine());
+                if (decision == 1)
+                {
+                    finish = true;
+                }
+            }
+        }
+
+        public void PayementOfFees()
+        {
+            bool finish = false;
+            while (finish == false)
+            {
+                Console.Clear();
                 for (int i = 0; i < 40; i++)
                 {
                     Console.Write(" ");

@@ -8,10 +8,14 @@ namespace Group1_OOP
 {
     public class Administrator : Person
     {
-        public Administrator(string id, string firstName, string name, string gender, string birthdate, string persoEmailAdress, string phoneNumber, string adress, string password)
+        public List<Student> AllStudents { get; set; }
+        public List<Professor> AllProfessors { get; set; }
+
+        public Administrator(string id, string firstName, string name, string gender, string birthdate, string persoEmailAdress, string phoneNumber, string adress, string password, List<Student> allStudents, List<Professor> allProfessors)
             : base(id, firstName, name, gender, birthdate, persoEmailAdress, phoneNumber, adress, password)
         {
-
+            AllStudents = allStudents;
+            AllProfessors = allProfessors;
         }
 
         public override string ToString()
@@ -111,5 +115,148 @@ namespace Group1_OOP
                 Console.WriteLine("Aucune modification apportée");
             }
         }
+
+
+        public void AddStudent() //A FAIRE
+        {
+
+        }
+
+        public void AddProfesseur() //A TERMINER => cas de l'id, du mot de passe, subject, tutor, et 4 classes 
+        {
+            bool complete = false;
+            string firstName = "";
+            string name = "";
+            char sex = ' ';
+            DateTime birthdate = new DateTime();
+            string personalEmailAdress = "";
+            string phoneNumber = "";
+            string adress = "";
+
+            while (complete == false)
+            {
+                Console.Clear();
+                Console.WriteLine("Let's complete the registration of a new teacher. \n\nPlease complete the following informations about this teacher:");
+
+                Console.WriteLine(" \nFirst Name :");
+                firstName = Console.ReadLine();
+
+                Console.WriteLine(" \nName :");
+                name = Console.ReadLine();
+
+                Console.WriteLine(" \nSex : F or M");
+                sex = Convert.ToChar(Console.ReadLine());
+
+                Console.WriteLine(" \nBirthdate : ");
+                Console.Write("Day : ");
+                int day = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Month : (number, example: February -> 2) ");
+                int month = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Year : ");
+                int year = Convert.ToInt32(Console.ReadLine());
+                birthdate = new DateTime(year, month, day);
+
+                Console.WriteLine(" \nPersonal email adress :");
+                personalEmailAdress = Console.ReadLine();
+
+                Console.WriteLine(" \nTelephone number :");
+                phoneNumber = Console.ReadLine();
+
+                Console.WriteLine(" \nAdress (street number, street, postal code, city) :");
+                adress = Console.ReadLine();
+
+                if (firstName != null && name != null && sex != null && day != 0 && month != 0 && year != 0 && personalEmailAdress != null && phoneNumber != null && adress != null)
+                {
+                    complete = true;
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("Your form is incomplete. Please, complete it again");
+                    System.Threading.Thread.Sleep(3000);
+                }
+            }
+            Console.Clear();
+            Console.WriteLine("The form is complete.");
+
+        }
+
+        public void AddAministrator()//A VERIFIER => cas de l'id et du mot de passe
+        {
+            bool complete = false;
+            string firstName = "";
+            string name = "";
+            char sex = ' ';
+            DateTime birthdate = new DateTime();
+            string personalEmailAdress = "";
+            string phoneNumber = "";
+            string adress = "";
+
+            while (complete == false)
+            {
+                Console.Clear();
+                Console.WriteLine("Let's complete the registration of a new admin. \n\nPlease complete the following informations :");
+
+                Console.WriteLine(" \nFirst Name :");
+                firstName = Console.ReadLine();
+
+                Console.WriteLine(" \nName :");
+                name = Console.ReadLine();
+
+                Console.WriteLine(" \nSex : F or M");
+                sex = Convert.ToChar(Console.ReadLine());
+
+                Console.WriteLine(" \nBirthdate : ");
+                Console.Write("Day : ");
+                int day = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Month : (number, example: February -> 2) ");
+                int month = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Year : ");
+                int year = Convert.ToInt32(Console.ReadLine());
+                birthdate = new DateTime(year, month, day);
+
+                Console.WriteLine(" \nPersonal email adress :");
+                personalEmailAdress = Console.ReadLine();
+
+                Console.WriteLine(" \nTelephone number :");
+                phoneNumber = Console.ReadLine();
+
+                Console.WriteLine(" \nAdress (street number, street, postal code, city) :");
+                adress = Console.ReadLine();
+
+                if (firstName != null && name != null && sex != null && day != 0 && month != 0 && year != 0 && personalEmailAdress != null && phoneNumber != null && adress != null)
+                {
+                    complete = true;
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("Your form is incomplete. Please, complete it again");
+                    System.Threading.Thread.Sleep(3000);
+                }
+            }
+            Console.Clear();
+            Console.WriteLine("The form is complete.");
+        }
+
+
+        //public void CourseCreation(List<Course>schoolCourses)
+        //{
+        //    Console.WriteLine("Subject of the course : ");
+        //    string subject = Console.ReadLine();
+        //    Console.WriteLine("Which year : ");
+        //    int year = Convert.ToInt16(Console.ReadLine());
+        //    Console.WriteLine("Duration of the course (hh,mm)");
+        //    double duration = Convert.ToDouble(Console.ReadLine());
+
+        //    Course course = new Course(subject, year, duration);
+        //    schoolCourses.Add(course);
+        //    Console.WriteLine("Add a new course ? Yes or No");
+        //    string a = Console.ReadLine();
+        //    if (a == "Yes")
+        //    {
+        //        CourseCreation(schoolCourses);
+        //    }       
+        //}
     }
 }

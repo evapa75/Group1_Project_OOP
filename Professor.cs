@@ -26,6 +26,38 @@ namespace Group1_OOP
         {
 
             Subject = subject;
+
+            List<Student> allStudents = AllStudents();
+
+            //Remplissage des classes du professeur
+            Class1 = new List<Student>();
+            Class2 = new List<Student>();
+            Class3 = new List<Student>();
+            Class4 = new List<Student>();
+
+            foreach (Student s in allStudents)
+            {
+                if (name_class1 != "")
+                {
+                    if (s.Class == name_class1) { Class1.Add(s); }
+                }
+                if (name_class2 != "")
+                {
+                    if (name_class2 != "" && s.Class == name_class2) { Class2.Add(s); }
+                }
+                if (name_class3 != "")
+                {
+                    if (name_class3 != "" && s.Class == name_class3) { Class3.Add(s); }
+                }
+                if (name_class4 != "")
+                {
+                    if (name_class4 != "" && s.Class == name_class4) { Class4.Add(s); }
+                }
+
+
+            }
+
+
             if (tutor == "yes")
             {
                 Tutor = true;
@@ -139,6 +171,42 @@ namespace Group1_OOP
                 listStudents.Add(list.ElementAt(key).Value[i]);
             }
             return listStudents;
+        }
+
+
+        public List<Student> AllStudents()
+        {
+            List<Student> allStudents = new List<Student>();
+            int counter = 0;
+            StreamReader fichLect = new StreamReader("Students.csv");
+            char[] sep = new char[1] { ';' };
+            string line = "";
+            string[] datas = new string[12];
+            while (fichLect.Peek() > 0)
+            {
+                line = fichLect.ReadLine(); //Lecture d'une ligne
+                if (counter == 1)
+                {
+                    datas = line.Split(sep);
+                    string id = datas[0];
+                    string firstname = datas[1];
+                    string name = datas[2];
+                    string gender = datas[3];
+                    string birthdate = datas[4];
+                    string _class = datas[5];
+                    string personalEmailAdress = datas[6];
+                    string phoneNumber = datas[7];
+                    string adress = datas[8];
+                    string password = datas[9];
+                    string tutorID = datas[10];
+                    double fees = Convert.ToDouble(datas[11]);
+                    //Console.WriteLine(id + ";" + firstname + ";" + name + ";" + gender + ";" + birthdate + ";" + _class + ";" + personalEmailAdress + ";" + phoneNumber + ";" + adress + ";" + password + ";" + tutorID + ";" + fees);
+                    Student S = new Student(id, firstname, name, gender, birthdate, _class, personalEmailAdress, phoneNumber, adress, password, tutorID, fees);
+                    allStudents.Add(S);
+                }
+                counter = 1;
+            }
+            return allStudents;
         }
 
 

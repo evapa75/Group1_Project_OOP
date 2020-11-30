@@ -47,14 +47,13 @@
     <Compile Include="ApplicationForRegistration.cs" />
     <Compile Include="Course.cs" />
     <Compile Include="CoursePlan.cs" />
+    <Compile Include="GradeBook.cs" />
     <Compile Include="Mark.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Professor.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="SortedList.cs" />
     <Compile Include="Student.cs" />
     <Compile Include="Timetable.cs" />
-    <Compile Include="Tutor.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>

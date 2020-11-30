@@ -22,13 +22,7 @@ namespace Group1_OOP
         public string PhoneNumber { get; set; }
         public string Adress { get; set; }
 
-
-        List<Student> studentList = new List<Student>();
-        List<Professor> professorList = new List<Professor>();
-        List<Administrator> adminList = new List<Administrator>();
-
-        public Timetable Timetable { get; set; }
-     
+            
 
         public Person(string id, string firstName, string name, string gender, string birthdate, string persoEmailAdress, string phoneNumber, string adress, string password)
         {

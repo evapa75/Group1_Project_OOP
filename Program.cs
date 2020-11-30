@@ -80,99 +80,6 @@ namespace Group1_OOP
             }
         }
 
-        static string FirstPassword()
-        {
-            bool correct = false;
-            string password = "";
-            string confirm = "";
-            while (correct == false)
-            {
-                Console.WriteLine("Choose a password :");
-                password = Console.ReadLine();
-
-                Console.WriteLine("\n\nConfirm your password :");
-                confirm = Console.ReadLine();
-
-                if (confirm == password)
-                {
-                    correct = true;
-                }
-
-                if (correct == false)
-                {
-                    Console.Clear();
-                    Console.WriteLine("Error : The two passwords are different");
-                    System.Threading.Thread.Sleep(2000);
-                }
-            }
-            Console.Clear();
-            return password;
-        }
-
-        static void StudentRegistration(List<ApplicationForRegistration> studentWaitingList)
-        {
-            bool complete = false;
-            string firstName = "";
-            string name = "";
-            char sex = ' ';
-            DateTime birthdate = new DateTime();
-            int studyYear = 0;
-            string personalEmailAdress = "";
-            string phoneNumber = "";
-            string adress = "";
-
-            while (complete == false)
-            {
-                Console.Clear();
-                Console.WriteLine("Let's complete your registration. \n\nPlease complete the following informations :");
-
-                Console.WriteLine(" \nFirst Name :");
-                firstName = Console.ReadLine();
-
-                Console.WriteLine(" \nName :");
-                name = Console.ReadLine();
-
-                Console.WriteLine(" \nSex : F or M");
-                sex = Convert.ToChar(Console.ReadLine());
-
-                Console.WriteLine(" \nBirthdate : ");
-                Console.Write("Day : ");
-                int day = Convert.ToInt32(Console.ReadLine());
-                Console.Write("Month : (number, example: February -> 2) ");
-                int month = Convert.ToInt32(Console.ReadLine());
-                Console.Write("Year : ");
-                int year = Convert.ToInt32(Console.ReadLine());
-                birthdate = new DateTime(year, month, day);
-
-                Console.WriteLine(" \nIn which grade do you wish to register? ( 1,2,3. . . )");
-                studyYear = Convert.ToInt32(Console.ReadLine());
-
-                Console.WriteLine(" \nPersonal email adress :");
-                personalEmailAdress = Console.ReadLine();
-
-                Console.WriteLine(" \nTelephone number :");
-                phoneNumber = Console.ReadLine();
-
-                Console.WriteLine(" \nAdress (street number, street, postal code, city) :");
-                adress = Console.ReadLine();
-
-                if (firstName != null && name != null && sex != null && day != 0 && month != 0 && year != 0 && studyYear != 0 && personalEmailAdress != null && phoneNumber != null && adress != null)
-                {
-                    complete = true;
-                }
-                else
-                {
-                    Console.Clear();
-                    Console.WriteLine("Your form is incomplete. Please, complete it again");
-                    System.Threading.Thread.Sleep(3000);
-                }
-            }
-            Console.Clear();
-            Console.WriteLine("The form is complete. \nYour request will be processed as soon as possible. \nYou will receive an email to keep you informed of the status of your application.");
-            ApplicationForRegistration application = new ApplicationForRegistration(firstName, name, sex, birthdate, studyYear, personalEmailAdress, phoneNumber, adress);
-            studentWaitingList.Add(application);
-        }
-
         static void StudentPortal(Student student)
         {
             student.LoginStatus = true;
@@ -235,10 +142,10 @@ namespace Group1_OOP
                         student.ShowAttendance();
                         break;
 
-                    //case "5":
-                    //    Console.Clear();
-                    //    student.ShowGradeBook();
-                    //    break;
+                    case "5":
+                        Console.Clear();
+                        student.ShowGradeBook();
+                        break;
 
                     case "6":
                         Console.Clear();
@@ -255,14 +162,13 @@ namespace Group1_OOP
 
         }
 
-
         static void ProfessorPortal(Professor professor)
         {
             professor.LoginStatus = true;
             while (professor.LoginStatus == true)
             {
                 Console.WriteLine("PROFESSOR PORTAL - Virtual Global College \n \n");
-                Console.WriteLine($"Student Dashboard {professor.FirstName} {professor.Name.ToUpper()} \n");
+                Console.WriteLine($"Professor Dashboard {professor.FirstName} {professor.Name.ToUpper()} \n");
                 Console.WriteLine("1 - Contact and personal identifying information \n");
                 Console.WriteLine("2 - Timetable/ \n");
                 Console.WriteLine("3 - Student's Attendance \n");
@@ -279,23 +185,20 @@ namespace Group1_OOP
                         professor.ShowAndModifyPersonalInformation();
                         break;
 
-                    //case "2":
-                    //Console.Clear();
-                    //Console.WriteLine("1- Display your courses");
-                    //Console.WriteLine("2- Register for a course");
-
-                    //switch(Console.ReadLine())
-                    //{
-                    //    case "1":
-                    //        Console.Clear();
-                    //        student.ShowCourse();
-                    //        break;
-
-                    //    case "2":
-                    //        Console.Clear();
-                    //        student.RegisterForCourses();
-                    //        break;
-                    //}
+                    case "2":
+                        Console.Clear();
+                        bool finish = false;
+                        while (finish == false)
+                        {
+                            professor.Timetable.ShowTimetableProfessor();
+                            Console.WriteLine("\n\n\nReturn to the dashboard ? \n1- YES \n2- NO");
+                            int decision = Convert.ToInt32(Console.ReadLine());
+                            if (decision == 1)
+                            {
+                                finish = true;
+                            }
+                        }
+                        break;
 
 
                     //case "3":
@@ -357,7 +260,7 @@ namespace Group1_OOP
             while (admin.LoginStatus == true)
             {
                 Console.WriteLine("PROFESSOR PORTAL - Virtual Global College \n \n");
-                Console.WriteLine($"Student Dashboard {admin.FirstName} {admin.Name.ToUpper()} \n");
+                Console.WriteLine($"Administrator Dashboard {admin.FirstName} {admin.Name.ToUpper()} \n");
                 Console.WriteLine("1 - Contact and personal identifying information \n");
                 Console.WriteLine("2 - Add a new student \n");
                 Console.WriteLine("3 - Add a new professor \n");
@@ -379,7 +282,6 @@ namespace Group1_OOP
                     //case "2":
                     //Console.Clear();
                     //Console.WriteLine("1- Display your courses");
-                    //Console.WriteLine("2- Register for a course");
 
                     //switch(Console.ReadLine())
                     //{

@@ -161,6 +161,27 @@ namespace Group1_OOP
 
         }
 
+        public void ShowTimetableProfessor()
+        {
+            Console.Clear();
+
+            string space = "                   ";
+            for (int i = 0; i < 50; i++)
+            {
+                Console.Write(" ");
+            }
+            Console.WriteLine("TIMETABLE");
+            Console.Write("\n\n                    Monday             Tuesday           Wednesday            Thursday            Friday");
+            Console.WriteLine("\n8h30-10h15            " + CourseM1.TeacherID_or_NameOfClass + space + CourseT1.TeacherID_or_NameOfClass + space + CourseW1.TeacherID_or_NameOfClass + space + CourseTH1.TeacherID_or_NameOfClass + space + CourseF1.TeacherID_or_NameOfClass + "\n");
+            Console.WriteLine("10h30-12h15           " + CourseM2.TeacherID_or_NameOfClass + space + CourseT2.TeacherID_or_NameOfClass + space + CourseW2.TeacherID_or_NameOfClass + space + CourseTH2.TeacherID_or_NameOfClass + space + CourseF2.TeacherID_or_NameOfClass + "\n");
+            Console.WriteLine();
+            Console.WriteLine("13h30-15h15           " + CourseM3.TeacherID_or_NameOfClass + space + CourseT3.TeacherID_or_NameOfClass + space + CourseW3.TeacherID_or_NameOfClass + space + CourseTH3.TeacherID_or_NameOfClass + space + CourseF3.TeacherID_or_NameOfClass + "\n");
+            Console.WriteLine("15h30-17h15           " + CourseM4.TeacherID_or_NameOfClass + space + CourseT4.TeacherID_or_NameOfClass + space + CourseW4.TeacherID_or_NameOfClass + space + CourseTH4.TeacherID_or_NameOfClass + space + CourseF4.TeacherID_or_NameOfClass + "\n");
+            Console.WriteLine("17h30-19h15           " + CourseM5.TeacherID_or_NameOfClass + space + CourseT5.TeacherID_or_NameOfClass + space + CourseW5.TeacherID_or_NameOfClass + space + CourseTH5.TeacherID_or_NameOfClass + space + CourseF5.TeacherID_or_NameOfClass + "\n");
+
+        }
+
+
         public void AddTimetable()
         {
         }
