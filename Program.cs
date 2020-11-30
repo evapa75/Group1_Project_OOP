@@ -279,67 +279,40 @@ namespace Group1_OOP
                         admin.ShowAndModifyPersonalInformation();
                         break;
 
-                    //case "2":
-                    //Console.Clear();
-                    //Console.WriteLine("1- Display your courses");
-
-                    //switch(Console.ReadLine())
-                    //{
-                    //    case "1":
-                    //        Console.Clear();
-                    //        student.ShowCourse();
-                    //        break;
-
-                    //    case "2":
-                    //        Console.Clear();
-                    //        student.RegisterForCourses();
-                    //        break;
-                    //}
+                        //case "2":
+                        //    Console.Clear();
+                        //    admin.AddStudent();
+                        //    break;
 
 
-                    //case "3":
-                    //Console.Clear();
-                    //    professor.StudentsAttendance(); Afficher la liste des classes du prof, il choisit la classe dont il souhaite faire la présence
-                    // pour chaque élève : P pour présent et A pour absent
-                    //    break;
+                        //case "3":
+                        //    Console.Clear();
+                        //    AddProfesseur();
+                        //    break;
 
-                    //case "4":
-                    //    Console.Clear();
-                    //    Console.WriteLine("ATTENDANCE \n1 - Manage Attendance \n\n2 - Show Attendance");
-                    //    switch (Console.ReadLine())
-                    //    {
-                    //        case "1":
-                    //            Console.Clear();
-                    //            student.ManageAttendance();
-                    //            break;
-                    //        case "2":
-                    //            Console.Clear();
-                    //            student.ShowAttendance();
-                    //            break;
-                    //    }
-                    //    student.RegisterForCourses();
-                    //    break;
+                        //case "4":
+                        //    Console.Clear();
+                        //    break;
 
-                    //case "5":
-                    //    Console.Clear();
-                    //    student.ShowGradeBook();
-                    //    break;
+                        //case "5":
+                        //    Console.Clear();
+                        //    break;
 
-                    //case "6":
-                    //    Console.Clear();
-                    //    Console.WriteLine("PAYEMENT OF FEES \n1 - Manage payment of fees \n\n2 - Show payment of fees");
-                    //    switch (Console.ReadLine())
-                    //    {
-                    //        case "1":
-                    //            Console.Clear();
-                    //            student.ManagePayementFees();
-                    //            break;
-                    //        case "2":
-                    //            Console.Clear();
-                    //            student.ShowPayementFees();
-                    //            break;
-                    //    }
-                    //break;
+                        //case "6":
+                        //    Console.Clear();
+                        //    break;
+
+                        //case "7":
+                        //    Console.Clear();
+                        //    break;
+
+                        //case "8":
+                        //    Console.Clear();
+                        //    break;
+
+                        //case "9":
+                        //    Console.Clear();
+                        //    break;
 
                     case "10":
                         Console.Clear();
@@ -449,7 +422,7 @@ namespace Group1_OOP
                     string adress = datas3[7];
                     string password = datas3[8];
                     //Console.WriteLine(id + ";" + firstname + ";" + name + ";" + gender + ";" + birthdate + ";" + personalEmailAdress + ";" + phoneNumber + ";" + adress + ";" + password);
-                    Administrator A = new Administrator(id, firstname, name, gender, birthdate, personalEmailAdress, phoneNumber, adress, password);
+                    Administrator A = new Administrator(id, firstname, name, gender, birthdate, personalEmailAdress, phoneNumber, adress, password, studentList, professorList);
                     adminList.Add(A);
                 }
                 counter = 1;

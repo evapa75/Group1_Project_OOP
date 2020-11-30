@@ -345,9 +345,9 @@ namespace Group1_OOP
                 Console.Write("GRADEBOOK \n\n");
                 Console.WriteLine("Subjects :                         Grades\n");
 
-                for (int i = 0; i < Gradebook.Subjects.Count; i++)
+                for (int i = 0; i < GradeBook.Subjects.Count; i++)
                 {
-                    Console.WriteLine(Gradebook.Subjects[i] + " : " + Gradebook.Grades[i] + "\n");
+                    Console.WriteLine(GradeBook.Subjects[i] + " : " + GradeBook.Grades[i] + "\n");
                 }
 
                 Console.WriteLine("\n\n\nReturn to the dashboard ? \n1- YES \n2- NO");
