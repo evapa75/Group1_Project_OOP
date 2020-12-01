@@ -78,7 +78,20 @@ namespace Group1_OOP
             }
         }
 
-        public void AddStudent() //A AJOUTER : id, password, tutorID, fees + enregistrer dans la liste d'étudiants
+        public string FirstPassword()
+        {
+            string password = "";
+            Random random = new Random();
+            for (int i = 0; i < 7; i++)
+            {
+                password += (char)random.Next('a', 'z');
+            }
+            return password;
+        }
+
+
+
+        public void AddStudent() //A AJOUTER : id, tutorID + enregistrer dans la liste d'étudiants
         {
             bool complete = false;
             string firstName = "";
@@ -89,6 +102,9 @@ namespace Group1_OOP
             string personalEmailAdress = "";
             string phoneNumber = "";
             string adress = "";
+
+            string password = FirstPassword();
+            int fees = 5000;
 
             while (complete == false)
             {
@@ -140,7 +156,7 @@ namespace Group1_OOP
             Console.WriteLine("The form is complete.");
         }
 
-        public void AddProfesseur() //A AJOUTER => id, password, subject, tutor, et 4 classes + enregistrement 
+        public void AddProfesseur() //A AJOUTER => id, subject, tutor, et 4 classes + enregistrement 
         {
             bool complete = false;
             string firstName = "";
@@ -150,6 +166,8 @@ namespace Group1_OOP
             string personalEmailAdress = "";
             string phoneNumber = "";
             string adress = "";
+
+            string password = FirstPassword();
 
             while (complete == false)
             {
@@ -199,7 +217,7 @@ namespace Group1_OOP
 
         }
 
-        public void AddAministrator()//A AJOUTER => id, password, 2 lists
+        public void AddAministrator()//A AJOUTER => id, 2 lists
         {
             bool complete = false;
             string firstName = "";
@@ -209,6 +227,8 @@ namespace Group1_OOP
             string personalEmailAdress = "";
             string phoneNumber = "";
             string adress = "";
+
+            string password = FirstPassword();
 
             while (complete == false)
             {
