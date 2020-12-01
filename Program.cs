@@ -76,7 +76,7 @@ namespace Group1_OOP
                 Administrator a = adminList.Find(x => x.ID.Contains(id));
                 a.LoginStatus = true;
                 Console.WriteLine("Welcome " + a.FirstName + " " + a.Name + "\n \n");
-                AdministratorPortal(a);
+                AdministratorPortal(a, studentList, professorList, adminList);
             }
         }
 
@@ -254,7 +254,7 @@ namespace Group1_OOP
             }
         }
 
-        static void AdministratorPortal(Administrator admin)
+        static void AdministratorPortal(Administrator admin, List<Student> studentList, List<Professor> professorList, List<Administrator> adminList)
         {
             admin.LoginStatus = true;
             while (admin.LoginStatus == true)
@@ -281,18 +281,21 @@ namespace Group1_OOP
 
                     case "2":
                         Console.Clear();
-                        //Student s = admin.AddStudent();
+                        Student s = admin.AddStudent();
+                        studentList.Add(s);
                         break;
 
 
                     case "3":
                         Console.Clear();
-                        //Professor p = admin.AddProfesseur();
+                        Professor p = admin.AddProfesseur();
+                        professorList.Add(p);
                         break;
 
                     case "4":
                         Console.Clear();
-                        //Administrator a = admin.AddAministrator();
+                        Administrator a = admin.AddAministrator();
+                        adminList.Add(a);
                         break;
 
                         //case "5":
@@ -309,14 +312,41 @@ namespace Group1_OOP
 
                     case "8":
                         Console.Clear();
-                        //Student s;
-                        //admin.ManagingStudentInformations(s);
+                        Console.WriteLine("What's the id of the student ?");
+                        string id = Console.ReadLine();
+                        bool find = false;
+                        foreach(Student stu in studentList)
+                        {
+                            if(id == stu.ID)
+                            {
+                                admin.ManagingStudentInformations(stu);
+                                find = true;
+                            }
+                        }
+                        if(find == false)
+                        {
+                            Console.WriteLine("Unable to find this student");
+                        }
                         break;
 
                     case "9":
                         Console.Clear();
-                        //Professor p;
-                        //admin.ManagingProfessorInformations(p);
+                        Console.Clear();
+                        Console.WriteLine("What's the id of the professor ?");
+                        string idp = Console.ReadLine();
+                        bool findp = false;
+                        foreach (Professor prof in professorList)
+                        {
+                            if (idp == prof.ID)
+                            {
+                                admin.ManagingProfessorInformations(prof);
+                                findp = true;
+                            }
+                        }
+                        if (findp == false)
+                        {
+                            Console.WriteLine("Unable to find this student");
+                        }
                         break;
 
                     case "10":
