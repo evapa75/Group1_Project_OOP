@@ -124,7 +124,7 @@ namespace Group1_OOP
             return allAdministrators;
         }
 
-        public Student AddStudent() //A AJOUTER : tutorID 
+        public Student AddStudent() 
         {
             bool complete = false;
             string firstName = "";
@@ -139,10 +139,21 @@ namespace Group1_OOP
             string password = FirstPassword();
             int fees = 5000;
 
-            List<Student> allStudents = AllStudents;
+            List<Student> allStudents = this.AllStudents;
             Student s = allStudents.ElementAt(allStudents.Count - 1);
             int i = Convert.ToInt32(s.ID) + 1;
             string id = Convert.ToString(i);
+
+            string tutorID = "";
+            List<Professor> tutors = new List<Professor>();
+            foreach(Professor p in this.AllProfessors)
+            {
+                if(p.Tutor == true)
+                {
+                    tutors.Add(p);
+                }
+            }
+
 
             while (complete == false)
             {
@@ -173,7 +184,17 @@ namespace Group1_OOP
                 Console.WriteLine(" \nAdress (street number, street, postal code, city) :");
                 adress = Console.ReadLine();
 
-                if (firstName != null && name != null && sex != null && _class != null && birthdate != null && personalEmailAdress != null && phoneNumber != null && adress != null)
+                Console.WriteLine("\nChoose a tutor for the student from the following list");
+                foreach (Professor p in tutors)
+                {
+                    Console.WriteLine($"Professor ID : {p.ID}    Number of students tutored: " + p.TutorStudentList.Count);
+                }
+                Console.WriteLine("ID of the professor >");
+                tutorID = Console.ReadLine();
+
+
+
+                if (tutorID != null && firstName != null && name != null && sex != null && _class != null && birthdate != null && personalEmailAdress != null && phoneNumber != null && adress != null)
                 {
                     complete = true;
                 }
@@ -192,7 +213,7 @@ namespace Group1_OOP
             return student;
         }
 
-        public Professor AddProfesseur() //A AJOUTER => subject, tutor, et 4 classes + enregistrement 
+        public Professor AddProfesseur()
         {
             bool complete = false;
             string firstName = "";
@@ -202,8 +223,14 @@ namespace Group1_OOP
             string personalEmailAdress = "";
             string phoneNumber = "";
             string adress = "";
-
+            string subject = "";
             string password = FirstPassword();
+
+            string tutor = "";
+            string name_class1 = "";
+            string name_class2 = "";
+            string name_class3 = "";
+            string name_class4 = "";
 
             List<Professor> allProfessors = AllProfessors;
             Professor p = allProfessors.ElementAt(allProfessors.Count - 1);
@@ -236,7 +263,50 @@ namespace Group1_OOP
                 Console.WriteLine(" \nAdress (street number, street, postal code, city) :");
                 adress = Console.ReadLine();
 
-                if (firstName != null && name != null && sex != null && birthdate != null && personalEmailAdress != null && phoneNumber != null && adress != null)
+                Console.WriteLine("\nSubject :");
+                subject = Console.ReadLine();
+
+                Console.WriteLine("Is this professor a tutor ? yes or no");
+                tutor = Console.ReadLine();
+
+                Console.WriteLine("Number of class  > ");
+                int nb = Convert.ToInt16(Console.ReadLine());
+                if(nb == 1)
+                {
+                    Console.WriteLine("Class : (A1,A2,A3,A4,A5,B1,B2,B3)");
+                    name_class1 = Console.ReadLine();
+                }
+                if(nb == 2)
+                {
+                    Console.WriteLine("First class : (A1,A2,A3,A4,A5,B1,B2,B3)");
+                    name_class1 = Console.ReadLine();
+                    Console.WriteLine("Second class : ");
+                    name_class2 = Console.ReadLine();
+                }
+                if(nb == 3)
+                {
+                    Console.WriteLine("First class : (A1,A2,A3,A4,A5,B1,B2,B3)");
+                    name_class1 = Console.ReadLine();
+                    Console.WriteLine("Second class : ");
+                    name_class2 = Console.ReadLine();
+                    Console.WriteLine("Third class :)");
+                    name_class3 = Console.ReadLine();
+                }
+                if(nb ==4)
+                {
+                    Console.WriteLine("First class : (A1,A2,A3,A4,A5,B1,B2,B3)");
+                    name_class1 = Console.ReadLine();
+                    Console.WriteLine("Second class : ");
+                    name_class2 = Console.ReadLine();
+                    Console.WriteLine("Third class : ");
+                    name_class3 = Console.ReadLine();
+                    Console.WriteLine("Fourth class : ");
+                    name_class4 = Console.ReadLine();
+                }
+
+
+
+                if (subject != null && tutor != null && firstName != null && name != null && sex != null && birthdate != null && personalEmailAdress != null && phoneNumber != null && adress != null)
                 {
                     complete = true;
                 }
