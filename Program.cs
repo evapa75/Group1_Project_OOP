@@ -279,20 +279,21 @@ namespace Group1_OOP
                         admin.ShowAndModifyPersonalInformation();
                         break;
 
-                        //case "2":
-                        //    Console.Clear();
-                        //    admin.AddStudent();
-                        //    break;
+                    case "2":
+                        Console.Clear();
+                        //Student s = admin.AddStudent();
+                        break;
 
 
-                        //case "3":
-                        //    Console.Clear();
-                        //    AddProfesseur();
-                        //    break;
+                    case "3":
+                        Console.Clear();
+                        //Professor p = admin.AddProfesseur();
+                        break;
 
-                        //case "4":
-                        //    Console.Clear();
-                        //    break;
+                    case "4":
+                        Console.Clear();
+                        //Administrator a = admin.AddAministrator();
+                        break;
 
                         //case "5":
                         //    Console.Clear();
@@ -306,13 +307,17 @@ namespace Group1_OOP
                         //    Console.Clear();
                         //    break;
 
-                        //case "8":
-                        //    Console.Clear();
-                        //    break;
+                    case "8":
+                        Console.Clear();
+                        //Student s;
+                        //admin.ManagingStudentInformations(s);
+                        break;
 
-                        //case "9":
-                        //    Console.Clear();
-                        //    break;
+                    case "9":
+                        Console.Clear();
+                        //Professor p;
+                        //admin.ManagingProfessorInformations(p);
+                        break;
 
                     case "10":
                         Console.Clear();

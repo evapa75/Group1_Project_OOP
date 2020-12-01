@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
@@ -89,22 +90,59 @@ namespace Group1_OOP
             return password;
         }
 
+        public List<Administrator> AllAdministrators()
+        {
+            List<Administrator> allAdministrators = new List<Administrator>();
+            int counter = 0;
+            StreamReader file = new StreamReader("Administrators.csv");
+            char[] sep = new char[1] { ';' };
+            string line = "";
+            string[] datas = new string[11];
+            while (file.Peek() > 0)
+            {
+                line = file.ReadLine(); //Lecture d'une ligne
+                if (counter == 1)
+                {
+                    datas = line.Split(sep);
+                    string id = datas[0];
+                    string firstname = datas[1];
+                    string name = datas[2];
+                    string gender = datas[3];
+                    string birthdate = datas[4];
+                    string personalEmailAdress = datas[5];
+                    string phoneNumber = datas[6];
+                    string adress = datas[7];
+                    string password = datas[8];
+                    //Console.WriteLine(id + ";" + firstname + ";" + name + ";" + gender + ";" + birthdate + ";" + personalEmailAdress + ";" + phoneNumber + ";" + adress + ";" + password);
+                    Administrator A = new Administrator(id, firstname, name, gender, birthdate, personalEmailAdress, phoneNumber, adress, password, this.AllStudents, this.AllProfessors);
+                    allAdministrators.Add(A);
+                }
+                counter = 1;
+            }
 
 
-        public void AddStudent() //A AJOUTER : id, tutorID + enregistrer dans la liste d'étudiants
+            return allAdministrators;
+        }
+
+        public Student AddStudent() //A AJOUTER : tutorID 
         {
             bool complete = false;
             string firstName = "";
             string name = "";
-            char sex = ' ';
-            DateTime birthdate = new DateTime();
-            string grade = "";
+            string sex = "";
+            string birthdate = "";
+            string _class = "";
             string personalEmailAdress = "";
             string phoneNumber = "";
             string adress = "";
 
             string password = FirstPassword();
             int fees = 5000;
+
+            List<Student> allStudents = AllStudents;
+            Student s = allStudents.ElementAt(allStudents.Count - 1);
+            int i = Convert.ToInt32(s.ID) + 1;
+            string id = Convert.ToString(i);
 
             while (complete == false)
             {
@@ -117,20 +155,14 @@ namespace Group1_OOP
                 Console.WriteLine(" \nName :");
                 name = Console.ReadLine();
 
-                Console.WriteLine(" \nSex : F or M");
-                sex = Convert.ToChar(Console.ReadLine());
+                Console.WriteLine(" \nSex : Female or Male");
+                sex = Console.ReadLine();
 
-                Console.WriteLine(" \nBirthdate : ");
-                Console.Write("Day : ");
-                int day = Convert.ToInt32(Console.ReadLine());
-                Console.Write("Month : (number, example: February -> 2) ");
-                int month = Convert.ToInt32(Console.ReadLine());
-                Console.Write("Year : ");
-                int year = Convert.ToInt32(Console.ReadLine());
-                birthdate = new DateTime(year, month, day);
+                Console.WriteLine(" \nBirthdate : dd/mm/yyyy");
+                birthdate = Console.ReadLine();
 
                 Console.WriteLine("In which grade do you want to register this student ? (A1, A2, A3, A4, A5, B1, B2, B3)");
-                grade = Console.ReadLine();
+                _class = Console.ReadLine();
 
                 Console.WriteLine(" \nPersonal email adress :");
                 personalEmailAdress = Console.ReadLine();
@@ -141,7 +173,7 @@ namespace Group1_OOP
                 Console.WriteLine(" \nAdress (street number, street, postal code, city) :");
                 adress = Console.ReadLine();
 
-                if (firstName != null && name != null && sex != null && grade != null && day != 0 && month != 0 && year != 0 && personalEmailAdress != null && phoneNumber != null && adress != null)
+                if (firstName != null && name != null && sex != null && _class != null && birthdate != null && personalEmailAdress != null && phoneNumber != null && adress != null)
                 {
                     complete = true;
                 }
@@ -154,20 +186,29 @@ namespace Group1_OOP
             }
             Console.Clear();
             Console.WriteLine("The form is complete.");
+
+            Student student = new Student(id, firstName, name, sex, birthdate, _class, personalEmailAdress, phoneNumber, adress, password, tutorID, fees);
+
+            return student;
         }
 
-        public void AddProfesseur() //A AJOUTER => id, subject, tutor, et 4 classes + enregistrement 
+        public Professor AddProfesseur() //A AJOUTER => subject, tutor, et 4 classes + enregistrement 
         {
             bool complete = false;
             string firstName = "";
             string name = "";
-            char sex = ' ';
-            DateTime birthdate = new DateTime();
+            string sex = "";
+            string birthdate = "";
             string personalEmailAdress = "";
             string phoneNumber = "";
             string adress = "";
 
             string password = FirstPassword();
+
+            List<Professor> allProfessors = AllProfessors;
+            Professor p = allProfessors.ElementAt(allProfessors.Count - 1);
+            int i = Convert.ToInt32(p.ID) + 1;
+            string id = Convert.ToString(i);
 
             while (complete == false)
             {
@@ -180,17 +221,11 @@ namespace Group1_OOP
                 Console.WriteLine(" \nName :");
                 name = Console.ReadLine();
 
-                Console.WriteLine(" \nSex : F or M");
-                sex = Convert.ToChar(Console.ReadLine());
+                Console.WriteLine(" \nSex : Female or Male");
+                sex = Console.ReadLine();
 
-                Console.WriteLine(" \nBirthdate : ");
-                Console.Write("Day : ");
-                int day = Convert.ToInt32(Console.ReadLine());
-                Console.Write("Month : (number, example: February -> 2) ");
-                int month = Convert.ToInt32(Console.ReadLine());
-                Console.Write("Year : ");
-                int year = Convert.ToInt32(Console.ReadLine());
-                birthdate = new DateTime(year, month, day);
+                Console.WriteLine(" \nBirthdate : dd/mm/yyyy");
+                birthdate = Console.ReadLine();
 
                 Console.WriteLine(" \nPersonal email adress :");
                 personalEmailAdress = Console.ReadLine();
@@ -201,7 +236,7 @@ namespace Group1_OOP
                 Console.WriteLine(" \nAdress (street number, street, postal code, city) :");
                 adress = Console.ReadLine();
 
-                if (firstName != null && name != null && sex != null && day != 0 && month != 0 && year != 0 && personalEmailAdress != null && phoneNumber != null && adress != null)
+                if (firstName != null && name != null && sex != null && birthdate != null && personalEmailAdress != null && phoneNumber != null && adress != null)
                 {
                     complete = true;
                 }
@@ -215,20 +250,31 @@ namespace Group1_OOP
             Console.Clear();
             Console.WriteLine("The form is complete.");
 
+            Professor professor = new Professor(id, firstName, name, sex, birthdate, personalEmailAdress, phoneNumber, adress, password, subject, tutor, name_class1, name_class2, name_class3, name_class4);
+
+            return professor;
         }
 
-        public void AddAministrator()//A AJOUTER => id, 2 lists
+        public Administrator AddAministrator()
         {
             bool complete = false;
             string firstName = "";
             string name = "";
-            char sex = ' ';
-            DateTime birthdate = new DateTime();
+            string sex = "";
+            string birthdate = "";
             string personalEmailAdress = "";
             string phoneNumber = "";
             string adress = "";
 
+            List<Student> allStudents = this.AllStudents;
+            List<Professor> allProfessors = this.AllProfessors;
+            List<Administrator> allAdministrators = AllAdministrators();
+
             string password = FirstPassword();
+
+            Administrator a = allAdministrators.ElementAt(allAdministrators.Count - 1);
+            int i = Convert.ToInt32(a.ID) + 1;
+            string id = Convert.ToString(i);
 
             while (complete == false)
             {
@@ -241,17 +287,11 @@ namespace Group1_OOP
                 Console.WriteLine(" \nName :");
                 name = Console.ReadLine();
 
-                Console.WriteLine(" \nSex : F or M");
-                sex = Convert.ToChar(Console.ReadLine());
+                Console.WriteLine(" \nSex : Female or Male");
+                sex = Console.ReadLine();
 
-                Console.WriteLine(" \nBirthdate : ");
-                Console.Write("Day : ");
-                int day = Convert.ToInt32(Console.ReadLine());
-                Console.Write("Month : (number, example: February -> 2) ");
-                int month = Convert.ToInt32(Console.ReadLine());
-                Console.Write("Year : ");
-                int year = Convert.ToInt32(Console.ReadLine());
-                birthdate = new DateTime(year, month, day);
+                Console.WriteLine(" \nBirthdate : (dd/mm/yyyy");
+                birthdate = Console.ReadLine();
 
                 Console.WriteLine(" \nPersonal email adress :");
                 personalEmailAdress = Console.ReadLine();
@@ -262,7 +302,7 @@ namespace Group1_OOP
                 Console.WriteLine(" \nAdress (street number, street, postal code, city) :");
                 adress = Console.ReadLine();
 
-                if (firstName != null && name != null && sex != null && day != 0 && month != 0 && year != 0 && personalEmailAdress != null && phoneNumber != null && adress != null)
+                if (firstName != null && name != null && sex != null && birthdate != null && personalEmailAdress != null && phoneNumber != null && adress != null)
                 {
                     complete = true;
                 }
@@ -275,6 +315,10 @@ namespace Group1_OOP
             }
             Console.Clear();
             Console.WriteLine("The form is complete.");
+
+            Administrator administrator = new Administrator(id, firstName, name, sex, birthdate, personalEmailAdress, phoneNumber, adress, password, allStudents, allProfessors);
+
+            return administrator;
         }
 
 
