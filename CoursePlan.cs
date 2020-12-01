@@ -33,9 +33,246 @@ namespace Group1_OOP
         string S2week11 { get; set; }
         string S2week12 { get; set; }
 
-        public CoursePlan()
+        public CoursePlan(string s1week1, string s1week2, string s1week3, string s1week4, string s1week5, string s1week6, 
+            string s1week7, string s1week8, string s1week9, string s1week10, string s1week11, string s1week12,
+            string s2week1, string s2week2, string s2week3, string s2week4, string s2week5, string s2week6,
+            string s2week7, string s2week8, string s2week9, string s2week10, string s2week11, string s2week12)
         {
+            S1week1 = s1week1;
+            S1week2 = s1week2;
+            S1week3 = s1week3;
+            S1week4 = s1week4;
+            S1week5 = s1week5;
+            S1week6 = s1week6;
+            S1week7 = s1week7;
+            S1week8 = s1week8;
+            S1week9 = s1week9;
+            S1week10 = s1week10;
+            S1week11 = s1week11;
+            S1week12 = s1week12;
+            S2week1 = s2week1;
+            S2week2 = s2week2;
+            S2week3 = s2week3;
+            S2week4 = s2week4;
+            S2week5 = s2week5;
+            S2week6 = s2week6;
+            S2week7 = s2week7;
+            S2week8 = s2week8;
+            S2week9 = s2week9;
+            S2week10 = s2week10;
+            S2week11 = s2week11;
+            S2week12 = s2week12;
 
         }
+
+        public override string ToString()
+        {
+            string content = "Course plan :\n"
+                + "\nSemester 1 - Week 1 :          " + S1week1
+                + "\n\nSemester 1 - Week 2 :          " + S1week2
+                + "\n\nSemester 1 - Week 3 :          " + S1week3
+                + "\n\nSemester 1 - Week 4 :          " + S1week4
+                + "\n\nSemester 1 - Week 5 :          " + S1week5
+                + "\n\nSemester 1 - Week 6 :          " + S1week6
+                + "\n\nSemester 1 - Week 7 :          " + S1week7
+                + "\n\nSemester 1 - Week 8 :          " + S1week8
+                + "\n\nSemester 1 - Week 9 :          " + S1week9
+                + "\n\nSemester 1 - Week 10 :         " + S1week10
+                + "\n\nSemester 1 - Week 11 :         " + S1week11
+                + "\n\nSemester 1 - Week 12 :         " + S1week12
+                + "\n\nSemester 2 - Week 1 :          " + S2week1
+                + "\n\nSemester 2 - Week 2 :          " + S2week2
+                + "\n\nSemester 2 - Week 3 :          " + S2week3
+                + "\n\nSemester 2 - Week 4 :          " + S2week4
+                + "\n\nSemester 2 - Week 5 :          " + S2week5
+                + "\n\nSemester 2 - Week 6 :          " + S2week6
+                + "\n\nSemester 2 - Week 7 :          " + S2week7
+                + "\n\nSemester 2 - Week 8 :          " + S2week8
+                + "\n\nSemester 2 - Week 9 :          " + S2week9
+                + "\n\nSemester 2 - Week 10 :         " + S2week10
+                + "\n\nSemester 2 - Week 11 :         " + S2week11
+                + "\n\nSemester 2 - Week 12 :         " + S2week12
+                ;
+            return content;
+        }
+
+        public void ModifyCoursePlan()
+        {
+            bool nb1 = false;
+            bool nb2 = false;
+            while (nb1 == false)
+            {
+                Console.Clear();
+                Console.WriteLine("For which semester do you want to do a modification ? 1 or 2");
+                int semester = Convert.ToInt16(Console.ReadLine());
+                if (semester == 1)
+                {
+                    while (nb2 == false)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("For which week do you want to do a modification ? 1 to 12");
+                        int week = Convert.ToInt16(Console.ReadLine());
+                        if (week == 1)
+                        {
+                            Console.WriteLine("Enter a new content");
+                            S1week1 = Console.ReadLine();
+                            nb2 = true;
+                        }
+                        if (week == 2)
+                        {
+                            Console.WriteLine("Enter a new content");
+                            S1week2 = Console.ReadLine();
+                            nb2 = true;
+                        }
+                        if (week == 3)
+                        {
+                            Console.WriteLine("Enter a new content");
+                            S1week3 = Console.ReadLine();
+                            nb2 = true;
+                        }
+                        if (week == 4)
+                        {
+                            Console.WriteLine("Enter a new content");
+                            S1week4 = Console.ReadLine();
+                            nb2 = true;
+                        }
+                        if (week == 5)
+                        {
+                            Console.WriteLine("Enter a new content");
+                            S1week5 = Console.ReadLine();
+                            nb2 = true;
+                        }
+                        if (week == 6)
+                        {
+                            Console.WriteLine("Enter a new content");
+                            S1week6 = Console.ReadLine();
+                            nb2 = true;
+                        }
+                        if (week == 7)
+                        {
+                            Console.WriteLine("Enter a new content");
+                            S1week7 = Console.ReadLine();
+                            nb2 = true;
+                        }
+                        if (week == 8)
+                        {
+                            Console.WriteLine("Enter a new content");
+                            S1week8 = Console.ReadLine();
+                            nb2 = true;
+                        }
+                        if (week == 9)
+                        {
+                            Console.WriteLine("Enter a new content");
+                            S1week9 = Console.ReadLine();
+                            nb2 = true;
+                        }
+                        if (week == 10)
+                        {
+                            Console.WriteLine("Enter a new content");
+                            S1week10 = Console.ReadLine();
+                            nb2 = true;
+                        }
+                        if (week == 11)
+                        {
+                            Console.WriteLine("Enter a new content");
+                            S1week11 = Console.ReadLine();
+                            nb2 = true;
+                        }
+                        if (week == 12)
+                        {
+                            Console.WriteLine("Enter a new content");
+                            S1week12 = Console.ReadLine();
+                            nb2 = true;
+                        }
+                    }
+                    nb1 = true;
+                }
+                if (semester == 2)
+                {
+                    while (nb2 == false)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("For which week do you want to do a modification ? 1 to 12");
+                        int week = Convert.ToInt16(Console.ReadLine());
+                        if (week == 1)
+                        {
+                            Console.WriteLine("Enter a new content");
+                            S2week1 = Console.ReadLine();
+                            nb2 = true;
+                        }
+                        if (week == 2)
+                        {
+                            Console.WriteLine("Enter a new content");
+                            S2week2 = Console.ReadLine();
+                            nb2 = true;
+                        }
+                        if (week == 3)
+                        {
+                            Console.WriteLine("Enter a new content");
+                            S2week3 = Console.ReadLine();
+                            nb2 = true;
+                        }
+                        if (week == 4)
+                        {
+                            Console.WriteLine("Enter a new content");
+                            S2week4 = Console.ReadLine();
+                            nb2 = true;
+                        }
+                        if (week == 5)
+                        {
+                            Console.WriteLine("Enter a new content");
+                            S2week5 = Console.ReadLine();
+                            nb2 = true;
+                        }
+                        if (week == 6)
+                        {
+                            Console.WriteLine("Enter a new content");
+                            S2week6 = Console.ReadLine();
+                            nb2 = true;
+                        }
+                        if (week == 7)
+                        {
+                            Console.WriteLine("Enter a new content");
+                            S2week7 = Console.ReadLine();
+                            nb2 = true;
+                        }
+                        if (week == 8)
+                        {
+                            Console.WriteLine("Enter a new content");
+                            S2week8 = Console.ReadLine();
+                            nb2 = true;
+                        }
+                        if (week == 9)
+                        {
+                            Console.WriteLine("Enter a new content");
+                            S2week9 = Console.ReadLine();
+                            nb2 = true;
+                        }
+                        if (week == 10)
+                        {
+                            Console.WriteLine("Enter a new content");
+                            S2week10 = Console.ReadLine();
+                            nb2 = true;
+                        }
+                        if (week == 11)
+                        {
+                            Console.WriteLine("Enter a new content");
+                            S2week11 = Console.ReadLine();
+                            nb2 = true;
+                        }
+                        if (week == 12)
+                        {
+                            Console.WriteLine("Enter a new content");
+                            S2week12 = Console.ReadLine();
+                            nb2 = true;
+                        }
+                    }
+                    nb1 = true;
+                }
+            }
+
+        }
+
+
     }
 }
