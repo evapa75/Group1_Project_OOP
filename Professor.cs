@@ -731,7 +731,7 @@ namespace Group1_OOP
             StreamReader fichLect = new StreamReader("CoursePlan.csv");
             char[] sep = new char[1] { ';' };
             string line = "";
-            string[] datas = new string[26];
+            string[] datas = new string[28];
             while (fichLect.Peek() > 0)
             {
                 line = fichLect.ReadLine();
@@ -764,8 +764,10 @@ namespace Group1_OOP
                     string s2week10 = datas[23];
                     string s2week11 = datas[24];
                     string s2week12 = datas[25];
+                    string exams = datas[26];
+                    string assignements = datas[27];
                     CoursePlan coursePlan = new CoursePlan(professorID, _class, s1week1, s1week2, s1week3, s1week4, s1week5, s1week6, s1week7, s1week8, s1week9, s1week10, s1week11, s1week12,
-                                                    s2week1, s2week2, s2week3, s2week4, s2week5, s2week6, s2week7, s2week8, s2week9, s2week10, s2week11,s2week12);
+                                                    s2week1, s2week2, s2week3, s2week4, s2week5, s2week6, s2week7, s2week8, s2week9, s2week10, s2week11,s2week12, exams, assignements);
                     allCoursePlan.Add(coursePlan);
                 }
                 counter = 1;
@@ -831,7 +833,7 @@ namespace Group1_OOP
             {
                 if (nbClass == 1)
                 {
-                    Console.WriteLine("Do you want to see or modify this course plan ?\n0 - Exit\n 1 - See the course plan\n2 - Modify the course plan");
+                    Console.WriteLine("Do you want to see or modify this course plan ?\n0 - Exit\n 1 - See the course plan\n2 - Modify the course plan\n3 - Manage the exam/assignment section");
                     switch (Console.ReadLine())
                     {
                         case "0":
@@ -847,6 +849,11 @@ namespace Group1_OOP
                             Console.Clear();
                             CoursePlan1.ModifyCoursePlan();
                             break;
+
+                        case "3":
+                            Console.Clear();
+                            CoursePlan1.ModifyExamAndAssignmentSections();
+                            break;
                     }
                 }
                 else if (nbClass == 2)
@@ -859,7 +866,7 @@ namespace Group1_OOP
                             break;
 
                         case "1":
-                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan");
+                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan\n3 - Manage the exam/assignment section");
                             switch (Console.ReadLine())
                             {
                                 case "1":
@@ -871,11 +878,16 @@ namespace Group1_OOP
                                     Console.Clear();
                                     CoursePlan1.ModifyCoursePlan();
                                     break;
+
+                                case "3":
+                                    Console.Clear();
+                                    CoursePlan1.ModifyExamAndAssignmentSections();
+                                    break;
                             }
                             break;
 
                         case "2":
-                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan");
+                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan\n3 - Manage the exam/assignment section");
                             switch (Console.ReadLine())
                             {
                                 case "1":
@@ -886,6 +898,11 @@ namespace Group1_OOP
                                 case "2":
                                     Console.Clear();
                                     CoursePlan2.ModifyCoursePlan();
+                                    break;
+
+                                case "3":
+                                    Console.Clear();
+                                    CoursePlan2.ModifyExamAndAssignmentSections();
                                     break;
                             }
                             break;
@@ -901,7 +918,7 @@ namespace Group1_OOP
                             break;
 
                         case "1":
-                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan");
+                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan\n3 - Manage the exam/assignment section");
                             switch (Console.ReadLine())
                             {
                                 case "1":
@@ -913,11 +930,16 @@ namespace Group1_OOP
                                     Console.Clear();
                                     CoursePlan1.ModifyCoursePlan();
                                     break;
+
+                                case "3":
+                                    Console.Clear();
+                                    CoursePlan1.ModifyExamAndAssignmentSections();
+                                    break;
                             }
                             break;
 
                         case "2":
-                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan");
+                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan\n3 - Manage the exam/assignment section");
                             switch (Console.ReadLine())
                             {
                                 case "1":
@@ -929,11 +951,16 @@ namespace Group1_OOP
                                     Console.Clear();
                                     CoursePlan2.ModifyCoursePlan();
                                     break;
+
+                                case "3":
+                                    Console.Clear();
+                                    CoursePlan2.ModifyExamAndAssignmentSections();
+                                    break;
                             }
                             break;
 
                         case "3":
-                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan");
+                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan\n3 - Manage the exam/assignment section");
                             switch (Console.ReadLine())
                             {
                                 case "1":
@@ -944,6 +971,11 @@ namespace Group1_OOP
                                 case "2":
                                     Console.Clear();
                                     CoursePlan3.ModifyCoursePlan();
+                                    break;
+
+                                case "3":
+                                    Console.Clear();
+                                    CoursePlan3.ModifyExamAndAssignmentSections();
                                     break;
                             }
                             break;
@@ -959,7 +991,7 @@ namespace Group1_OOP
                             break;
 
                         case "1":
-                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan");
+                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan\n3 - Manage the exam/assignment section");
                             switch (Console.ReadLine())
                             {
                                 case "1":
@@ -971,11 +1003,16 @@ namespace Group1_OOP
                                     Console.Clear();
                                     CoursePlan1.ModifyCoursePlan();
                                     break;
+
+                                case "3":
+                                    Console.Clear();
+                                    CoursePlan1.ModifyExamAndAssignmentSections();
+                                    break;
                             }
                             break;
 
                         case "2":
-                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan");
+                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan\n3 - Manage the exam/assignment section");
                             switch (Console.ReadLine())
                             {
                                 case "1":
@@ -987,11 +1024,16 @@ namespace Group1_OOP
                                     Console.Clear();
                                     CoursePlan2.ModifyCoursePlan();
                                     break;
+
+                                case "3":
+                                    Console.Clear();
+                                    CoursePlan2.ModifyExamAndAssignmentSections();
+                                    break;
                             }
                             break;
 
                         case "3":
-                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan");
+                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan\n3 - Manage the exam/assignment section");
                             switch (Console.ReadLine())
                             {
                                 case "1":
@@ -1003,10 +1045,15 @@ namespace Group1_OOP
                                     Console.Clear();
                                     CoursePlan3.ModifyCoursePlan();
                                     break;
+
+                                case "3":
+                                    Console.Clear();
+                                    CoursePlan3.ModifyExamAndAssignmentSections();
+                                    break;
                             }
                             break;
                         case "4":
-                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan");
+                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan\n3 - Manage the exam/assignment section");
                             switch (Console.ReadLine())
                             {
                                 case "1":
@@ -1017,6 +1064,11 @@ namespace Group1_OOP
                                 case "2":
                                     Console.Clear();
                                     CoursePlan4.ModifyCoursePlan();
+                                    break;
+
+                                case "3":
+                                    Console.Clear();
+                                    CoursePlan4.ModifyExamAndAssignmentSections();
                                     break;
                             }
                             break;

@@ -1362,7 +1362,7 @@ namespace Group1_OOP
                 Professor professor = ChooseProfessor();
 
                 Console.Clear();
-                Console.WriteLine($"Student Profile {professor.FirstName} {professor.Name.ToUpper()} \n\n");
+                Console.WriteLine($"Professor Profile {professor.FirstName} {professor.Name.ToUpper()} \n\n");
                 Console.WriteLine("Personal identifying information : \n\n" +
                     professor.FirstName + " " + professor.Name.ToUpper() +
                     $"\nID : {professor.ID}" +
@@ -1385,7 +1385,7 @@ namespace Group1_OOP
                     }
                 }
 
-                Console.WriteLine("Do you want to change any of the student's information? ");
+                Console.WriteLine("Do you want to change any of the professor's information? ");
                 Console.WriteLine("0 - Nothing\n" +
                     "1 - First Name\n" +
                     "2 - Name\n" +
@@ -1410,38 +1410,38 @@ namespace Group1_OOP
                         break;
 
                     case "1":
-                        Console.WriteLine("\nEnter the new first name of the student");
+                        Console.WriteLine("\nEnter the new first name of the professor");
                         professor.FirstName = Console.ReadLine();
                         break;
 
                     case "2":
-                        Console.WriteLine("\nEnter the new name of the student");
+                        Console.WriteLine("\nEnter the new name of the professor");
                         professor.Name = Console.ReadLine();
                         break;
 
                     case "3":
-                        Console.WriteLine("\nEnter the new gender of the student");
+                        Console.WriteLine("\nEnter the new gender of the professor");
                         professor.Adress = Console.ReadLine();
                         break;
 
                     case "4":
-                        Console.WriteLine("\nEnter the new birthdate of the student (dd/mm/yyyy)");
+                        Console.WriteLine("\nEnter the new birthdate of the professor (dd/mm/yyyy)");
                         string birthdate = Console.ReadLine();
                         professor.Birthdate = professor.BirthdateCalculation(birthdate);
                         break;
 
                     case "5":
-                        Console.WriteLine("\nEnter the new address of the student");
+                        Console.WriteLine("\nEnter the new address of the professor");
                         professor.Adress = Console.ReadLine();
                         break;
 
                     case "6":
-                        Console.WriteLine("\nEnter the new phone number of the student");
+                        Console.WriteLine("\nEnter the new phone number of the professor");
                         professor.PhoneNumber = Console.ReadLine();
                         break;
 
                     case "7":
-                        Console.WriteLine("\nEnter the new personal email adress of the student");
+                        Console.WriteLine("\nEnter the new personal email adress of the professor");
                         professor.PersoEmail = Console.ReadLine();
                         break;
 

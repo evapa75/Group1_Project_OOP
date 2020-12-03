@@ -42,7 +42,7 @@ namespace Group1_OOP
         public CoursePlan(string professorID, string _class, string s1week1, string s1week2, string s1week3, string s1week4, string s1week5, string s1week6, 
             string s1week7, string s1week8, string s1week9, string s1week10, string s1week11, string s1week12,
             string s2week1, string s2week2, string s2week3, string s2week4, string s2week5, string s2week6,
-            string s2week7, string s2week8, string s2week9, string s2week10, string s2week11, string s2week12)
+            string s2week7, string s2week8, string s2week9, string s2week10, string s2week11, string s2week12, string exams, string assignements)
         {
             ProfessorID = professorID;
             Class = _class;
@@ -70,6 +70,9 @@ namespace Group1_OOP
             S2week10 = s2week10;
             S2week11 = s2week11;
             S2week12 = s2week12;
+
+            Exams = exams;
+            Assignments = assignements;
         }
 
         public override string ToString()
@@ -280,6 +283,110 @@ namespace Group1_OOP
 
         }
 
+        public void ModifyExamAndAssignmentSections()
+        {
+            bool finish = false;
+            while (finish == false)
+            {
+                Console.WriteLine("Do you want to modify the exam or the assignment section ?\n0 - Exit\n1 - Exam\n2 - Assignment");
+                switch(Console.ReadLine())
+                {
+                    case "0":
+                        finish = true;
+                        break;
+
+                    case "1":
+                        Console.Clear();
+                        Console.WriteLine("Do you want to add or to modify an exam ?\n1 - Add\n2 - Modify");
+                        switch(Console.ReadLine())
+                        {
+                            case "1":
+                                Console.Clear();
+                                Console.WriteLine("Enter the name of the exam");
+                                string name = Console.ReadLine();
+                                Console.WriteLine("Enter the date of the exam");
+                                string date = Console.ReadLine();
+                                Console.WriteLine("Enter the hour of the exam");
+                                string hour = Console.ReadLine();
+                                string content = "";
+                                Console.WriteLine("Do you want to add some informations ?\n1 - YES\n2 - NO");
+                                if(Console.ReadLine() == "1")
+                                {
+                                    Console.WriteLine("Enter the informations");
+                                    content = "Informations : " + Console.ReadLine();
+                                }
+                                Exams += $"Name : {name}    Date : {date}    Hour : {hour}    {content}\n";
+                                break;
+
+                            case "2":
+                                Console.Clear();
+                                Console.WriteLine("If you want to modify the exam section, it will be completely erased.\nYou will have to enter all the previous information that you wish to keep.");
+                                Console.WriteLine("Do you want to continue ?\n1 - YES\n2 - NO");
+                                switch(Console.ReadLine())
+                                {
+                                    case "1":
+                                        Console.Clear();
+                                        Console.WriteLine("Enter your content");
+                                        Exams = Console.ReadLine();
+                                        break;
+
+                                    case "2":
+                                        finish = true;
+                                        break;
+
+                                }
+                                break;
+                        }
+                        break;
+
+                    case "2":
+                        Console.Clear();
+                        Console.WriteLine("Do you want to add or to modify an assignment ?\n1 - Add\n2 - Modify");
+                        switch (Console.ReadLine())
+                        {
+                            case "1":
+                                Console.Clear();
+                                Console.WriteLine("Enter the name of the assignment");
+                                string name = Console.ReadLine();
+                                Console.WriteLine("Enter the date of the assignment");
+                                string date = Console.ReadLine();
+                                Console.WriteLine("Enter the hour of the assignment");
+                                string hour = Console.ReadLine();
+                                string content = "";
+                                Console.WriteLine("Do you want to add some informations ?\n1 - YES\n2 - NO");
+                                if (Console.ReadLine() == "1")
+                                {
+                                    Console.WriteLine("Enter the informations");
+                                    content = "Informations : " + Console.ReadLine();
+                                }
+                                Assignments += $"Name : {name}    Date : {date}    Hour : {hour}    {content}\n";
+                                break;
+
+                            case "2":
+                                Console.Clear();
+                                Console.WriteLine("If you want to modify the assignment section, it will be completely erased.\nYou will have to enter all the previous information that you wish to keep.");
+                                Console.WriteLine("Do you want to continue ?\n1 - YES\n2 - NO");
+                                switch (Console.ReadLine())
+                                {
+                                    case "1":
+                                        Console.Clear();
+                                        Console.WriteLine("Enter your content");
+                                        Assignments = Console.ReadLine();
+                                        break;
+
+                                    case "2":
+                                        finish = true;
+                                        break;
+
+                                }
+                                break;
+                        }
+                        break;
+
+                }
+
+            }
+        }
 
     }
 }
