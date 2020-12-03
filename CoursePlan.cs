@@ -36,8 +36,8 @@ namespace Group1_OOP
         public string S2week11 { get; set; }
         public string S2week12 { get; set; }
 
-        string Exams { get; set; }
-        string Assignments { get; set; }
+        public string Exams { get; set; }
+        public string Assignments { get; set; }
 
         public CoursePlan(string professorID, string _class, string s1week1, string s1week2, string s1week3, string s1week4, string s1week5, string s1week6, 
             string s1week7, string s1week8, string s1week9, string s1week10, string s1week11, string s1week12,

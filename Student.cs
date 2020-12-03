@@ -257,6 +257,42 @@ namespace Group1_OOP
                 }
             }
         }
+        public void ShowCoursePlan() //A TERMINER
+        {
+            Console.Clear();
+            bool finish = false;
+            int nb = 0;
+            while (finish == false)
+            {
+                nb = 1;
+                for (int i = 0; i < 70; i++)
+                {
+                    Console.Write(" ");
+                }
+                Console.Write("YOUR COURSES \n\n");
+                for (int i = 0; i < Courses.Count; i++)
+                {
+                    if (Courses[i].Subject != "Free" && Courses[i].Subject != "")
+                    {
+                        Console.WriteLine(nb + " : " + Courses[i].Subject);
+                        nb++;
+                    }
+                }
+
+                Console.WriteLine("For which course would you like to view the course plan?");
+
+
+                Console.WriteLine("\n\n\nReturn to the dashboard ? \n1- YES \n2- NO");
+                int decision = Convert.ToInt32(Console.ReadLine());
+                if (decision == 1)
+                {
+                    finish = true;
+                }
+            }
+
+
+        }
+
 
         public void ShowAttendance()
         {
