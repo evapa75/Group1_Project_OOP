@@ -10,6 +10,7 @@ namespace Group1_OOP
     {
         public List<string> Subjects { get; set; }
         public List<string> Grades { get; set; }
+        //public SortedList<string, List<string>> Gradebook {get;set;}
 
         public GradeBook(string studID, string Class, List<Course> Courses)
         {

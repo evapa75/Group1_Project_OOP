@@ -11,6 +11,7 @@ namespace Group1_OOP
         public string Subject { get; set; }
         public Professor Teacher { get; set; }
         public string TeacherID_or_NameOfClass { get; set; }
+        public string CourseIndex { get; set; }
         public string Day { get; set; }
         public string Schedule { get; set; }
         public double Duration { get; set; }
@@ -20,13 +21,15 @@ namespace Group1_OOP
         public int Attendance { get; set; }
 
 
-        public Course(double course_index, string professorID_or_name_of_class, string subject, int number_of_times, int attendance)
+        public Course(double course_index, string professorID_or_name_of_class, string subject, int number_of_times, int attendance, List<Student> studentList)
         {
             //rechercher le prof uniquement quand on a besoin de la connaitre
             //if (subject!="Free")
             //{
             //    Teacher = FindTeacher(professorID);
             //}
+
+            CourseIndex = Convert.ToString(course_index); 
             TeacherID_or_NameOfClass = professorID_or_name_of_class;
 
 
@@ -47,44 +50,44 @@ namespace Group1_OOP
         }
 
 
-        public Professor FindTeacher(string professorID)
-        {
-            //List of professors
-            int counter = 0;
-            StreamReader fichLect2 = new StreamReader("Professors.csv");
-            char[] sep2 = new char[1] { ';' };
-            string line2 = "";
-            string[] datas2 = new string[15];
-            while (fichLect2.Peek() > 0)
-            {
-                line2 = fichLect2.ReadLine(); //Lecture d'une ligne
-                if (counter == 1)
-                {
-                    datas2 = line2.Split(sep2);
-                    string id = datas2[0];
-                    string firstname = datas2[1];
-                    string name = datas2[2];
-                    string gender = datas2[3];
-                    string birthdate = datas2[4];
-                    string personalEmailAdress = datas2[5];
-                    string phoneNumber = datas2[6];
-                    string adress = datas2[7];
-                    string password = datas2[8];
-                    string subject = datas2[9];
-                    string tutor = datas2[10];
-                    string name_class1 = datas2[11];
-                    string name_class2 = datas2[12];
-                    string name_class3 = datas2[13];
-                    string name_class4 = datas2[14];
-                    //Console.WriteLine(id + ";" + firstname + ";" + name + ";" + gender + ";" + birthdate + ";" + personalEmailAdress + ";" + phoneNumber + ";" + adress + ";" + password + ";" + subject + ";" + tutor);
-                    Professor P = new Professor(id, firstname, name, gender, birthdate, personalEmailAdress, phoneNumber, adress, password, subject, tutor, name_class1, name_class2, name_class3, name_class4);
-                    professorList.Add(P);
-                }
-                counter = 1;
-            }
-            Professor p = professorList.Find(x => x.ID.Contains(professorID));
-            return p;
-        }
+        //public Professor FindTeacher(string professorID)
+        //{
+        //    //List of professors
+        //    int counter = 0;
+        //    StreamReader fichLect2 = new StreamReader("Professors.csv");
+        //    char[] sep2 = new char[1] { ';' };
+        //    string line2 = "";
+        //    string[] datas2 = new string[15];
+        //    while (fichLect2.Peek() > 0)
+        //    {
+        //        line2 = fichLect2.ReadLine(); //Lecture d'une ligne
+        //        if (counter == 1)
+        //        {
+        //            datas2 = line2.Split(sep2);
+        //            string id = datas2[0];
+        //            string firstname = datas2[1];
+        //            string name = datas2[2];
+        //            string gender = datas2[3];
+        //            string birthdate = datas2[4];
+        //            string personalEmailAdress = datas2[5];
+        //            string phoneNumber = datas2[6];
+        //            string adress = datas2[7];
+        //            string password = datas2[8];
+        //            string subject = datas2[9];
+        //            string tutor = datas2[10];
+        //            string name_class1 = datas2[11];
+        //            string name_class2 = datas2[12];
+        //            string name_class3 = datas2[13];
+        //            string name_class4 = datas2[14];
+        //            //Console.WriteLine(id + ";" + firstname + ";" + name + ";" + gender + ";" + birthdate + ";" + personalEmailAdress + ";" + phoneNumber + ";" + adress + ";" + password + ";" + subject + ";" + tutor);
+        //            Professor P = new Professor(id, firstname, name, gender, birthdate, personalEmailAdress, phoneNumber, adress, password, subject, tutor, name_class1, name_class2, name_class3, name_class4);
+        //            professorList.Add(P);
+        //        }
+        //        counter = 1;
+        //    }
+        //    Professor p = professorList.Find(x => x.ID.Contains(professorID));
+        //    return p;
+        //}
 
         //public string FindSubject(string professorID)
         //{

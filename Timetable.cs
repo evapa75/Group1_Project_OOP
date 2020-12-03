@@ -87,7 +87,7 @@ namespace Group1_OOP
             CourseF5 = courses[24];
         }
 
-        public void ShowTimetable()
+        public void ShowTimetableStudent()
         {
             Console.Clear();
 

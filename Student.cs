@@ -16,10 +16,11 @@ namespace Group1_OOP
 
         public List<Course> Courses { get; set; }
         public Timetable Timetable { get; set; }
-        public GradeBook GradeBook { get; set; }
+        public GradeBook Gradebook { get; set; }
 
+        public List<Student> StudentList { get; set; }
 
-        public Student(string id, string firstName, string name, string gender, string birthdate, string _class, string persoEmailAdress, string phoneNumber, string adress, string password, string tutorID, double fees)
+        public Student(string id, string firstName, string name, string gender, string birthdate, string _class, string persoEmailAdress, string phoneNumber, string adress, string password, string tutorID, double fees, List<Student> studentList)
             : base(id, firstName, name, gender, birthdate, persoEmailAdress, phoneNumber, adress, password)
         {
             Class = _class;
@@ -28,6 +29,7 @@ namespace Group1_OOP
             Fees = fees;
             TutorID = tutorID;
             Courses = new List<Course>();
+            StudentList = studentList;
 
             //Remplissage de la liste de cours Courses
             List<string> listCourses = new List<string>();
@@ -54,6 +56,8 @@ namespace Group1_OOP
                 }
                 counter = 1;
             }
+            fichLect.Close();
+
 
             int key = list.IndexOfKey(ID);
             //Console.WriteLine(key);
@@ -66,7 +70,7 @@ namespace Group1_OOP
             //Remplissage de la liste des cours
             for (int i = 0; i < 125; i = i + 5)
             {
-                Course c = new Course(Convert.ToDouble(listCourses[i]), listCourses[i + 1], listCourses[i + 2], Convert.ToInt32(listCourses[i + 3]), Convert.ToInt32(listCourses[i + 4]));
+                Course c = new Course(Convert.ToDouble(listCourses[i]), listCourses[i + 1], listCourses[i + 2], Convert.ToInt32(listCourses[i + 3]), Convert.ToInt32(listCourses[i + 4]), studentList);
                 //Console.WriteLine(Convert.ToDouble(listCourses[i]) + ";" + listCourses[i + 1] + ";" + listCourses[i + 2] + ";" + listCourses[i + 3] + ";" + listCourses[i + 4]);
                 Courses.Add(c);
             }
@@ -74,7 +78,7 @@ namespace Group1_OOP
             //Création de l'edt à partir de la liste de cours
             Timetable = new Timetable(Courses);
 
-            GradeBook = new GradeBook(ID, Class, Courses);
+            Gradebook = new GradeBook(ID, Class, Courses);
         }
 
         public override string SchoolEmailAdress()
@@ -87,7 +91,7 @@ namespace Group1_OOP
             return $"Status : Student \nYear : {Year} \nClass : {Class} \n {base.ToString()} \n  ";
         }
 
-        public void ShowAndModifyPersonalInformation()
+        public void ShowAndModifyPersonalInformation(int mode)
         {
             bool finish = false;
             while (finish == false)
@@ -107,54 +111,59 @@ namespace Group1_OOP
                     $"\nSchool email adress : {SchoolEmail}" +
                     $"\nPersonnal email adress : {PersoEmail}\n\n\n");
 
-
-                Console.WriteLine("Do you want to modify some of your information? ");
-                Console.WriteLine("0 - Nothing\n" +
-                    "1 - Adress\n" +
-                    "2 - Phone number\n" +
-                    "3 - Personal email adress\n");
-                int nb = Convert.ToInt32(Console.ReadLine());
-
-                switch (nb)
+                if (mode == 1)
                 {
-                    case 0:
-                        finish = true;
-                        break;
+                    Console.WriteLine("Do you want to modify some of your information? ");
+                    Console.WriteLine("0 - Nothing\n" +
+                        "1 - Adress\n" +
+                        "2 - Phone number\n" +
+                        "3 - Personal email adress\n");
+                    int nb = Convert.ToInt32(Console.ReadLine());
 
-                    case 1:
-                        Console.WriteLine("\nEnter your new address");
-                        Adress = Console.ReadLine();
-                        break;
+                    switch (nb)
+                    {
+                        case 0:
+                            finish = true;
+                            break;
 
-                    case 2:
-                        Console.WriteLine("\nEnter your new phone number");
-                        PhoneNumber = Console.ReadLine();
-                        break;
+                        case 1:
+                            Console.WriteLine("\nEnter your new address");
+                            Adress = Console.ReadLine();
+                            break;
 
-                    case 3:
-                        Console.WriteLine("\nEnter your new personal email adress");
-                        PersoEmail = Console.ReadLine();
-                        break;
+                        case 2:
+                            Console.WriteLine("\nEnter your new phone number");
+                            PhoneNumber = Console.ReadLine();
+                            break;
+
+                        case 3:
+                            Console.WriteLine("\nEnter your new personal email adress");
+                            PersoEmail = Console.ReadLine();
+                            break;
+                    }
+                }
+                else
+                {
+                    finish = true;
                 }
             }
         }
-
         public void ShowCourses()
         {
             Console.Clear();
             bool finish = false;
             while (finish == false)
             {
-                for (int i = 0; i < 40; i++)
+                for (int i = 0; i < 70; i++)
                 {
                     Console.Write(" ");
                 }
                 Console.Write("YOUR COURSES \n\n");
                 for (int i = 0; i < Courses.Count; i++)
                 {
-                    if (Courses[i].Subject != "Free")
+                    if (Courses[i].Subject != "Free" && Courses[i].Subject != "")
                     {
-                        Console.WriteLine(Courses[i].Subject + " with " + Courses[i].Teacher);
+                        Console.WriteLine(Courses[i].Subject);
                     }
                 }
 
@@ -168,13 +177,13 @@ namespace Group1_OOP
 
 
         }
-
         public void RegisterForACourse()
         {
             Console.Clear();
             bool finish = false;
             while (finish == false)
             {
+                Console.Clear();
                 for (int i = 0; i < 70; i++)
                 {
                     Console.Write(" ");
@@ -194,7 +203,7 @@ namespace Group1_OOP
 
                 while (fichLect.Peek() > 0)
                 {
-                    line = fichLect.ReadLine(); //Lecture d'une ligne
+                    line = fichLect.ReadLine();
                     if (counter == 1)
                     {
                         datas = line.Split(sep);
@@ -208,6 +217,8 @@ namespace Group1_OOP
                     counter = 1;
                 }
 
+                fichLect.Close();
+
                 int index = 1;
                 foreach (List<string> l in listCourses)
                 {
@@ -216,9 +227,8 @@ namespace Group1_OOP
                 }
 
                 Console.WriteLine("\n\nWhich course do you want to register for ?");
-                string choice = Console.ReadLine();
-                ApplicationForCourse application = new ApplicationForCourse(ID, FirstName, Name, Year, Class, Courses, Timetable, choice);
-                
+                int choice = Convert.ToInt32(Console.ReadLine());
+
                 int number = 0;
                 foreach (Course c in Courses)
                 {
@@ -233,9 +243,11 @@ namespace Group1_OOP
                 }
                 else
                 {
+                    List<string> LIST = listCourses[choice - 1];
+                    ApplicationForCourse application = new ApplicationForCourse(ID, FirstName, Name, Year, Class, Courses, Timetable, LIST[0], LIST[1], LIST[2], LIST[3], StudentList);
+                    application.AddNewApplication();
                     Console.WriteLine("\n\nYour request will be processed by an administrator as soon as possible.");
                 }
-
 
                 Console.WriteLine("\n\n\nReturn to the dashboard ? \n1- YES \n2- NO");
                 int decision = Convert.ToInt32(Console.ReadLine());
@@ -252,7 +264,7 @@ namespace Group1_OOP
             while (finish == false)
             {
                 Console.Clear();
-                for (int i = 0; i < 40; i++)
+                for (int i = 0; i < 70; i++)
                 {
                     Console.Write(" ");
                 }
@@ -330,31 +342,46 @@ namespace Group1_OOP
         //}
 
 
-
-
-        public void ShowGradeBook()
+        public void ShowGradeBook(int mode)
         {
-            bool finish = false;
-            while (finish == false)
+            if (mode == 1)
             {
-                Console.Clear();
-                for (int i = 0; i < 40; i++)
+                bool finish = false;
+                while (finish == false)
+                {
+                    Console.Clear();
+                    for (int i = 0; i < 70; i++)
+                    {
+                        Console.Write(" ");
+                    }
+                    Console.Write("GRADEBOOK \n\n\n");
+                    Console.WriteLine("Subjects :                         Grades\n");
+
+                    for (int i = 0; i < Gradebook.Subjects.Count; i++)
+                    {
+                        Console.WriteLine(Gradebook.Subjects[i] + " : " + Gradebook.Grades[i] + "\n");
+                    }
+
+                    Console.WriteLine("\n\n\nReturn to the dashboard ? \n1- YES \n2- NO");
+                    int decision = Convert.ToInt32(Console.ReadLine());
+                    if (decision == 1)
+                    {
+                        finish = true;
+                    }
+                }
+            }
+            if (mode == 2)
+            {
+                for (int i = 0; i < 70; i++)
                 {
                     Console.Write(" ");
                 }
-                Console.Write("GRADEBOOK \n\n");
+                Console.Write("GRADEBOOK \n\n\n");
                 Console.WriteLine("Subjects :                         Grades\n");
 
-                for (int i = 0; i < GradeBook.Subjects.Count; i++)
+                for (int i = 0; i < Gradebook.Subjects.Count; i++)
                 {
-                    Console.WriteLine(GradeBook.Subjects[i] + " : " + GradeBook.Grades[i] + "\n");
-                }
-
-                Console.WriteLine("\n\n\nReturn to the dashboard ? \n1- YES \n2- NO");
-                int decision = Convert.ToInt32(Console.ReadLine());
-                if (decision == 1)
-                {
-                    finish = true;
+                    Console.WriteLine(Gradebook.Subjects[i] + " : " + Gradebook.Grades[i] + "\n");
                 }
             }
         }
@@ -365,7 +392,7 @@ namespace Group1_OOP
             while (finish == false)
             {
                 Console.Clear();
-                for (int i = 0; i < 40; i++)
+                for (int i = 0; i < 70; i++)
                 {
                     Console.Write(" ");
                 }
