@@ -7,43 +7,44 @@ namespace Group1_OOP
 {
     public class CoursePlan
     {
-        string Class { get; set; }
+        public string Class { get; set; }
+        public string ProfessorID { get; set; }
 
-        string S1week1 { get; set; }
-        string S1week2 { get; set; }
-        string S1week3 { get; set; }
-        string S1week4 { get; set; }
-        string S1week5 { get; set; }
-        string S1week6 { get; set; }
-        string S1week7 { get; set; }
-        string S1week8 { get; set; }
-        string S1week9 { get; set; }
-        string S1week10 { get; set; }
-        string S1week11 { get; set; }
-        string S1week12 { get; set; }
+        public string S1week1 { get; set; }
+        public string S1week2 { get; set; }
+        public string S1week3 { get; set; }
+        public string S1week4 { get; set; }
+        public string S1week5 { get; set; }
+        public string S1week6 { get; set; }
+        public string S1week7 { get; set; }
+        public string S1week8 { get; set; }
+        public string S1week9 { get; set; }
+        public string S1week10 { get; set; }
+        public string S1week11 { get; set; }
+        public string S1week12 { get; set; }
 
-        string S2week1 { get; set; }
-        string S2week2 { get; set; }
-        string S2week3 { get; set; }
-        string S2week4 { get; set; }
-        string S2week5 { get; set; }
-        string S2week6 { get; set; }
-        string S2week7 { get; set; }
-        string S2week8 { get; set; }
-        string S2week9 { get; set; }
-        string S2week10 { get; set; }
-        string S2week11 { get; set; }
-        string S2week12 { get; set; }
+        public string S2week1 { get; set; }
+        public string S2week2 { get; set; }
+        public string S2week3 { get; set; }
+        public string S2week4 { get; set; }
+        public string S2week5 { get; set; }
+        public string S2week6 { get; set; }
+        public string S2week7 { get; set; }
+        public string S2week8 { get; set; }
+        public string S2week9 { get; set; }
+        public string S2week10 { get; set; }
+        public string S2week11 { get; set; }
+        public string S2week12 { get; set; }
 
         string Exams { get; set; }
         string Assignments { get; set; }
 
-        public CoursePlan(string _class, string s1week1, string s1week2, string s1week3, string s1week4, string s1week5, string s1week6, 
+        public CoursePlan(string professorID, string _class, string s1week1, string s1week2, string s1week3, string s1week4, string s1week5, string s1week6, 
             string s1week7, string s1week8, string s1week9, string s1week10, string s1week11, string s1week12,
             string s2week1, string s2week2, string s2week3, string s2week4, string s2week5, string s2week6,
-            string s2week7, string s2week8, string s2week9, string s2week10, string s2week11, string s2week12,
-            string exams, string assignments)
+            string s2week7, string s2week8, string s2week9, string s2week10, string s2week11, string s2week12)
         {
+            ProfessorID = professorID;
             Class = _class;
             S1week1 = s1week1;
             S1week2 = s1week2;
@@ -69,9 +70,6 @@ namespace Group1_OOP
             S2week10 = s2week10;
             S2week11 = s2week11;
             S2week12 = s2week12;
-
-            Exams = exams;
-            Assignments = assignments;
         }
 
         public override string ToString()
@@ -281,6 +279,7 @@ namespace Group1_OOP
             }
 
         }
+
 
     }
 }

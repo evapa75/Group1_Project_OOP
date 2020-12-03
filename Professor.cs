@@ -26,7 +26,10 @@ namespace Group1_OOP
         public List<Course> Courses { get; set; }
         public Timetable Timetable { get; set; }
 
-        public CoursePlan CoursePlan { get; set; }
+        public CoursePlan CoursePlan1 { get; set; }
+        public CoursePlan CoursePlan2 { get; set; }
+        public CoursePlan CoursePlan3 { get; set; }
+        public CoursePlan CoursePlan4 { get; set; }
 
         public Professor(string id, string firstName, string name, string gender, string birthdate, string persoEmailAdress, string phoneNumber, string adress, string password, string subject, string tutor, string name_class1, string name_class2, string name_class3, string name_class4, List<Student> studentList)
             : base(id, firstName, name, gender, birthdate, persoEmailAdress, phoneNumber, adress, password)
@@ -132,6 +135,7 @@ namespace Group1_OOP
             //Création de l'edt à partir de la liste de cours
             Timetable = new Timetable(Courses);
 
+            CoursePlanProfessor();
         }
 
 
@@ -715,6 +719,310 @@ namespace Group1_OOP
                 index = index + 0.5;
             }
             return index;
+        }
+
+
+        public void CoursePlanProfessor()
+        {
+            List<CoursePlan> allCoursePlan = new List<CoursePlan>();
+            List<CoursePlan> profCoursePlan = new List<CoursePlan>();
+
+            int counter = 0;
+            StreamReader fichLect = new StreamReader("CoursePlan.csv");
+            char[] sep = new char[1] { ';' };
+            string line = "";
+            string[] datas = new string[26];
+            while (fichLect.Peek() > 0)
+            {
+                line = fichLect.ReadLine();
+                if (counter == 1)
+                {
+                    datas = line.Split(sep);
+                    string professorID = datas[0];
+                    string _class = datas[1];
+                    string s1week1 = datas[2];
+                    string s1week2 = datas[3];
+                    string s1week3 = datas[4];
+                    string s1week4 = datas[5];
+                    string s1week5 = datas[6];
+                    string s1week6 = datas[7];
+                    string s1week7 = datas[8];
+                    string s1week8 = datas[9];
+                    string s1week9 = datas[10];
+                    string s1week10 = datas[11];
+                    string s1week11 = datas[12];
+                    string s1week12 = datas[13];
+                    string s2week1 = datas[14];
+                    string s2week2 = datas[15];
+                    string s2week3 = datas[16];
+                    string s2week4 = datas[17];
+                    string s2week5 = datas[18];
+                    string s2week6 = datas[19];
+                    string s2week7 = datas[20];
+                    string s2week8 = datas[21];
+                    string s2week9 = datas[22];
+                    string s2week10 = datas[23];
+                    string s2week11 = datas[24];
+                    string s2week12 = datas[25];
+                    CoursePlan coursePlan = new CoursePlan(professorID, _class, s1week1, s1week2, s1week3, s1week4, s1week5, s1week6, s1week7, s1week8, s1week9, s1week10, s1week11, s1week12,
+                                                    s2week1, s2week2, s2week3, s2week4, s2week5, s2week6, s2week7, s2week8, s2week9, s2week10, s2week11,s2week12);
+                    allCoursePlan.Add(coursePlan);
+                }
+                counter = 1;
+            }
+            fichLect.Close();
+
+            foreach(CoursePlan cp in allCoursePlan)
+            {
+                if(cp.ProfessorID == this.ID)
+                {
+                    profCoursePlan.Add(cp);
+                }
+            }
+
+            if(profCoursePlan.Count == 1)
+            {
+                CoursePlan1 = profCoursePlan[0];
+            }
+            if(profCoursePlan.Count == 2)
+            {
+                CoursePlan1 = profCoursePlan[0];
+                CoursePlan2 = profCoursePlan[1];
+            }
+            if(profCoursePlan.Count == 3)
+            {
+                CoursePlan1 = profCoursePlan[0];
+                CoursePlan2 = profCoursePlan[1];
+                CoursePlan3 = profCoursePlan[2];
+            }
+            if(profCoursePlan.Count == 4)
+            {
+                CoursePlan1 = profCoursePlan[0];
+                CoursePlan2 = profCoursePlan[1];
+                CoursePlan3 = profCoursePlan[2];
+                CoursePlan4 = profCoursePlan[3];
+            }
+        }
+
+        public void ShowAndModifyProfessorCoursePlan()
+        {
+            bool finish = false;
+            int nbClass = 0;
+            if(this.NameClass1 != null)
+            {
+                nbClass++;
+            }
+            if(this.NameClass2 != null)
+            {
+                nbClass++;
+            }
+            if(this.NameClass3 != null)
+            {
+                nbClass++;
+            }
+            if(this.NameClass4 != null)
+            {
+                nbClass++;
+            }
+
+
+            Console.WriteLine("You have " + nbClass + " class");
+            while (finish == false)
+            {
+                if (nbClass == 1)
+                {
+                    Console.WriteLine("Do you want to see or modify this course plan ?\n0 - Exit\n 1 - See the course plan\n2 - Modify the course plan");
+                    switch (Console.ReadLine())
+                    {
+                        case "0":
+                            finish = true;
+                            break;
+
+                        case "1":
+                            Console.Clear();
+                            CoursePlan1.ToString();
+                            break;
+
+                        case "2":
+                            Console.Clear();
+                            CoursePlan1.ModifyCoursePlan();
+                            break;
+                    }
+                }
+                else if (nbClass == 2)
+                {
+                    Console.WriteLine($"For which class would you like to see or change the course plan ?\n0 - Exit\n1 - {CoursePlan1.Class}\n2 - {CoursePlan2.Class}");
+                    switch (Console.ReadLine())
+                    {
+                        case "0":
+                            finish = true;
+                            break;
+
+                        case "1":
+                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan");
+                            switch (Console.ReadLine())
+                            {
+                                case "1":
+                                    Console.Clear();
+                                    CoursePlan1.ToString();
+                                    break;
+
+                                case "2":
+                                    Console.Clear();
+                                    CoursePlan1.ModifyCoursePlan();
+                                    break;
+                            }
+                            break;
+
+                        case "2":
+                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan");
+                            switch (Console.ReadLine())
+                            {
+                                case "1":
+                                    Console.Clear();
+                                    CoursePlan2.ToString();
+                                    break;
+
+                                case "2":
+                                    Console.Clear();
+                                    CoursePlan2.ModifyCoursePlan();
+                                    break;
+                            }
+                            break;
+                    }
+                }
+                else if (nbClass == 3)
+                {
+                    Console.WriteLine($"For which class would you like to see or change the course plan ?\n0 - Exit\n1 - {CoursePlan1.Class}\n2 - {CoursePlan2.Class}\n3 - {CoursePlan3.Class}");
+                    switch (Console.ReadLine())
+                    {
+                        case "0":
+                            finish = true;
+                            break;
+
+                        case "1":
+                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan");
+                            switch (Console.ReadLine())
+                            {
+                                case "1":
+                                    Console.Clear();
+                                    CoursePlan1.ToString();
+                                    break;
+
+                                case "2":
+                                    Console.Clear();
+                                    CoursePlan1.ModifyCoursePlan();
+                                    break;
+                            }
+                            break;
+
+                        case "2":
+                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan");
+                            switch (Console.ReadLine())
+                            {
+                                case "1":
+                                    Console.Clear();
+                                    CoursePlan2.ToString();
+                                    break;
+
+                                case "2":
+                                    Console.Clear();
+                                    CoursePlan2.ModifyCoursePlan();
+                                    break;
+                            }
+                            break;
+
+                        case "3":
+                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan");
+                            switch (Console.ReadLine())
+                            {
+                                case "1":
+                                    Console.Clear();
+                                    CoursePlan3.ToString();
+                                    break;
+
+                                case "2":
+                                    Console.Clear();
+                                    CoursePlan3.ModifyCoursePlan();
+                                    break;
+                            }
+                            break;
+                    }
+                }
+                else if (nbClass == 4)
+                {
+                    Console.WriteLine($"For which class would you like to see or change the course plan ?\n0 - Exit\n1 - {CoursePlan1.Class}\n2 - {CoursePlan2.Class}\n3 - {CoursePlan3.Class}\n4 - {CoursePlan4.Class}");
+                    switch (Console.ReadLine())
+                    {
+                        case "0":
+                            finish = true;
+                            break;
+
+                        case "1":
+                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan");
+                            switch (Console.ReadLine())
+                            {
+                                case "1":
+                                    Console.Clear();
+                                    CoursePlan1.ToString();
+                                    break;
+
+                                case "2":
+                                    Console.Clear();
+                                    CoursePlan1.ModifyCoursePlan();
+                                    break;
+                            }
+                            break;
+
+                        case "2":
+                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan");
+                            switch (Console.ReadLine())
+                            {
+                                case "1":
+                                    Console.Clear();
+                                    CoursePlan2.ToString();
+                                    break;
+
+                                case "2":
+                                    Console.Clear();
+                                    CoursePlan2.ModifyCoursePlan();
+                                    break;
+                            }
+                            break;
+
+                        case "3":
+                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan");
+                            switch (Console.ReadLine())
+                            {
+                                case "1":
+                                    Console.Clear();
+                                    CoursePlan3.ToString();
+                                    break;
+
+                                case "2":
+                                    Console.Clear();
+                                    CoursePlan3.ModifyCoursePlan();
+                                    break;
+                            }
+                            break;
+                        case "4":
+                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan");
+                            switch (Console.ReadLine())
+                            {
+                                case "1":
+                                    Console.Clear();
+                                    CoursePlan4.ToString();
+                                    break;
+
+                                case "2":
+                                    Console.Clear();
+                                    CoursePlan4.ModifyCoursePlan();
+                                    break;
+                            }
+                            break;
+                    }
+                }
+            }
         }
 
     }

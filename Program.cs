@@ -92,34 +92,6 @@ namespace Group1_OOP
             }
         }
 
-        static string FirstPassword()
-        {
-            bool correct = false;
-            string password = "";
-            string confirm = "";
-            while (correct == false)
-            {
-                Console.WriteLine("Choose a password :");
-                password = Console.ReadLine();
-
-                Console.WriteLine("\n\nConfirm your password :");
-                confirm = Console.ReadLine();
-
-                if (confirm == password)
-                {
-                    correct = true;
-                }
-
-                if (correct == false)
-                {
-                    Console.Clear();
-                    Console.WriteLine("Error : The two passwords are different");
-                    System.Threading.Thread.Sleep(2000);
-                }
-            }
-            Console.Clear();
-            return password;
-        }
         static void StudentRegistration(List<ApplicationForRegistration> studentWaitingList)
         {
             bool complete = false;
@@ -320,12 +292,10 @@ namespace Group1_OOP
                         professor.GradeAStudent();
                         break;
 
-                    //case "5":
-                    //    Console.Clear();
-                    //    professor.ShowCoursePlane();
-
-                    //    professor.EditCoursePlan();
-                    //    break;
+                    case "5":
+                        Console.Clear();
+                        professor.ShowAndModifyProfessorCoursePlan();
+                        break;
 
                     case "6":
                         Console.Clear();

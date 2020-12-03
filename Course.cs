@@ -15,7 +15,7 @@ namespace Group1_OOP
         public string Day { get; set; }
         public string Schedule { get; set; }
         public double Duration { get; set; }
-        public List<Professor> professorList { get; set; }
+        public List<Professor> ProfessorList { get; set; }
 
         public int Number_of_times { get; set; }
         public int Attendance { get; set; }
