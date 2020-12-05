@@ -102,6 +102,8 @@ namespace Group1_OOP
                 + "\n\nSemester 2 - Week 10 :         " + S2week10
                 + "\n\nSemester 2 - Week 11 :         " + S2week11
                 + "\n\nSemester 2 - Week 12 :         " + S2week12
+                + "\n\nExams :                        " + Exams
+                + "\n\nAssignments :                  " + Assignments
                 ;
             return content;
         }

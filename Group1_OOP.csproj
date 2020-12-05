@@ -42,13 +42,13 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcademicCalendar.cs" />
     <Compile Include="Administrator.cs" />
     <Compile Include="ApplicationForCourse.cs" />
     <Compile Include="ApplicationForRegistration.cs" />
     <Compile Include="Course.cs" />
     <Compile Include="CoursePlan.cs" />
     <Compile Include="GradeBook.cs" />
-    <Compile Include="Mark.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Professor.cs" />
     <Compile Include="Program.cs" />
