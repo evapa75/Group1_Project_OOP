@@ -451,6 +451,7 @@ namespace Group1_OOP
 
         static void AdministratorPortal(Administrator admin)
         {
+
             admin.LoginStatus = true;
             while (admin.LoginStatus == true)
             {
@@ -466,7 +467,8 @@ namespace Group1_OOP
                 Console.WriteLine("7 - Manage Timetables \n\n");
                 Console.WriteLine("8 - Manage student information (contact, fees, tutor) \n\n");
                 Console.WriteLine("9 - Manage professor information (contact, tutoring) \n\n");
-                Console.WriteLine("10 - Disconnect");
+                Console.WriteLine("10 - Manage the academic calendar\n\n");
+                Console.WriteLine("11 - Disconnect");
 
                 switch (Console.ReadLine())
                 {
@@ -516,6 +518,10 @@ namespace Group1_OOP
 
                     case "10":
                         Console.Clear();
+                        break;
+
+                    case "11":
+                        Console.Clear();
                         Console.WriteLine("\nYou've been disconnected. \n\nPress any key on your keyboard to close the application.");
                         admin.LoginStatus = false;
                         break;
@@ -529,7 +535,6 @@ namespace Group1_OOP
             List<Student> studentList = new List<Student>();
             List<Professor> professorList = new List<Professor>();
             List<Administrator> adminList = new List<Administrator>();
-
 
             // List of students
             int counter = 0;

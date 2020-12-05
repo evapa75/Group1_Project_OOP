@@ -2275,5 +2275,27 @@ namespace Group1_OOP
 
             fichEcr.Close();
         }
+
+        //10 - Manage the academic calendar
+        public void ManageAcademicCalendar(AcademicCalendar academicCalendar)
+        {
+            Console.WriteLine("Would you like to see or modify the academic calendar?\n1 - Show the calendar\n2 - Add an event\n3 - Delete an event");
+            int nb = Convert.ToInt16(Console.ReadLine());
+            switch(nb)
+            {
+                case 1:
+                    academicCalendar.ShowAcademicCalendar();
+                    break;
+
+                case 2:
+                    academicCalendar.AddAnEvent();
+                    break;
+
+                case 3:
+                    academicCalendar.DeleteAnEvent();
+                    break;
+            }
+
+        }
     }
 }

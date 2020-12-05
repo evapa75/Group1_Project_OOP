@@ -28,8 +28,6 @@ namespace Group1_OOP
         public string PhoneNumber { get; set; }
         public string Adress { get; set; }
 
-
-
         public Person(string id, string firstName, string name, string gender, string birthdate, string persoEmailAdress, string phoneNumber, string adress, string password)
         {
             ID = id;
