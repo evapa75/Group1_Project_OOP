@@ -211,7 +211,7 @@ namespace Group1_OOP
             IList<string> allEvents = Calendar.Keys;
             IList<DateTime> allDates = Calendar.Values;
 
-            Console.WriteLine("ACADEMIC CALENDAR");
+            Console.WriteLine("             ACADEMIC CALENDAR");
 
             for(int i = 0; i < allEvents.Count; i++)
             {
