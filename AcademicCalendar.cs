@@ -19,13 +19,14 @@ namespace Group1_OOP
 
         public SortedList<string, DateTime> Calendar;
 
-        public AcademicCalendar(SortedList<string, DateTime> calendar)
+        public AcademicCalendar()
         {
-            Calendar = calendar;
+            Calendar = AcademicCalendarCSV();
         }
 
-        public void AcademicCalendarCSV()
+        public SortedList<string, DateTime> AcademicCalendarCSV()
         {
+            SortedList<string, DateTime> memoryList = new SortedList<string, DateTime>();
             int counter = 0;
             StreamReader fichLect = new StreamReader("AcademicCalendar.csv");
             char[] sep = new char[1] { ';' };
@@ -48,11 +49,12 @@ namespace Group1_OOP
 
                     DateTime date = new DateTime(year, month, day);
 
-                    Calendar.Add(datas[0], date);
+                    memoryList.Add(datas[0], date);
 
                 }
                 counter = 1;
             }
+            return memoryList;
         }
 
         public void AddAnEvent()
