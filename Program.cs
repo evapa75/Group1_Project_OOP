@@ -15,7 +15,7 @@ namespace Group1_OOP
         // 23025 Romain LANDRAUD
 
 
-        static void Connection(List<Student> studentList, List<Professor> professorList, List<Administrator> adminList)
+        static void Connection(List<Student> studentList, List<Professor> professorList, List<Administrator> adminList, AcademicCalendar academicCalendar)
         {
             string id = "";
             string password = "";
@@ -85,21 +85,21 @@ namespace Group1_OOP
                 Student s = studentList.Find(x => x.ID.Contains(id));
                 s.LoginStatus = true;
                 Console.WriteLine("Welcome " + s.FirstName + " " + s.Name + "\n \n");
-                StudentPortal(s);
+                StudentPortal(s, academicCalendar);
             }
             if (userType == "professor")
             {
                 Professor p = professorList.Find(x => x.ID.Contains(id));
                 p.LoginStatus = true;
                 Console.WriteLine("Welcome " + p.FirstName + " " + p.Name + "\n \n");
-                ProfessorPortal(p);
+                ProfessorPortal(p, academicCalendar);
             }
             if (userType == "administrator")
             {
                 Administrator a = adminList.Find(x => x.ID.Contains(id));
                 a.LoginStatus = true;
                 Console.WriteLine("Welcome " + a.FirstName + " " + a.Name + "\n \n");
-                AdministratorPortal(a);
+                AdministratorPortal(a, academicCalendar);
             }
         }
 
@@ -167,7 +167,7 @@ namespace Group1_OOP
             studentWaitingList.Add(application);
         }
 
-        static void StudentPortal(Student student)
+        static void StudentPortal(Student student, AcademicCalendar academicCalendar)
         {
             student.LoginStatus = true;
             while (student.LoginStatus == true)
@@ -185,7 +185,8 @@ namespace Group1_OOP
                 Console.WriteLine("5 - Attendance \n\n");
                 Console.WriteLine("6 - Gradebook \n\n");
                 Console.WriteLine("7 - Payment of fees \n\n");
-                Console.WriteLine("8 - Disconnect");
+                Console.WriteLine("8 - Academic Calendar\n\n");
+                Console.WriteLine("9 - Disconnect");
 
                 switch (Console.ReadLine())
                 {
@@ -259,6 +260,11 @@ namespace Group1_OOP
 
                     case "8":
                         Console.Clear();
+                        academicCalendar.ShowAcademicCalendar();
+                        break;
+
+                    case "9":
+                        Console.Clear();
                         Console.WriteLine("\nYou've been disconnected. \n\nPress any key on your keyboard to close the application.");
                         student.LoginStatus = false;
                         break;
@@ -267,7 +273,7 @@ namespace Group1_OOP
 
         }
 
-        static void ProfessorPortal(Professor professor)
+        static void ProfessorPortal(Professor professor, AcademicCalendar academicCalendar)
         {
             professor.LoginStatus = true;
             while (professor.LoginStatus == true)
@@ -282,16 +288,17 @@ namespace Group1_OOP
                 Console.WriteLine("2 - Timetable \n\n");
                 Console.WriteLine("3 - Student's Attendance \n\n");
                 Console.WriteLine("4 - Grade a student \n\n");
-                Console.WriteLine("5 - Edit your course plan - Create an exam - Create an assignement\n\n");
-                Console.WriteLine("6 - Display information of one of your student \n\n");
+                Console.WriteLine("5 - Show the academic calendar\n\n");
+                Console.WriteLine("6 - Edit your course plan - Create an exam - Create an assignement\n\n");
+                Console.WriteLine("7 - Display information of one of your student \n\n");
                 if (professor.Tutor == true)
                 {
-                    Console.WriteLine("7 - Display information from a student you are tutoring \n\n");
-                    Console.WriteLine("8 - Disconnect");
+                    Console.WriteLine("8 - Display information from a student you are tutoring \n\n");
+                    Console.WriteLine("9 - Disconnect");
                 }
                 else
                 {
-                    Console.WriteLine("7 - Disconnect");
+                    Console.WriteLine("8 - Disconnect");
                 }
 
                 switch (Console.ReadLine())
@@ -328,6 +335,11 @@ namespace Group1_OOP
                         break;
 
                     case "5":
+                        Console.Clear();
+                        academicCalendar.ShowAcademicCalendar();
+                        break;
+
+                    case "6":
                         Console.Clear();
                         for (int i = 0; i < 90; i++) { Console.Write(" "); }
                         Console.Write("_______________");
@@ -418,12 +430,12 @@ namespace Group1_OOP
                         }
                         break;
 
-                    case "6":
+                    case "7":
                         Console.Clear();
                         professor.DisplayInformationStudent();
                         break;
 
-                    case "7":
+                    case "8":
                         if (professor.Tutor == true)
                         {
                             Console.Clear();
@@ -437,7 +449,7 @@ namespace Group1_OOP
                         }
                         break;
 
-                    case "8":
+                    case "9":
                         if (professor.Tutor == true)
                         {
                             Console.Clear();
@@ -449,7 +461,7 @@ namespace Group1_OOP
             }
         }
 
-        static void AdministratorPortal(Administrator admin)
+        static void AdministratorPortal(Administrator admin, AcademicCalendar academicCalendar)
         {
 
             admin.LoginStatus = true;
@@ -518,6 +530,7 @@ namespace Group1_OOP
 
                     case "10":
                         Console.Clear();
+                        admin.ManageAcademicCalendar(academicCalendar);
                         break;
 
                     case "11":
@@ -535,6 +548,7 @@ namespace Group1_OOP
             List<Student> studentList = new List<Student>();
             List<Professor> professorList = new List<Professor>();
             List<Administrator> adminList = new List<Administrator>();
+            AcademicCalendar academicCalendar = new AcademicCalendar();
 
             // List of students
             int counter = 0;
@@ -785,9 +799,7 @@ namespace Group1_OOP
             }
 
 
-            Connection(studentList, professorList, adminList);
-
-
+            Connection(studentList, professorList, adminList, academicCalendar);
 
 
 

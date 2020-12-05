@@ -2276,6 +2276,7 @@ namespace Group1_OOP
             fichEcr.Close();
         }
 
+
         //10 - Manage the academic calendar
         public void ManageAcademicCalendar(AcademicCalendar academicCalendar)
         {
