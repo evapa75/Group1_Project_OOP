@@ -8,6 +8,15 @@ namespace Group1_OOP
 {
     public class AcademicCalendar
     {
+        // GROUP 1
+        // 23173 Marie DONIER
+        // 22843 Célia BARRAS
+        // 22835 Laura TRAN
+        // 23187 Eva PADRINO
+        // 23207 Théo GALLAIS
+        // 23025 Romain LANDRAUD
+
+
         public SortedList<string, DateTime> Calendar;
 
         public AcademicCalendar(SortedList<string, DateTime> calendar)

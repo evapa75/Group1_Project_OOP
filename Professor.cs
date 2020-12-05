@@ -23,7 +23,7 @@ namespace Group1_OOP
         public string NameClass2 { get; set; }
         public string NameClass3 { get; set; }
         public string NameClass4 { get; set; }
-        public List<string> NameClasses { get;set }
+        public List<string> NameClasses { get; set; }
 
         public List<Student> Class1 { get; set; }
         public List<Student> Class2 { get; set; }
@@ -42,7 +42,7 @@ namespace Group1_OOP
         public CoursePlan CoursePlan3 { get; set; }
         public CoursePlan CoursePlan4 { get; set; }
 
-        List<CoursePlan> CoursePlan { get; set; }
+        public List<CoursePlan> CoursePlan { get; set; }
 
         public Professor(string id, string firstName, string name, string gender, string birthdate, string persoEmailAdress, string phoneNumber, string adress, string password, string subject, string tutor, string name_class1, string name_class2, string name_class3, string name_class4, List<Student> studentList)
             : base(id, firstName, name, gender, birthdate, persoEmailAdress, phoneNumber, adress, password)
@@ -1015,4 +1015,4 @@ namespace Group1_OOP
         }
     }
 }
-}
+
