@@ -32,11 +32,11 @@ namespace Group1_OOP
 
         public Course(double course_index, string professorID_or_name_of_class, string subject, int number_of_times, int attendance, List<Student> studentList)
         {
-            //rechercher le prof uniquement quand on a besoin de la connaitre
-            //if (subject!="Free")
-            //{
-            //    Teacher = FindTeacher(professorID);
-            //}
+             //seek the teacher only when you need to get to know him
+             //if (subject!="Free")
+             //{
+             //    Teacher = FindTeacher(professorID);
+             //}
             CourseIndex = "";
             CourseIndex = Convert.ToString(course_index);
 

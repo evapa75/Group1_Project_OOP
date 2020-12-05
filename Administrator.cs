@@ -819,7 +819,7 @@ namespace Group1_OOP
                                             s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index1))).Number_of_times = 0;
                                             s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index1))).Attendance = 0;
 
-                                            //Mettre à jour le gradebook de la classe concernée
+                                            //Update the gradebook of the class concerned
                                             int counter = 0;
                                             for (int j = 0; j < s.Gradebook.Subjects.Count; j++)
                                             {
@@ -1158,34 +1158,34 @@ namespace Group1_OOP
                 courses.Add(tab[i]);
             }
 
-            //On modifie l'ID du prof
+            //We change the professor's id
             courses[0] = id;
 
-            //On modifie la matière du prof
+            //We change the  course of the professor
             for (int i = 3; i < courses.Count; i = i + 5)
             {
                 courses[i] = subject;
             }
 
-            //On supprime les données dans les colonnes Class
+            //We delete the data in the Class columns
             for (int i = 2; i < courses.Count; i = i + 5)
             {
                 courses[i] = " ";
             }
 
-            //On remplit les données dans les colonnes Class
+            //Fill in the data in the columns Class
             if (nb == 1) { courses[indexfile1] = name_class1; }
             if (nb == 2) { courses[indexfile1] = name_class1; courses[indexfile2] = name_class2; }
             if (nb == 3) { courses[indexfile1] = name_class1; courses[indexfile2] = name_class2; courses[indexfile3] = name_class3; }
             if (nb == 4) { courses[indexfile1] = name_class1; courses[indexfile2] = name_class2; courses[indexfile3] = name_class3; courses[indexfile4] = name_class4; }
 
-            //On supprime les données dans les colonnes Attendance for this course
+            //The data in the columns Attendance for this course are deleted
             for (int i = 4; i < courses.Count; i = i + 5)
             {
                 courses[i] = "0";
             }
 
-            //On supprime les données dans les colonnes Number of times of this course
+            //The data in the columns Number of times of this course are deleted
             for (int i = 5; i < courses.Count; i = i + 5)
             {
                 courses[i] = "0";
@@ -1480,7 +1480,7 @@ namespace Group1_OOP
             string[] datas = new string[127];
             while (fichLect.Peek() > 0)
             {
-                line = fichLect.ReadLine(); //Lecture d'une ligne
+                line = fichLect.ReadLine();
                 if (counter == 1)
                 {
                     datas = line.Split(sep);
@@ -1495,7 +1495,7 @@ namespace Group1_OOP
             }
             fichLect.Close();
 
-            //On récupère la ligne d'un des élèves qui est dans la classe choisie
+            //We retrieve the line of one of the pupils who is in the chosen class.
             bool one = false;
             List<string> listClass = new List<string>();
             foreach (List<string> l in list)
@@ -1506,7 +1506,7 @@ namespace Group1_OOP
                 }
             }
 
-            //On récupère l'index auquel se trouve l'ID du prof dans la ligne de l'élève récupérée
+            //We retrieve the index with the teacher's ID in the retrieved student's line.
             int index = 0;
             for (int i = 0; i < listClass.Count; i++)
             {
@@ -1516,7 +1516,7 @@ namespace Group1_OOP
                 }
             }
 
-            //On remplit la ligne de l'élève qui veut suivre le nouveau cours 
+            //The line of the student who wants to follow the new course is filled in. 
             foreach (List<string> l in list)
             {
                 if (l[0] == studentID)
@@ -1528,7 +1528,7 @@ namespace Group1_OOP
                 }
             }
 
-            //On réécrit le fichier .csv avec les modifs
+            //The .csv file is rewritten with the modifications.
             StreamWriter fichEcr = new StreamWriter("Timetables_Students.csv");
             string firstLine = "StudentID" + ";" + "CourseM1 index" + ";" + "ProfID" + ";" + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseM2 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseM3 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseM4 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseM5 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseT1 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseT2 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseT3 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseT4 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseT5 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseW1 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseW2 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseW3 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseW4 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseW5 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseTH1 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseTH2 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseTH3 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseTH4 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseTH5 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseF1 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseF2 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseF3 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseF4 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseF5 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "Class";
             fichEcr.WriteLine(firstLine);

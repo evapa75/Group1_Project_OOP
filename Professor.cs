@@ -62,7 +62,7 @@ namespace Group1_OOP
 
             StudentList = studentList;
 
-            //Remplissage des classes du professeur
+            // Filling up the teacher's classes
             Class1 = new List<Student>();
             Class2 = new List<Student>();
             Class3 = new List<Student>();
@@ -88,7 +88,7 @@ namespace Group1_OOP
                 }
             }
 
-            //Tuteur ou non?
+            //Tutor or not?
             if (tutor == "yes")
             {
                 Tutor = true;
@@ -98,7 +98,7 @@ namespace Group1_OOP
                 Tutor = false;
             }
 
-            //Liste des élèves dont c'est le tuteur
+            //List of pupils for whom it is the tutor
             if (Tutor == true)
             {
                 List<string> StudentList = ResearchStudentsIDForTutoring();
@@ -106,7 +106,7 @@ namespace Group1_OOP
                 TutorStudentList = ResearchStudentsForTutoring(StudentList);
             }
 
-            //Remplissage de la liste de cours Courses
+            // Filling in the course list Courses
             Courses = new List<Course>();
 
             List<string> listCourses = new List<string>();
@@ -143,7 +143,7 @@ namespace Group1_OOP
                 //Console.Write(list.ElementAt(key).Value[i] + " ");
             }
 
-            //Remplissage de la liste des cours
+            //Filling in the course list
             for (int i = 0; i < 125; i = i + 5)
             {
                 Course c = new Course(Convert.ToDouble(listCourses[i]), listCourses[i + 1], listCourses[i + 2], Convert.ToInt32(listCourses[i + 3]), Convert.ToInt32(listCourses[i + 4]), StudentList);
@@ -151,7 +151,7 @@ namespace Group1_OOP
                 Courses.Add(c);
             }
 
-            //Création de l'edt à partir de la liste de cours
+            //Creating the timetable from the course list
             Timetable = new Timetable(Courses);
 
             CoursePlan = new List<CoursePlan>();
@@ -170,8 +170,8 @@ namespace Group1_OOP
 
 
 
-        //On récupère une SortedList<ID prof, liste des ID des élèves dont le prof est tuteur>
-        //A partir de cette SortedList, on extrait une liste de string avec les ID des élèves
+        //We retrieve a SortedList< Teacher ID, list of the IDs of the students whose teacher is tutor>.
+        //From this SortedList, we extract a list of strings with the IDs of the students.
         public List<string> ResearchStudentsIDForTutoring()
         {
             List<string> listStudents = new List<string>();
@@ -210,9 +210,9 @@ namespace Group1_OOP
         }
 
 
-        // On génère la liste d'élèves à partir du fichier .csv
-        // A partir de la liste de string avec les ID des élèves, on trouve les élèves correspondants dans le fichier .csv
-        // et on remplit une List<Student> qui contient les élèves (et leurs infos persos) dont le prof est le tuteur 
+        // The list of students is generated from the .csv file.
+        // From the list of strings with student IDs, the corresponding students are found in the .csv file.
+        // and we fill in a List<Student> which contains the pupils (and their personal information) whose teacher is the tutor.  
         public List<Student> ResearchStudentsForTutoring(List<string> StudentList_string)
         {
             List<Student> studentList = new List<Student>();

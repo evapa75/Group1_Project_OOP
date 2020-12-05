@@ -43,7 +43,7 @@ namespace Group1_OOP
             Courses = new List<Course>();
             StudentList = studentList;
 
-            //Remplissage de la liste de cours Courses
+            // Filling in the course list Courses
             List<string> listCourses = new List<string>();
             SortedList<string, List<string>> list = new SortedList<string, List<string>>();
 
@@ -78,7 +78,7 @@ namespace Group1_OOP
                 listCourses.Add(list.ElementAt(key).Value[i]);
             }
 
-            //Remplissage de la liste des cours
+            // Filling in the course list
             for (int i = 0; i < 125; i = i + 5)
             {
                 Course c = new Course(Convert.ToDouble(listCourses[i]), listCourses[i + 1], listCourses[i + 2], Convert.ToInt32(listCourses[i + 3]), Convert.ToInt32(listCourses[i + 4]), studentList);
@@ -104,13 +104,13 @@ namespace Group1_OOP
             }
 
 
-            //Création de l'edt à partir de la liste de cours
+            //Creation of the edt from the list of courses
             Timetable = new Timetable(Courses);
 
             //Création du livret de notes de l'étudiant
             Gradebook = new GradeBook(ID, Class, Courses);
 
-
+            //Creation of the student's gradebook
             CoursePlan = new List<CoursePlan>();
         }
 
