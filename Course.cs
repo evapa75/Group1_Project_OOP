@@ -8,9 +8,18 @@ namespace Group1_OOP
 {
     public class Course
     {
+        // GROUP 1
+        // 23173 Marie DONIER
+        // 22843 Célia BARRAS
+        // 22835 Laura TRAN
+        // 23187 Eva PADRINO
+        // 23207 Théo GALLAIS
+        // 23025 Romain LANDRAUD
+
+
         public string Subject { get; set; }
         public Professor Teacher { get; set; }
-        public string TeacherID_or_NameOfClass { get; set; }
+        public string ProfessorID_or_NameOfClass { get; set; }
         public string CourseIndex { get; set; }
         public string Day { get; set; }
         public string Schedule { get; set; }
@@ -28,9 +37,10 @@ namespace Group1_OOP
             //{
             //    Teacher = FindTeacher(professorID);
             //}
+            CourseIndex = "";
+            CourseIndex = Convert.ToString(course_index);
 
-            CourseIndex = Convert.ToString(course_index); 
-            TeacherID_or_NameOfClass = professorID_or_name_of_class;
+            ProfessorID_or_NameOfClass = professorID_or_name_of_class;
 
 
             Subject = subject;
@@ -49,6 +59,12 @@ namespace Group1_OOP
             return $"Subject : {Subject}    " /* Date : {Date}    Professor : {Teacher.Name}" */;
         }
 
+        public void ModifyCourseIndex(double newIndexCourse)
+        {
+            this.CourseIndex = newIndexCourse.ToString();
+            this.Day = CourseDay(newIndexCourse);
+            this.Schedule = CourseSchedule(newIndexCourse);
+        }
 
         //public Professor FindTeacher(string professorID)
         //{

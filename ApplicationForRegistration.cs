@@ -7,6 +7,14 @@ namespace Group1_OOP
 {
     public class ApplicationForRegistration
     {
+        // GROUP 1
+        // 23173 Marie DONIER
+        // 22843 Célia BARRAS
+        // 22835 Laura TRAN
+        // 23187 Eva PADRINO
+        // 23207 Théo GALLAIS
+        // 23025 Romain LANDRAUD
+
         string FirstName { get; set; }
         string Name { get; set; }
         char Sex { get; set; }

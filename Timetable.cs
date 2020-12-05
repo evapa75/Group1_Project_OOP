@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -8,6 +7,15 @@ namespace Group1_OOP
 {
     public class Timetable
     {
+        // GROUP 1
+        // 23173 Marie DONIER
+        // 22843 Célia BARRAS
+        // 22835 Laura TRAN
+        // 23187 Eva PADRINO
+        // 23207 Théo GALLAIS
+        // 23025 Romain LANDRAUD
+
+
         public List<Course> Courses { get; set; }
         public string[] tab_save_subject { get; set; }
 
@@ -46,12 +54,14 @@ namespace Group1_OOP
         public Course CourseF4 { get; set; }
         public Course CourseF5 { get; set; }
 
+
         public Timetable(List<Course> courses)
         {
             Courses = courses;
 
             SaveSubjects();
 
+            //Courses on Monday
             CourseM1 = courses[0];
             CourseM2 = courses[1];
             CourseM3 = courses[2];
@@ -87,41 +97,46 @@ namespace Group1_OOP
             CourseF5 = courses[24];
         }
 
+
         public void ShowTimetableStudent()
         {
-            Console.Clear();
-
             foreach (Course c in Courses)
             {
                 if (c.Subject.Length <= 4)
                 {
-                    c.Subject = c.Subject + "              ";
+                    c.Subject = "      " + c.Subject + "          ";
                 }
                 if (c.Subject.Length > 4 && c.Subject.Length <= 8)
                 {
-                    c.Subject = c.Subject + "      ";
+                    c.Subject = "    " + c.Subject + "        ";
                 }
                 if (c.Subject.Length > 8 && c.Subject.Length < 12)
                 {
-                    c.Subject = c.Subject + "     ";
+                    c.Subject = "  " + c.Subject + "       ";
                 }
                 if (c.Subject.Length >= 12 && c.Subject.Length < 15)
                 {
-                    c.Subject = c.Subject + "  ";
+                    c.Subject = " " + c.Subject + "    ";
                 }
                 if (c.Subject.Length >= 15)
                 {
-                    c.Subject = c.Subject + " ";
+                    c.Subject = c.Subject + "  ";
                 }
             }
 
-            for (int i = 0; i < 50; i++)
-            {
-                Console.Write(" ");
-            }
-            Console.WriteLine("TIMETABLE");
-            Console.Write("\n\n                    Monday            Tuesday            Wednesday            Thursday            Friday");
-            Console.WriteLine("\n8h30-10h15       " + CourseM1.Subject +/* length1 +*/ CourseT1.Subject + /*length2 +*/ CourseW1.Subject + /*length3*/ /*+*/ CourseTH1.Subject + /*length4 +*/ CourseF1.Subject + "\n");
+            for (int i = 0; i < 95; i++) { Console.Write(" "); }
+            Console.Write("_____________");
+            Console.WriteLine("\n");
+            for (int i = 0; i < 95; i++) { Console.Write(" "); }
+            Console.Write("| TIMETABLE |");
+            Console.WriteLine("");
+            for (int i = 0; i < 95; i++) { Console.Write(" "); }
+            Console.Write("_____________\n\n");
+
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("\n\n\n\n                      Monday             Tuesday               Wednesday              Thursday               Friday");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("\n\n\n8h30-10h15       " + CourseM1.Subject +/* length1 +*/ CourseT1.Subject + /*length2 +*/ CourseW1.Subject + /*length3*/ /*+*/ CourseTH1.Subject + /*length4 +*/ CourseF1.Subject + "\n");
             Console.WriteLine("10h30-12h15      " + CourseM2.Subject + /*length1 +*/ CourseT2.Subject + /*length2 +*/ CourseW2.Subject + /*length3*/ /*+*/ CourseTH2.Subject + /*length4 + */CourseF2.Subject + "\n");
             Console.WriteLine();
             Console.WriteLine("13h30-15h15      " + CourseM3.Subject + /*length1 +*/ CourseT3.Subject + /*length2 +*/ CourseW3.Subject + /*length3*/ /*+*/ CourseTH3.Subject + /*length4 + */CourseF3.Subject + "\n");
@@ -158,36 +173,31 @@ namespace Group1_OOP
             Courses[22].Subject = tab_save_subject[22];
             Courses[23].Subject = tab_save_subject[23];
             Courses[24].Subject = tab_save_subject[24];
-
         }
 
         public void ShowTimetableProfessor()
         {
-            Console.Clear();
-
             string space = "                   ";
-            for (int i = 0; i < 50; i++)
-            {
-                Console.Write(" ");
-            }
-            Console.WriteLine("TIMETABLE");
-            Console.Write("\n\n                    Monday             Tuesday           Wednesday            Thursday            Friday");
-            Console.WriteLine("\n8h30-10h15            " + CourseM1.TeacherID_or_NameOfClass + space + CourseT1.TeacherID_or_NameOfClass + space + CourseW1.TeacherID_or_NameOfClass + space + CourseTH1.TeacherID_or_NameOfClass + space + CourseF1.TeacherID_or_NameOfClass + "\n");
-            Console.WriteLine("10h30-12h15           " + CourseM2.TeacherID_or_NameOfClass + space + CourseT2.TeacherID_or_NameOfClass + space + CourseW2.TeacherID_or_NameOfClass + space + CourseTH2.TeacherID_or_NameOfClass + space + CourseF2.TeacherID_or_NameOfClass + "\n");
+
+            for (int i = 0; i < 95; i++) { Console.Write(" "); }
+            Console.Write("_____________");
+            Console.WriteLine("\n");
+            for (int i = 0; i < 95; i++) { Console.Write(" "); }
+            Console.Write("| TIMETABLE |");
+            Console.WriteLine("");
+            for (int i = 0; i < 95; i++) { Console.Write(" "); }
+            Console.Write("_____________\n\n");
+
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("\n\n\n                    Monday             Tuesday           Wednesday            Thursday             Friday");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("\n\n\n8h30-10h15            " + CourseM1.ProfessorID_or_NameOfClass + space + CourseT1.ProfessorID_or_NameOfClass + space + CourseW1.ProfessorID_or_NameOfClass + space + CourseTH1.ProfessorID_or_NameOfClass + space + CourseF1.ProfessorID_or_NameOfClass + "\n");
+            Console.WriteLine("10h30-12h15           " + CourseM2.ProfessorID_or_NameOfClass + space + CourseT2.ProfessorID_or_NameOfClass + space + CourseW2.ProfessorID_or_NameOfClass + space + CourseTH2.ProfessorID_or_NameOfClass + space + CourseF2.ProfessorID_or_NameOfClass + "\n");
             Console.WriteLine();
-            Console.WriteLine("13h30-15h15           " + CourseM3.TeacherID_or_NameOfClass + space + CourseT3.TeacherID_or_NameOfClass + space + CourseW3.TeacherID_or_NameOfClass + space + CourseTH3.TeacherID_or_NameOfClass + space + CourseF3.TeacherID_or_NameOfClass + "\n");
-            Console.WriteLine("15h30-17h15           " + CourseM4.TeacherID_or_NameOfClass + space + CourseT4.TeacherID_or_NameOfClass + space + CourseW4.TeacherID_or_NameOfClass + space + CourseTH4.TeacherID_or_NameOfClass + space + CourseF4.TeacherID_or_NameOfClass + "\n");
-            Console.WriteLine("17h30-19h15           " + CourseM5.TeacherID_or_NameOfClass + space + CourseT5.TeacherID_or_NameOfClass + space + CourseW5.TeacherID_or_NameOfClass + space + CourseTH5.TeacherID_or_NameOfClass + space + CourseF5.TeacherID_or_NameOfClass + "\n");
+            Console.WriteLine("13h30-15h15           " + CourseM3.ProfessorID_or_NameOfClass + space + CourseT3.ProfessorID_or_NameOfClass + space + CourseW3.ProfessorID_or_NameOfClass + space + CourseTH3.ProfessorID_or_NameOfClass + space + CourseF3.ProfessorID_or_NameOfClass + "\n");
+            Console.WriteLine("15h30-17h15           " + CourseM4.ProfessorID_or_NameOfClass + space + CourseT4.ProfessorID_or_NameOfClass + space + CourseW4.ProfessorID_or_NameOfClass + space + CourseTH4.ProfessorID_or_NameOfClass + space + CourseF4.ProfessorID_or_NameOfClass + "\n");
+            Console.WriteLine("17h30-19h15           " + CourseM5.ProfessorID_or_NameOfClass + space + CourseT5.ProfessorID_or_NameOfClass + space + CourseW5.ProfessorID_or_NameOfClass + space + CourseTH5.ProfessorID_or_NameOfClass + space + CourseF5.ProfessorID_or_NameOfClass + "\n");
 
-        }
-
-
-        public void AddTimetable()
-        {
-        }
-
-        public void EditTimetable()
-        {
         }
 
         public void SaveSubjects()

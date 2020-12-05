@@ -8,6 +8,14 @@ namespace Group1_OOP
 {
     public class Student : Person
     {
+        // GROUP 1
+        // 23173 Marie DONIER
+        // 22843 Célia BARRAS
+        // 22835 Laura TRAN
+        // 23187 Eva PADRINO
+        // 23207 Théo GALLAIS
+        // 23025 Romain LANDRAUD
+
         public int Year { get; set; }
         public string Class { get; set; }
         public double Fees { get; set; }
@@ -15,8 +23,12 @@ namespace Group1_OOP
         public string TutorID { get; set; }
 
         public List<Course> Courses { get; set; }
+        public List<string> CoursesName { get; set; }
+        public int NumberOfCourses { get; set; }
         public Timetable Timetable { get; set; }
         public GradeBook Gradebook { get; set; }
+
+        public List<CoursePlan> CoursePlan { get; set; }
 
         public List<Student> StudentList { get; set; }
 
@@ -42,7 +54,7 @@ namespace Group1_OOP
             string[] datas = new string[126];
             while (fichLect.Peek() > 0)
             {
-                line = fichLect.ReadLine(); //Lecture d'une ligne
+                line = fichLect.ReadLine();
                 if (counter == 1)
                 {
                     datas = line.Split(sep);
@@ -64,21 +76,42 @@ namespace Group1_OOP
             for (int i = 0; i < datas.Length - 1; i++)
             {
                 listCourses.Add(list.ElementAt(key).Value[i]);
-                //Console.WriteLine(list.ElementAt(key).Value[i]);
             }
 
             //Remplissage de la liste des cours
             for (int i = 0; i < 125; i = i + 5)
             {
                 Course c = new Course(Convert.ToDouble(listCourses[i]), listCourses[i + 1], listCourses[i + 2], Convert.ToInt32(listCourses[i + 3]), Convert.ToInt32(listCourses[i + 4]), studentList);
-                //Console.WriteLine(Convert.ToDouble(listCourses[i]) + ";" + listCourses[i + 1] + ";" + listCourses[i + 2] + ";" + listCourses[i + 3] + ";" + listCourses[i + 4]);
                 Courses.Add(c);
             }
+
+            CoursesName = new List<string>();
+            foreach (Course c in Courses)
+            {
+                if (c.Subject != "Free")
+                {
+                    CoursesName.Add(c.Subject);
+                }
+            }
+
+            NumberOfCourses = 0;
+            foreach (Course c in Courses)
+            {
+                if (c.Subject != "Free")
+                {
+                    NumberOfCourses++;
+                }
+            }
+
 
             //Création de l'edt à partir de la liste de cours
             Timetable = new Timetable(Courses);
 
+            //Création du livret de notes de l'étudiant
             Gradebook = new GradeBook(ID, Class, Courses);
+
+
+            CoursePlan = new List<CoursePlan>();
         }
 
         public override string SchoolEmailAdress()
@@ -91,21 +124,24 @@ namespace Group1_OOP
             return $"Status : Student \nYear : {Year} \nClass : {Class} \n {base.ToString()} \n  ";
         }
 
+
+
+        // 1 - Contact and personal identifying information
         public void ShowAndModifyPersonalInformation(int mode)
         {
             bool finish = false;
             while (finish == false)
             {
                 Console.Clear();
-                Console.WriteLine($"Student Profile {FirstName} { Name.ToUpper()} \n\n");
-                Console.WriteLine("Personal identifying information : \n\n" +
+                Console.WriteLine($"\n\nStudent Profile {FirstName} { Name.ToUpper()} \n\n");
+                Console.WriteLine("\nPersonal identifying information : \n\n" +
                     FirstName + " " + Name.ToUpper() +
                     $"\nID : {ID}" +
                     $"\nYear of studies : {Year}" +
                     $"\nClass : {Class}" +
                     $"\nGender : {Gender}" +
                     $"\nBirthdate : {Birthdate.ToShortDateString()}\n\n");
-                Console.WriteLine("Contact information : \n\n" +
+                Console.WriteLine("\nContact information : \n\n" +
                     $"Adress : {Adress}" +
                     $"\nPhone Number : {PhoneNumber}" +
                     $"\nSchool email adress : {SchoolEmail}" +
@@ -148,22 +184,30 @@ namespace Group1_OOP
                 }
             }
         }
+
+
+
+        // 2 - Courses
         public void ShowCourses()
         {
             Console.Clear();
             bool finish = false;
             while (finish == false)
             {
-                for (int i = 0; i < 70; i++)
-                {
-                    Console.Write(" ");
-                }
-                Console.Write("YOUR COURSES \n\n");
+                for (int i = 0; i < 95; i++) { Console.Write(" "); }
+                Console.Write("_______________");
+                Console.WriteLine("\n");
+                for (int i = 0; i < 95; i++) { Console.Write(" "); }
+                Console.Write("| YOUR COURSES |");
+                Console.WriteLine("");
+                for (int i = 0; i < 95; i++) { Console.Write(" "); }
+                Console.Write("_______________\n\n");
+
                 for (int i = 0; i < Courses.Count; i++)
                 {
                     if (Courses[i].Subject != "Free" && Courses[i].Subject != "")
                     {
-                        Console.WriteLine(Courses[i].Subject);
+                        Console.WriteLine("\n" + Courses[i].Subject);
                     }
                 }
 
@@ -184,13 +228,16 @@ namespace Group1_OOP
             while (finish == false)
             {
                 Console.Clear();
-                for (int i = 0; i < 70; i++)
-                {
-                    Console.Write(" ");
-                }
-                Console.Write("REGISTER FOR A COURSE \n\n");
+                for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                Console.Write("_______________________");
+                Console.WriteLine("\n");
+                for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                Console.Write("| REGISTER FOR A COURSE |");
+                Console.WriteLine("");
+                for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                Console.Write("_______________________\n\n");
 
-                Console.Write("Here is the list of all courses available at Virtual Global College :\n");
+                Console.Write("\n\nHere is the list of all courses available at Virtual Global College :\n\n");
 
                 List<List<string>> listCourses = new List<List<string>>();
 
@@ -222,7 +269,7 @@ namespace Group1_OOP
                 int index = 1;
                 foreach (List<string> l in listCourses)
                 {
-                    Console.WriteLine(index + "- " + l[0] + " - with Professor " + l[2] + " " + l[3]);
+                    Console.WriteLine("\n" + index + " - " + l[0] + " - with Professor " + l[2] + " " + l[3]);
                     index++;
                 }
 
@@ -239,49 +286,23 @@ namespace Group1_OOP
                 }
                 if (number >= 10)
                 {
-                    Console.WriteLine("You have already reached the maximum of 10 courses possible.");
+                    Console.WriteLine("\nYou have already reached the maximum of 10 courses possible.");
                 }
                 else
                 {
                     List<string> LIST = listCourses[choice - 1];
-                    ApplicationForCourse application = new ApplicationForCourse(ID, FirstName, Name, Year, Class, Courses, Timetable, LIST[0], LIST[1], LIST[2], LIST[3], StudentList);
-                    application.AddNewApplication();
-                    Console.WriteLine("\n\nYour request will be processed by an administrator as soon as possible.");
-                }
-
-                Console.WriteLine("\n\n\nReturn to the dashboard ? \n1- YES \n2- NO");
-                int decision = Convert.ToInt32(Console.ReadLine());
-                if (decision == 1)
-                {
-                    finish = true;
-                }
-            }
-        }
-        public void ShowCoursePlan() //A TERMINER
-        {
-            Console.Clear();
-            bool finish = false;
-            int nb = 0;
-            while (finish == false)
-            {
-                nb = 1;
-                for (int i = 0; i < 70; i++)
-                {
-                    Console.Write(" ");
-                }
-                Console.Write("YOUR COURSES \n\n");
-                for (int i = 0; i < Courses.Count; i++)
-                {
-                    if (Courses[i].Subject != "Free" && Courses[i].Subject != "")
+                    if (CoursesName.Contains(LIST[0]))
                     {
-                        Console.WriteLine(nb + " : " + Courses[i].Subject);
-                        nb++;
+                        Console.WriteLine("\n\nYou are already registered for this course.");
+                    }
+                    else
+                    {
+                        ApplicationForCourse application = new ApplicationForCourse(ID, FirstName, Name, Year, Class, Courses, Timetable, LIST[0], LIST[1], LIST[2], LIST[3], StudentList);
+                        application.AddNewApplication();
+                        Console.WriteLine("\n\nYour request will be processed by an administrator as soon as possible.");
                     }
                 }
 
-                Console.WriteLine("For which course would you like to view the course plan?");
-
-
                 Console.WriteLine("\n\n\nReturn to the dashboard ? \n1- YES \n2- NO");
                 int decision = Convert.ToInt32(Console.ReadLine());
                 if (decision == 1)
@@ -289,28 +310,35 @@ namespace Group1_OOP
                     finish = true;
                 }
             }
-
-
         }
 
 
+
+        // 5 - Attendance
         public void ShowAttendance()
         {
             bool finish = false;
             while (finish == false)
             {
                 Console.Clear();
-                for (int i = 0; i < 70; i++)
-                {
-                    Console.Write(" ");
-                }
-                Console.Write("ATTENDANCE \n\n");
 
+                for (int i = 0; i < 92; i++) { Console.Write(" "); }
+                Console.Write("_____________");
+                Console.WriteLine("\n");
+                for (int i = 0; i < 92; i++) { Console.Write(" "); }
+                Console.Write("| ATTENDANCE |");
+                Console.WriteLine("");
+                for (int i = 0; i < 92; i++) { Console.Write(" "); }
+                Console.Write("_____________\n\n\n\n");
+
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(" Taken sessions / Total number of sessions \n\n");
+                Console.ForegroundColor = ConsoleColor.White;
                 foreach (Course c in Courses)
                 {
                     if (c.Subject != "Free")
                     {
-                        Console.WriteLine(c.Subject + " : " + c.Attendance + "/" + c.Number_of_times);
+                        Console.WriteLine("\n" + c.Subject + " : " + c.Attendance + "/" + c.Number_of_times);
                     }
                 }
 
@@ -323,61 +351,9 @@ namespace Group1_OOP
             }
         }
 
-        //public GradeBook CreateGradeBook()
-        //{
-        //    string nomFichier = "GradeBookClass" + Class + ".csv";
-
-        //    List<string> ListProfID = new List<string>();
-        //    List<string> ListGrades = new List<string>();
-        //    SortedList<string, List<string>> list = new SortedList<string, List<string>>();
-
-        //    int counter = 0;
-        //    StreamReader fichLect = new StreamReader(nomFichier);
-        //    char[] sep = new char[1] { ';' };
-        //    string line = "";
-        //    string[] datas = new string[21];
-        //    while (fichLect.Peek() > 0)
-        //    {
-        //        line = fichLect.ReadLine(); //Lecture d'une ligne
-        //        if (counter == 1)
-        //        {
-        //            datas = line.Split(sep);
-        //            string studentID = datas[0];
-        //            List<string> l = new List<string>();
-        //            for (int i = 1; i < datas.Length; i++)
-        //            {
-        //                l.Add(datas[i]);
-        //            }
-        //            list.Add(studentID, l);
-        //        }
-        //        counter = 1;
-        //    }
-
-        //    int key = list.IndexOfKey(ID);
-        //    //Console.WriteLine(key);
-        //    for (int i = 0; i < datas.Length - 1; i=i+2)
-        //    {
-        //        ListProfID.Add(list.ElementAt(key).Value[i]);
-        //        ListGrades.Add(list.ElementAt(key).Value[i+1]);
-        //    }
-
-        //    List<string> Subjects = FindSubjects(ListProfID);
-
-        //    GradeBook gb = new GradeBook(Subjects, ListGrades);
-        //}
-
-        //public List<string> FindSubjects(List<string> ListProfID)
-        //{
-        //    List<string> Subjects = new List<string>();
-        //    foreach (string profID in ListProfID)
-        //    {
-        //        Course c  = Courses.Find(x => x.TeacherID_or_NameOfClass.Contains(profID));
-        //        Subjects.Add(c.Subject);
-        //    }
-        //    return Subjects;
-        //}
 
 
+        // 6 - Gradebook
         public void ShowGradeBook(int mode)
         {
             if (mode == 1)
@@ -386,16 +362,19 @@ namespace Group1_OOP
                 while (finish == false)
                 {
                     Console.Clear();
-                    for (int i = 0; i < 70; i++)
-                    {
-                        Console.Write(" ");
-                    }
-                    Console.Write("GRADEBOOK \n\n\n");
-                    Console.WriteLine("Subjects :                         Grades\n");
+                    for (int i = 0; i < 92; i++) { Console.Write(" "); }
+                    Console.Write("_____________");
+                    Console.WriteLine("\n");
+                    for (int i = 0; i < 92; i++) { Console.Write(" "); }
+                    Console.Write("| GRADEBOOK |");
+                    Console.WriteLine("");
+                    for (int i = 0; i < 92; i++) { Console.Write(" "); }
+                    Console.Write("_____________\n\n\n\n");
 
+                    Console.WriteLine("\n" + FirstName + " " + Name + " " + Class + "\n\n");
                     for (int i = 0; i < Gradebook.Subjects.Count; i++)
                     {
-                        Console.WriteLine(Gradebook.Subjects[i] + " : " + Gradebook.Grades[i] + "\n");
+                        Console.WriteLine(Gradebook.Subjects[i] + " : " + "\n -> Assignements : " + Gradebook.GradesAssignements[i] + "\n -> Exams : " + Gradebook.GradesExams[i] + "\n");
                     }
 
                     Console.WriteLine("\n\n\nReturn to the dashboard ? \n1- YES \n2- NO");
@@ -408,36 +387,49 @@ namespace Group1_OOP
             }
             if (mode == 2)
             {
-                for (int i = 0; i < 70; i++)
-                {
-                    Console.Write(" ");
-                }
-                Console.Write("GRADEBOOK \n\n\n");
-                Console.WriteLine("Subjects :                         Grades\n");
+                for (int i = 0; i < 92; i++) { Console.Write(" "); }
+                Console.Write("_____________");
+                Console.WriteLine("\n");
+                for (int i = 0; i < 92; i++) { Console.Write(" "); }
+                Console.Write("| GRADEBOOK |");
+                Console.WriteLine("");
+                for (int i = 0; i < 92; i++) { Console.Write(" "); }
+                Console.Write("_____________\n\n\n\n");
 
+                Console.WriteLine("\n" + FirstName + " " + Name + " " + Class + "\n\n");
                 for (int i = 0; i < Gradebook.Subjects.Count; i++)
                 {
-                    Console.WriteLine(Gradebook.Subjects[i] + " : " + Gradebook.Grades[i] + "\n");
+                    Console.WriteLine(Gradebook.Subjects[i] + " : " + "\n -> Assignements : " + Gradebook.GradesAssignements[i] + "\n -> Exams : " + Gradebook.GradesExams[i] + "\n");
                 }
             }
         }
 
+
+
+        // 7 - Payment of fees
         public void PayementOfFees()
         {
             bool finish = false;
             while (finish == false)
             {
                 Console.Clear();
-                for (int i = 0; i < 70; i++)
-                {
-                    Console.Write(" ");
-                }
-                Console.Write("PAYEMENT OF FEES \n\n");
+                for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                Console.Write("___________________");
+                Console.WriteLine("\n");
+                for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                Console.Write("| PAYEMENT OF FEES |");
+                Console.WriteLine("");
+                for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                Console.Write("___________________\n\n\n\n\n");
 
-                Console.WriteLine("The amount of your current fees to be paid is : " + Fees + " euros");
+                Console.Write("The amount of your current fees to be paid is : ");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write(Fees + " euros");
+                Console.ForegroundColor = ConsoleColor.White;
+
                 if (Fees != 0)
                 {
-                    Console.WriteLine("\nDo you want to pay some of them right now ? \n1- YES \n2- NO");
+                    Console.WriteLine("\n\nDo you want to pay some of them right now ? \n1- YES \n2- NO");
                     switch (Console.ReadLine())
                     {
                         case "1":
@@ -451,11 +443,14 @@ namespace Group1_OOP
                                     Fees = Fees - amount;
                                     if (Fees == 0)
                                     {
-                                        Console.WriteLine("\nYou've paid all your fees");
+                                        Console.WriteLine("\n\nYou've paid all your fees");
                                     }
                                     else
                                     {
-                                        Console.WriteLine("\nHere is the new amount of your fees : " + Fees + " euros");
+                                        Console.Write("\n\n\n\nHere is the new amount of your fees : ");
+                                        Console.ForegroundColor = ConsoleColor.Red;
+                                        Console.Write(Fees + " euros");
+                                        Console.ForegroundColor = ConsoleColor.White;
                                     }
                                     paid = true;
                                 }
@@ -472,6 +467,5 @@ namespace Group1_OOP
 
             }
         }
-
     }
 }

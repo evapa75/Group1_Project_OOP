@@ -8,6 +8,15 @@ namespace Group1_OOP
 {
     public class ApplicationForCourse
     {
+        // GROUP 1
+        // 23173 Marie DONIER
+        // 22843 Célia BARRAS
+        // 22835 Laura TRAN
+        // 23187 Eva PADRINO
+        // 23207 Théo GALLAIS
+        // 23025 Romain LANDRAUD
+
+
         public string StudentID { get; set; }
         public string StudentFirstName { get; set; }
         public string StudentName { get; set; }
@@ -15,8 +24,8 @@ namespace Group1_OOP
         public string StudentClass { get; set; }
         public List<Course> StudentCourses { get; set; }
         public Timetable StudentTimetable { get; set; }
-        public Timetable ProfessorTimetable { get; set; }
-        //public List<string> CourseWanted {get;set;}
+
+
         public string CourseName { get; set; }
         public string ProfID { get; set; }
         public string ProfFirstName { get; set; }
@@ -24,8 +33,6 @@ namespace Group1_OOP
 
         public List<Student> StudentList { get; set; }
         public List<Professor> ProfessorList { get; set; }
-
-        // public List<ApplicationForCourse> ListApplications { get; set; }
 
 
         public ApplicationForCourse(string id, string firstname, string name, int year, string _class, List<Course> courses, Timetable timetable, string courseName, string profID, string profFirstName, string profName, List<Student> studentList)
@@ -37,7 +44,6 @@ namespace Group1_OOP
             StudentClass = _class;
             StudentCourses = courses;
             StudentTimetable = timetable;
-            //CourseWanted = course;
 
             CourseName = courseName;
             ProfID = profID;
@@ -45,10 +51,6 @@ namespace Group1_OOP
             ProfName = profName;
 
             StudentList = studentList;
-
-            //AddNewApplication();
-
-            // FillInApplicationsList();
         }
 
         public void ShowApplicationForRegistration(int number)

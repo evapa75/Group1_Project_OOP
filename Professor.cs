@@ -8,12 +8,23 @@ namespace Group1_OOP
 {
     public class Professor : Person
     {
+        // GROUP 1
+        // 23173 Marie DONIER
+        // 22843 Célia BARRAS
+        // 22835 Laura TRAN
+        // 23187 Eva PADRINO
+        // 23207 Théo GALLAIS
+        // 23025 Romain LANDRAUD
+
+
         public string Subject { get; set; }
 
         public string NameClass1 { get; set; }
         public string NameClass2 { get; set; }
         public string NameClass3 { get; set; }
         public string NameClass4 { get; set; }
+        public List<string> NameClasses { get;set }
+
         public List<Student> Class1 { get; set; }
         public List<Student> Class2 { get; set; }
         public List<Student> Class3 { get; set; }
@@ -31,6 +42,8 @@ namespace Group1_OOP
         public CoursePlan CoursePlan3 { get; set; }
         public CoursePlan CoursePlan4 { get; set; }
 
+        List<CoursePlan> CoursePlan { get; set; }
+
         public Professor(string id, string firstName, string name, string gender, string birthdate, string persoEmailAdress, string phoneNumber, string adress, string password, string subject, string tutor, string name_class1, string name_class2, string name_class3, string name_class4, List<Student> studentList)
             : base(id, firstName, name, gender, birthdate, persoEmailAdress, phoneNumber, adress, password)
         {
@@ -40,6 +53,12 @@ namespace Group1_OOP
             NameClass2 = name_class2;
             NameClass3 = name_class3;
             NameClass4 = name_class4;
+
+            NameClasses = new List<string>();
+            NameClasses.Add(NameClass1);
+            NameClasses.Add(NameClass2);
+            NameClasses.Add(NameClass3);
+            NameClasses.Add(NameClass4);
 
             StudentList = studentList;
 
@@ -135,7 +154,7 @@ namespace Group1_OOP
             //Création de l'edt à partir de la liste de cours
             Timetable = new Timetable(Courses);
 
-            CoursePlanProfessor();
+            CoursePlan = new List<CoursePlan>();
         }
 
 
@@ -143,10 +162,12 @@ namespace Group1_OOP
         {
             return $"Status: Professor \nSubject : {Subject}  \nTutor : {Tutor} \n{ base.ToString()}";
         }
+
         public override string SchoolEmailAdress()
         {
             return ID + "@professor.faculty-vgc.ie";
         }
+
 
 
         //On récupère une SortedList<ID prof, liste des ID des élèves dont le prof est tuteur>
@@ -188,6 +209,7 @@ namespace Group1_OOP
             return listStudents;
         }
 
+
         // On génère la liste d'élèves à partir du fichier .csv
         // A partir de la liste de string avec les ID des élèves, on trouve les élèves correspondants dans le fichier .csv
         // et on remplit une List<Student> qui contient les élèves (et leurs infos persos) dont le prof est le tuteur 
@@ -209,21 +231,24 @@ namespace Group1_OOP
             return studentList;
         }
 
+
+
+        // 1 - Contact and personal identifying information
         public void ShowAndModifyPersonalInformation()
         {
             bool finish = false;
             while (finish == false)
             {
                 Console.Clear();
-                Console.WriteLine($"Professor Profile {FirstName} { Name.ToUpper()} \n\n");
-                Console.WriteLine("Personal identifying information : \n\n" +
+                Console.WriteLine($"\nProfessor Profile {FirstName} { Name.ToUpper()} \n\n");
+                Console.WriteLine("\nPersonal identifying information : \n\n" +
                     FirstName + " " + Name.ToUpper() +
                     $"\nID : {ID}" +
                     $"\nSubject : {Subject}" +
                     $"\nTutor? : {Tutor}" +
                     $"\nGender : {Gender}" +
                     $"\nBirthdate : {Birthdate.ToShortDateString()}\n\n");
-                Console.WriteLine("Contact information : \n\n" +
+                Console.WriteLine("\nContact information : \n\n" +
                     $"Adress : {Adress}" +
                     $"\nPhone Number : {PhoneNumber}" +
                     $"\nSchool email adress : {SchoolEmail}" +
@@ -263,126 +288,160 @@ namespace Group1_OOP
         }
 
 
-        //Afficher la liste des classes du prof, il choisit la classe dont il souhaite faire la présence
-        //pour chaque élève: P pour présent et A pour absent
+        // 3 - Student's Attendance
         public void StudentsAttendance()
         {
-            Console.Clear();
-            for (int i = 0; i < 70; i++)
+            bool finish = false;
+            while (finish == false)
             {
-                Console.Write(" ");
-            }
-            Console.WriteLine("MANAGE ATTENDANCE \n\n");
-            Console.WriteLine("For which class would you like to record attendance?\n");
-            if (NameClass1 != "")
-            {
-                Console.WriteLine("1- " + NameClass1 + "\n");
-            }
-            if (NameClass2 != "")
-            {
-                Console.WriteLine("2- " + NameClass2 + "\n");
-            }
-            if (NameClass3 != "")
-            {
-                Console.WriteLine("3- " + NameClass3 + "\n");
-            }
-            if (NameClass4 != "")
-            {
-                Console.WriteLine("4- " + NameClass4 + "\n");
-            }
+                Console.Clear();
+                for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                Console.Write("_____________________");
+                Console.WriteLine("\n");
+                for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                Console.Write("| MANAGE ATTENDANCE |");
+                Console.WriteLine("");
+                for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                Console.Write("_____________________\n\n\n\n");
+
+                Console.WriteLine("\n\nFor which class would you like to record attendance?\n");
+                Console.WriteLine("0- Exit \n");
+                if (NameClass1 != "")
+                {
+                    Console.WriteLine("1- " + NameClass1 + "\n");
+                }
+                if (NameClass2 != "")
+                {
+                    Console.WriteLine("2- " + NameClass2 + "\n");
+                }
+                if (NameClass3 != "")
+                {
+                    Console.WriteLine("3- " + NameClass3 + "\n");
+                }
+                if (NameClass4 != "")
+                {
+                    Console.WriteLine("4- " + NameClass4 + "\n");
+                }
 
 
-            Console.WriteLine("\n\n\n");
-            switch (Console.ReadLine())
-            {
-                case "1":
-                    Console.WriteLine("Type 'P' for Present and 'A' for Absent");
-                    for (int i = 0; i < Class1.Count; i++)
-                    {
-                        Console.Write(Class1[i].FirstName + " " + Class1[i].Name + " : ");
-                        string answer = Console.ReadLine().ToUpper();
-                        if (answer == "P")
+                Console.WriteLine("\n\n\n");
+                switch (Console.ReadLine())
+                {
+                    case "1":
+                        Console.Clear();
+                        Console.WriteLine("\nAttendance for class " + NameClass1);
+                        Console.WriteLine("\n\nType 'P' for Present and 'A' for Absent \n");
+                        for (int i = 0; i < Class1.Count; i++)
                         {
-                            Class1[i].Courses.Find(x => x.Subject.Contains(Subject)).Attendance += 1;
-                            Class1[i].Courses.Find(x => x.Subject.Contains(Subject)).Number_of_times += 1;
+                            Console.Write("\n" + Class1[i].FirstName + " " + Class1[i].Name + " : ");
+                            string answer = Console.ReadLine().ToUpper();
+                            if (answer == "P")
+                            {
+                                Class1[i].Courses.Find(x => x.Subject.Contains(Subject)).Attendance += 1;
+                                Class1[i].Courses.Find(x => x.Subject.Contains(Subject)).Number_of_times += 1;
+                            }
+                            if (answer == "A")
+                            {
+                                Class1[i].Courses.Find(x => x.Subject.Contains(Subject)).Number_of_times += 1;
+                            }
                         }
-                        if (answer == "A")
-                        {
-                            Class1[i].Courses.Find(x => x.Subject.Contains(Subject)).Number_of_times += 1;
-                        }
-                    }
-                    break;
 
-                case "2":
-                    Console.WriteLine("Type 'P' for Present and 'A' for Absent");
-                    for (int i = 0; i < Class2.Count; i++)
-                    {
-                        Console.Write(Class2[i].FirstName + " " + Class2[i].Name + " : ");
-                        string answer = Console.ReadLine().ToUpper();
-                        if (answer == "P")
-                        {
-                            Class2[i].Courses.Find(x => x.Subject.Contains(Subject)).Attendance += 1;
-                            Class2[i].Courses.Find(x => x.Subject.Contains(Subject)).Number_of_times += 1;
-                        }
-                        if (answer == "A")
-                        {
-                            Class2[i].Courses.Find(x => x.Subject.Contains(Subject)).Number_of_times += 1;
-                        }
-                    }
-                    break;
+                        Console.WriteLine("\n \nAttendance recorded.");
+                        break;
 
-                case "3":
-                    Console.WriteLine("Type 'P' for Present and 'A' for Absent");
-                    for (int i = 0; i < Class3.Count; i++)
-                    {
-                        Console.Write(Class3[i].FirstName + " " + Class3[i].Name + " : ");
-                        string answer = Console.ReadLine().ToUpper();
-                        if (answer == "P")
+                    case "2":
+                        Console.Clear();
+                        Console.WriteLine("\nAttendance for class " + NameClass2);
+                        Console.WriteLine("\n\nType 'P' for Present and 'A' for Absent \n");
+                        for (int i = 0; i < Class2.Count; i++)
                         {
-                            Class3[i].Courses.Find(x => x.Subject.Contains(Subject)).Attendance += 1;
-                            Class3[i].Courses.Find(x => x.Subject.Contains(Subject)).Number_of_times += 1;
+                            Console.Write("\n" + Class2[i].FirstName + " " + Class2[i].Name + " : ");
+                            string answer = Console.ReadLine().ToUpper();
+                            if (answer == "P")
+                            {
+                                Class2[i].Courses.Find(x => x.Subject.Contains(Subject)).Attendance += 1;
+                                Class2[i].Courses.Find(x => x.Subject.Contains(Subject)).Number_of_times += 1;
+                            }
+                            if (answer == "A")
+                            {
+                                Class2[i].Courses.Find(x => x.Subject.Contains(Subject)).Number_of_times += 1;
+                            }
                         }
-                        if (answer == "A")
-                        {
-                            Class3[i].Courses.Find(x => x.Subject.Contains(Subject)).Number_of_times += 1;
-                        }
-                    }
-                    break;
+                        Console.WriteLine("\n \nAttendance recorded.");
+                        break;
 
-                case "4":
-                    Console.WriteLine("Type 'P' for Present and 'A' for Absent");
-                    for (int i = 0; i < Class4.Count; i++)
-                    {
-                        Console.Write(Class4[i].FirstName + " " + Class4[i].Name + " : ");
-                        string answer = Console.ReadLine().ToUpper();
-                        if (answer == "P")
+                    case "3":
+                        Console.Clear();
+                        Console.WriteLine("\nAttendance for class " + NameClass3);
+                        Console.WriteLine("\n\nType 'P' for Present and 'A' for Absent \n");
+                        for (int i = 0; i < Class3.Count; i++)
                         {
-                            Class4[i].Courses.Find(x => x.Subject.Contains(Subject)).Attendance += 1;
-                            Class4[i].Courses.Find(x => x.Subject.Contains(Subject)).Number_of_times += 1;
+                            Console.Write("\n" + Class3[i].FirstName + " " + Class3[i].Name + " : ");
+                            string answer = Console.ReadLine().ToUpper();
+                            if (answer == "P")
+                            {
+                                Class3[i].Courses.Find(x => x.Subject.Contains(Subject)).Attendance += 1;
+                                Class3[i].Courses.Find(x => x.Subject.Contains(Subject)).Number_of_times += 1;
+                            }
+                            if (answer == "A")
+                            {
+                                Class3[i].Courses.Find(x => x.Subject.Contains(Subject)).Number_of_times += 1;
+                            }
                         }
-                        if (answer == "A")
+                        Console.WriteLine("\n \nAttendance recorded.");
+                        break;
+
+                    case "4":
+                        Console.Clear();
+                        Console.WriteLine("\nAttendance for class " + NameClass4);
+                        Console.WriteLine("\n\nType 'P' for Present and 'A' for Absent \n");
+                        for (int i = 0; i < Class4.Count; i++)
                         {
-                            Class4[i].Courses.Find(x => x.Subject.Contains(Subject)).Number_of_times += 1;
+                            Console.Write("\n" + Class4[i].FirstName + " " + Class4[i].Name + " : ");
+                            string answer = Console.ReadLine().ToUpper();
+                            if (answer == "P")
+                            {
+                                Class4[i].Courses.Find(x => x.Subject.Contains(Subject)).Attendance += 1;
+                                Class4[i].Courses.Find(x => x.Subject.Contains(Subject)).Number_of_times += 1;
+                            }
+                            if (answer == "A")
+                            {
+                                Class4[i].Courses.Find(x => x.Subject.Contains(Subject)).Number_of_times += 1;
+                            }
                         }
-                    }
-                    break;
+                        Console.WriteLine("\n \nAttendance recorded.");
+                        break;
+                }
+
+                Console.WriteLine("\n\n\nReturn to the dashboard ? \n1- YES \n2- NO");
+                int decision = Convert.ToInt32(Console.ReadLine());
+                if (decision == 1)
+                {
+                    finish = true;
+                }
             }
-            Console.WriteLine("\n \nAttendance recorded.");
         }
 
+
+        // 4 - Grade a student
         public void GradeAStudent()
         {
             Console.Clear();
             bool finish = false;
             while (finish == false)
             {
+                Console.Clear();
+                for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                Console.Write("___________________");
                 Console.WriteLine("\n");
-                for (int i = 0; i < 70; i++)
-                {
-                    Console.Write(" ");
-                }
-                Console.Write("GRADE A STUDENT \n\n");
-                Console.WriteLine("Choose the class of the student you want to grade\n");
+                for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                Console.Write("| GRADE A STUDENT |");
+                Console.WriteLine("");
+                for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                Console.Write("___________________\n\n\n\n");
+
+                Console.WriteLine("\nChoose the class of the student you want to grade :\n");
+                Console.WriteLine("0- Exit \n");
                 if (NameClass1 != "")
                 {
                     Console.WriteLine("1- " + NameClass1 + "\n");
@@ -405,10 +464,17 @@ namespace Group1_OOP
                 {
                     case "1":
                         Console.Clear();
-                        for (int i = 0; i < 70; i++) { Console.Write(" "); }
-                        Console.Write("GRADE A STUDENT \n\n");
+                        for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                        Console.Write("___________________");
+                        Console.WriteLine("\n");
+                        for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                        Console.Write("| GRADE A STUDENT |");
+                        Console.WriteLine("");
+                        for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                        Console.Write("___________________\n\n\n\n");
+
                         int index = 1;
-                        Console.WriteLine("Choose the student you want to grade");
+                        Console.WriteLine("Choose the student you want to grade : \n");
                         for (int i = 0; i < Class1.Count; i++)
                         {
                             Console.WriteLine(index + "- " + Class1[i].FirstName + " " + Class1[i].Name);
@@ -420,23 +486,48 @@ namespace Group1_OOP
                         Console.WriteLine("\n\nHere is the current Gradebook of " + Class1[answer - 1].FirstName + " " + Class1[answer - 1].Name + " : \n");
                         Class1[answer - 1].ShowGradeBook(2);
 
-                        Console.WriteLine("\n\n\nEnter the grade you want to give to this student : (ex : 17/20) ");
-                        string grade = Console.ReadLine();
-                        int indexGrade = Class1[answer - 1].Gradebook.Subjects.IndexOf(Subject);
-                        Class1[answer - 1].Gradebook.Grades[indexGrade] += grade + ", ";
+                        Console.WriteLine("\nDo you want to grade this student for an : \n1 - Assignement \n2 - Exam ");
+                        switch (Console.ReadLine())
+                        {
+                            case "1":
+                                Console.WriteLine("\n\n\nEnter the grade you want to give to this student : (ex : 17/20) ");
+                                string grade = Console.ReadLine();
+                                int indexGrade = Class1[answer - 1].Gradebook.Subjects.IndexOf(Subject);
+                                Class1[answer - 1].Gradebook.GradesAssignements[indexGrade] += grade + ", ";
 
-                        Console.Clear();
-                        Console.WriteLine("\n \nStudent graded.");
-                        Console.WriteLine("\n\nHere is the new Gradebook of " + Class1[answer - 1].FirstName + " " + Class1[answer - 1].Name + " : \n");
-                        Class1[answer - 1].ShowGradeBook(2);
+                                Console.Clear();
+                                Console.WriteLine("\n \nStudent graded.");
+                                Console.WriteLine("\n\nHere is the new Gradebook of " + Class1[answer - 1].FirstName + " " + Class1[answer - 1].Name + " : \n");
+                                Class1[answer - 1].ShowGradeBook(2);
+                                break;
+
+                            case "2":
+                                Console.WriteLine("\n\n\nEnter the grade you want to give to this student : (ex : 17/20) ");
+                                grade = Console.ReadLine();
+                                indexGrade = Class1[answer - 1].Gradebook.Subjects.IndexOf(Subject);
+                                Class1[answer - 1].Gradebook.GradesExams[indexGrade] += grade + ", ";
+
+                                Console.Clear();
+                                Console.WriteLine("\n \nStudent graded.");
+                                Console.WriteLine("\n\nHere is the new Gradebook of " + Class1[answer - 1].FirstName + " " + Class1[answer - 1].Name + " : \n");
+                                Class1[answer - 1].ShowGradeBook(2);
+                                break;
+                        }
                         break;
 
                     case "2":
                         Console.Clear();
-                        for (int i = 0; i < 70; i++) { Console.Write(" "); }
-                        Console.Write("GRADE A STUDENT \n\n");
+                        for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                        Console.Write("___________________");
+                        Console.WriteLine("\n");
+                        for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                        Console.Write("| GRADE A STUDENT |");
+                        Console.WriteLine("");
+                        for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                        Console.Write("___________________\n\n\n\n");
+
                         index = 1;
-                        Console.WriteLine("Choose the student you want to grade");
+                        Console.WriteLine("Choose the student you want to grade \n");
                         for (int i = 0; i < Class2.Count; i++)
                         {
                             Console.WriteLine(index + "- " + Class2[i].FirstName + " " + Class2[i].Name);
@@ -448,23 +539,48 @@ namespace Group1_OOP
                         Console.WriteLine("\n\nHere is the current Gradebook of " + Class2[answer - 1].FirstName + " " + Class2[answer - 1].Name + " : \n");
                         Class2[answer - 1].ShowGradeBook(2);
 
-                        Console.WriteLine("\n\n\nEnter the grade you want to give to this student : (ex : 17/20) ");
-                        grade = Console.ReadLine();
-                        indexGrade = Class2[answer - 1].Gradebook.Subjects.IndexOf(Subject);
-                        Class2[answer - 1].Gradebook.Grades[indexGrade] += grade + ", ";
+                        Console.WriteLine("\nDo you want to grade this student for an : \n1 - Assignement \n2 - Exam ");
+                        switch (Console.ReadLine())
+                        {
+                            case "1":
+                                Console.WriteLine("\n\n\nEnter the grade you want to give to this student : (ex : 17/20) ");
+                                string grade = Console.ReadLine();
+                                int indexGrade = Class2[answer - 1].Gradebook.Subjects.IndexOf(Subject);
+                                Class2[answer - 1].Gradebook.GradesAssignements[indexGrade] += grade + ", ";
 
-                        Console.Clear();
-                        Console.WriteLine("\n \nStudent graded.");
-                        Console.WriteLine("\n\nHere is the new Gradebook of " + Class2[answer - 1].FirstName + " " + Class2[answer - 1].Name + " : \n");
-                        Class2[answer - 1].ShowGradeBook(2);
+                                Console.Clear();
+                                Console.WriteLine("\n \nStudent graded.");
+                                Console.WriteLine("\n\nHere is the new Gradebook of " + Class2[answer - 1].FirstName + " " + Class2[answer - 1].Name + " : \n");
+                                Class2[answer - 1].ShowGradeBook(2);
+                                break;
+
+                            case "2":
+                                Console.WriteLine("\n\n\nEnter the grade you want to give to this student : (ex : 17/20) ");
+                                grade = Console.ReadLine();
+                                indexGrade = Class2[answer - 1].Gradebook.Subjects.IndexOf(Subject);
+                                Class2[answer - 1].Gradebook.GradesExams[indexGrade] += grade + ", ";
+
+                                Console.Clear();
+                                Console.WriteLine("\n \nStudent graded.");
+                                Console.WriteLine("\n\nHere is the new Gradebook of " + Class2[answer - 1].FirstName + " " + Class2[answer - 1].Name + " : \n");
+                                Class2[answer - 1].ShowGradeBook(2);
+                                break;
+                        }
                         break;
 
                     case "3":
                         Console.Clear();
-                        for (int i = 0; i < 70; i++) { Console.Write(" "); }
-                        Console.Write("GRADE A STUDENT \n\n");
+                        for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                        Console.Write("___________________");
+                        Console.WriteLine("\n");
+                        for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                        Console.Write("| GRADE A STUDENT |");
+                        Console.WriteLine("");
+                        for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                        Console.Write("___________________\n\n\n\n");
+
                         index = 1;
-                        Console.WriteLine("Choose the student you want to grade");
+                        Console.WriteLine("Choose the student you want to grade \n");
                         for (int i = 0; i < Class3.Count; i++)
                         {
                             Console.WriteLine(index + "- " + Class3[i].FirstName + " " + Class3[i].Name);
@@ -476,22 +592,49 @@ namespace Group1_OOP
                         Console.WriteLine("\n\nHere is the current Gradebook of " + Class3[answer - 1].FirstName + " " + Class3[answer - 1].Name + " : \n");
                         Class3[answer - 1].ShowGradeBook(2);
 
-                        Console.WriteLine("\n\n\nEnter the grade you want to give to this student : (ex : 17/20) ");
-                        grade = Console.ReadLine();
-                        indexGrade = Class3[answer - 1].Gradebook.Subjects.IndexOf(Subject);
-                        Class3[answer - 1].Gradebook.Grades[indexGrade] += grade + ", ";
+                        Console.WriteLine("\nDo you want to grade this student for an : \n1 - Assignement \n2 - Exam ");
+                        switch (Console.ReadLine())
+                        {
+                            case "1":
+                                Console.WriteLine("\n\n\nEnter the grade you want to give to this student : (ex : 17/20) ");
+                                string grade = Console.ReadLine();
+                                int indexGrade = Class3[answer - 1].Gradebook.Subjects.IndexOf(Subject);
+                                Class3[answer - 1].Gradebook.GradesAssignements[indexGrade] += grade + ", ";
 
-                        Console.WriteLine("\n \nStudent graded.");
-                        Console.WriteLine("\n\nHere is the new Gradebook of " + Class3[answer - 1].FirstName + " " + Class3[answer - 1].Name + " : \n");
-                        Class3[answer - 1].ShowGradeBook(2);
+                                Console.Clear();
+                                Console.WriteLine("\n \nStudent graded.");
+                                Console.WriteLine("\n\nHere is the new Gradebook of " + Class3[answer - 1].FirstName + " " + Class3[answer - 1].Name + " : \n");
+                                Class3[answer - 1].ShowGradeBook(2);
+                                break;
+
+                            case "2":
+                                Console.WriteLine("\n\n\nEnter the grade you want to give to this student : (ex : 17/20) ");
+                                grade = Console.ReadLine();
+                                indexGrade = Class3[answer - 1].Gradebook.Subjects.IndexOf(Subject);
+                                Class3[answer - 1].Gradebook.GradesExams[indexGrade] += grade + ", ";
+
+                                Console.Clear();
+                                Console.WriteLine("\n \nStudent graded.");
+                                Console.WriteLine("\n\nHere is the new Gradebook of " + Class3[answer - 1].FirstName + " " + Class3[answer - 1].Name + " : \n");
+                                Class3[answer - 1].ShowGradeBook(2);
+                                break;
+                        }
                         break;
+
 
                     case "4":
                         Console.Clear();
-                        for (int i = 0; i < 70; i++) { Console.Write(" "); }
-                        Console.Write("GRADE A STUDENT \n\n");
+                        for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                        Console.Write("___________________");
+                        Console.WriteLine("\n");
+                        for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                        Console.Write("| GRADE A STUDENT |");
+                        Console.WriteLine("");
+                        for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                        Console.Write("___________________\n\n\n\n");
+
                         index = 1;
-                        Console.WriteLine("Choose the student you want to grade");
+                        Console.WriteLine("Choose the student you want to grade \n");
                         for (int i = 0; i < Class4.Count; i++)
                         {
                             Console.WriteLine(index + "- " + Class4[i].FirstName + " " + Class4[i].Name);
@@ -503,15 +646,33 @@ namespace Group1_OOP
                         Console.WriteLine("\n\nHere is the current Gradebook of " + Class4[answer - 1].FirstName + " " + Class4[answer - 1].Name + " : \n");
                         Class4[answer - 1].ShowGradeBook(2);
 
-                        Console.WriteLine("\n\n\nEnter the grade you want to give to this student : (ex : 17/20) ");
-                        grade = Console.ReadLine();
-                        indexGrade = Class4[answer - 1].Gradebook.Subjects.IndexOf(Subject);
-                        Class4[answer - 1].Gradebook.Grades[indexGrade] += grade + ", ";
+                        Console.WriteLine("\nDo you want to grade this student for an : \n1 - Assignement \n2 - Exam ");
+                        switch (Console.ReadLine())
+                        {
+                            case "1":
+                                Console.WriteLine("\n\n\nEnter the grade you want to give to this student : (ex : 17/20) ");
+                                string grade = Console.ReadLine();
+                                int indexGrade = Class4[answer - 1].Gradebook.Subjects.IndexOf(Subject);
+                                Class4[answer - 1].Gradebook.GradesAssignements[indexGrade] += grade + ", ";
 
-                        Console.Clear();
-                        Console.WriteLine("\n \nStudent graded.");
-                        Console.WriteLine("\n\nHere is the new Gradebook of " + Class4[answer - 1].FirstName + " " + Class4[answer - 1].Name + " : \n");
-                        Class4[answer - 1].ShowGradeBook(2);
+                                Console.Clear();
+                                Console.WriteLine("\n \nStudent graded.");
+                                Console.WriteLine("\n\nHere is the new Gradebook of " + Class4[answer - 1].FirstName + " " + Class4[answer - 1].Name + " : \n");
+                                Class4[answer - 1].ShowGradeBook(2);
+                                break;
+
+                            case "2":
+                                Console.WriteLine("\n\n\nEnter the grade you want to give to this student : (ex : 17/20) ");
+                                grade = Console.ReadLine();
+                                indexGrade = Class4[answer - 1].Gradebook.Subjects.IndexOf(Subject);
+                                Class4[answer - 1].Gradebook.GradesExams[indexGrade] += grade + ", ";
+
+                                Console.Clear();
+                                Console.WriteLine("\n \nStudent graded.");
+                                Console.WriteLine("\n\nHere is the new Gradebook of " + Class4[answer - 1].FirstName + " " + Class4[answer - 1].Name + " : \n");
+                                Class4[answer - 1].ShowGradeBook(2);
+                                break;
+                        }
                         break;
                 }
 
@@ -524,6 +685,8 @@ namespace Group1_OOP
             }
         }
 
+
+        // 6 - Display information of one of your student
         public void DisplayInformationStudent()
         {
             Console.Clear();
@@ -531,12 +694,16 @@ namespace Group1_OOP
             while (finish == false)
             {
                 Console.Clear();
-                for (int i = 0; i < 70; i++)
-                {
-                    Console.Write(" ");
-                }
-                Console.Write("STUDENT INFORMATION \n\n");
-                Console.WriteLine("Choose the class of the student whose information you want to display\n");
+                for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                Console.Write("______________________");
+                Console.WriteLine("\n");
+                for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                Console.Write("| STUDENT INFORMATION |");
+                Console.WriteLine("");
+                for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                Console.Write("______________________\n\n\n\n");
+
+                Console.WriteLine("\n\nChoose the class of the student whose information you want to display\n");
                 if (NameClass1 != "")
                 {
                     Console.WriteLine("1- " + NameClass1 + "\n");
@@ -559,70 +726,168 @@ namespace Group1_OOP
                 {
                     case "1":
                         Console.Clear();
-                        for (int i = 0; i < 70; i++) { Console.Write(" "); }
-                        Console.Write("STUDENT INFORMATION \n\n");
+                        for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                        Console.Write("______________________");
+                        Console.WriteLine("\n");
+                        for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                        Console.Write("| STUDENT INFORMATION |");
+                        Console.WriteLine("");
+                        for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                        Console.Write("______________________\n\n\n\n");
+
                         int index = 1;
-                        Console.WriteLine("Choose the student whose information you want to display");
+                        Console.WriteLine("\n\nChoose the student whose information you want to display \n");
                         for (int i = 0; i < Class1.Count; i++)
                         {
-                            Console.WriteLine(index + "- " + Class1[i].FirstName + " " + Class1[i].Name);
+                            Console.WriteLine("\n" + index + "- " + Class1[i].FirstName + " " + Class1[i].Name);
                             index++;
                         }
                         int answer = Convert.ToInt32(Console.ReadLine());
 
-                        Console.Clear();
-                        Class1[answer - 1].ShowAndModifyPersonalInformation(2);
+                        bool finish2 = false;
+                        while (finish2 == false)
+                        {
+                            Console.WriteLine("\n\n\nWhat information about this student would you like to consult? \n\n1- Gradebook \n2- Attendance \n3- Nothing");
+                            switch (Console.ReadLine())
+                            {
+                                case "1":
+                                    Class1[answer - 1].ShowGradeBook(1);
+                                    break;
+
+                                case "2":
+                                    Class1[answer - 1].ShowAttendance();
+                                    break;
+
+                                case "3":
+                                    finish2 = true;
+                                    break;
+                            }
+                        }
                         break;
 
                     case "2":
                         Console.Clear();
-                        for (int i = 0; i < 70; i++) { Console.Write(" "); }
-                        Console.Write("STUDENT INFORMATION \n\n");
+                        for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                        Console.Write("______________________");
+                        Console.WriteLine("\n");
+                        for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                        Console.Write("| STUDENT INFORMATION |");
+                        Console.WriteLine("");
+                        for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                        Console.Write("______________________\n\n\n\n");
+
                         index = 1;
-                        Console.WriteLine("Choose the student whose information you want to display");
+                        Console.WriteLine("\n\nChoose the student whose information you want to display\n");
                         for (int i = 0; i < Class2.Count; i++)
                         {
-                            Console.WriteLine(index + "- " + Class2[i].FirstName + " " + Class2[i].Name);
+                            Console.WriteLine("\n" + index + "- " + Class2[i].FirstName + " " + Class2[i].Name);
                             index++;
                         }
                         answer = Convert.ToInt32(Console.ReadLine());
 
-                        Console.Clear();
-                        Class2[answer - 1].ShowAndModifyPersonalInformation(2);
+                        finish2 = false;
+                        while (finish2 == false)
+                        {
+                            Console.WriteLine("\n\n\nWhat information about this student would you like to consult? \n\n1- Gradebook \n2- Attendance \n3- Nothing");
+                            switch (Console.ReadLine())
+                            {
+                                case "1":
+                                    Class1[answer - 1].ShowGradeBook(1);
+                                    break;
+
+                                case "2":
+                                    Class1[answer - 1].ShowAttendance();
+                                    break;
+
+                                case "3":
+                                    finish2 = true;
+                                    break;
+                            }
+                        }
                         break;
+
 
                     case "3":
                         Console.Clear();
-                        for (int i = 0; i < 70; i++) { Console.Write(" "); }
-                        Console.Write("STUDENT INFORMATION \n\n");
+                        for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                        Console.Write("______________________");
+                        Console.WriteLine("\n");
+                        for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                        Console.Write("| STUDENT INFORMATION |");
+                        Console.WriteLine("");
+                        for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                        Console.Write("______________________\n\n\n\n");
+
                         index = 1;
-                        Console.WriteLine("Choose the student whose information you want to display");
+                        Console.WriteLine("\n\nChoose the student whose information you want to display \n");
                         for (int i = 0; i < Class3.Count; i++)
                         {
-                            Console.WriteLine(index + "- " + Class3[i].FirstName + " " + Class3[i].Name);
+                            Console.WriteLine("\n" + index + "- " + Class3[i].FirstName + " " + Class3[i].Name);
                             index++;
                         }
                         answer = Convert.ToInt32(Console.ReadLine());
 
-                        Console.Clear();
-                        Class3[answer - 1].ShowAndModifyPersonalInformation(2);
+                        finish2 = false;
+                        while (finish2 == false)
+                        {
+                            Console.WriteLine("\n\n\nWhat information about this student would you like to consult? \n\n1- Gradebook \n2- Attendance \n3- Nothing");
+                            switch (Console.ReadLine())
+                            {
+                                case "1":
+                                    Class1[answer - 1].ShowGradeBook(1);
+                                    break;
+
+                                case "2":
+                                    Class1[answer - 1].ShowAttendance();
+                                    break;
+
+                                case "3":
+                                    finish2 = true;
+                                    break;
+                            }
+                        }
                         break;
+
 
                     case "4":
                         Console.Clear();
-                        for (int i = 0; i < 70; i++) { Console.Write(" "); }
-                        Console.Write("STUDENT INFORMATION \n\n");
+                        for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                        Console.Write("______________________");
+                        Console.WriteLine("\n");
+                        for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                        Console.Write("| STUDENT INFORMATION |");
+                        Console.WriteLine("");
+                        for (int i = 0; i < 90; i++) { Console.Write(" "); }
+                        Console.Write("______________________\n\n\n\n");
+
                         index = 1;
-                        Console.WriteLine("Choose the student whose information you want to display");
+                        Console.WriteLine("\n\nChoose the student whose information you want to display \n");
                         for (int i = 0; i < Class4.Count; i++)
                         {
-                            Console.WriteLine(index + "- " + Class4[i].FirstName + " " + Class4[i].Name);
+                            Console.WriteLine("\n" + index + "- " + Class4[i].FirstName + " " + Class4[i].Name);
                             index++;
                         }
                         answer = Convert.ToInt32(Console.ReadLine());
 
-                        Console.Clear();
-                        Class4[answer - 1].ShowAndModifyPersonalInformation(2);
+                        finish2 = false;
+                        while (finish2 == false)
+                        {
+                            Console.WriteLine("\n\n\nWhat information about this student would you like to consult? \n \n1- Gradebook \n2- Attendance \n3- Nothing");
+                            switch (Console.ReadLine())
+                            {
+                                case "1":
+                                    Class1[answer - 1].ShowGradeBook(1);
+                                    break;
+
+                                case "2":
+                                    Class1[answer - 1].ShowAttendance();
+                                    break;
+
+                                case "3":
+                                    finish2 = true;
+                                    break;
+                            }
+                        }
                         break;
                 }
 
@@ -632,10 +897,11 @@ namespace Group1_OOP
                 {
                     finish = true;
                 }
-
             }
         }
 
+
+        // 7 - Display information from a student you are tutoring
         public void DisplayInformationTutoringStudent()
         {
             Console.Clear();
@@ -643,31 +909,58 @@ namespace Group1_OOP
             while (finish == false)
             {
                 Console.Clear();
-                for (int i = 0; i < 70; i++) { Console.Write(" "); }
-                Console.Write("STUDENT INFORMATION - TUTORING \n\n");
-                Console.WriteLine("These are the students you are tutoring :\n");
+                for (int i = 0; i < 85; i++) { Console.Write(" "); }
+                Console.Write("_________________________________");
+                Console.WriteLine("\n");
+                for (int i = 0; i < 85; i++) { Console.Write(" "); }
+                Console.Write("| STUDENT INFORMATION - TUTORING |");
+                Console.WriteLine("");
+                for (int i = 0; i < 85; i++) { Console.Write(" "); }
+                Console.Write("_________________________________\n\n\n\n");
+
+                Console.WriteLine("\n\nThese are the students you are tutoring :\n");
 
                 for (int i = 0; i < TutorStudentList.Count; i++)
                 {
                     Console.WriteLine(i + 1 + "- " + TutorStudentList[i].FirstName + " " + TutorStudentList[i].Name + "\n");
                 }
 
-
-                Console.WriteLine("Choose the student whose information you want to display");
+                Console.WriteLine("\n\n\nChoose the student whose information you want to display");
                 int answer = Convert.ToInt32(Console.ReadLine());
 
-                Console.Clear();
-                TutorStudentList[answer - 1].ShowAndModifyPersonalInformation(2);
+                bool finish2 = false;
+                while (finish2 == false)
+                {
+                    Console.WriteLine("\n\n\nWhat information about this student would you like to consult? \n1- Contact and personal details \n2- Gradebook \n3- Attendance \n4- Nothing");
+                    switch (Console.ReadLine())
+                    {
+                        case "1":
+                            TutorStudentList[answer - 1].ShowAndModifyPersonalInformation(2);
+                            break;
 
-                Console.WriteLine("\nDo you want to display another student's information ? \n1- YES \n2- NO");
+                        case "2":
+                            TutorStudentList[answer - 1].ShowGradeBook(1);
+                            break;
+
+                        case "3":
+                            TutorStudentList[answer - 1].ShowAttendance();
+                            break;
+
+                        case "4":
+                            finish2 = true;
+                            break;
+                    }
+                }
+
+                Console.WriteLine("\n\n\nDo you want to display another student's information ? \n1- YES \n2- NO");
                 int decision = Convert.ToInt32(Console.ReadLine());
                 if (decision == 2)
                 {
                     finish = true;
                 }
-
             }
         }
+
 
         public double FindIndexCourse()
         {
@@ -720,362 +1013,6 @@ namespace Group1_OOP
             }
             return index;
         }
-
-
-        public void CoursePlanProfessor()
-        {
-            List<CoursePlan> allCoursePlan = new List<CoursePlan>();
-            List<CoursePlan> profCoursePlan = new List<CoursePlan>();
-
-            int counter = 0;
-            StreamReader fichLect = new StreamReader("CoursePlan.csv");
-            char[] sep = new char[1] { ';' };
-            string line = "";
-            string[] datas = new string[28];
-            while (fichLect.Peek() > 0)
-            {
-                line = fichLect.ReadLine();
-                if (counter == 1)
-                {
-                    datas = line.Split(sep);
-                    string professorID = datas[0];
-                    string _class = datas[1];
-                    string s1week1 = datas[2];
-                    string s1week2 = datas[3];
-                    string s1week3 = datas[4];
-                    string s1week4 = datas[5];
-                    string s1week5 = datas[6];
-                    string s1week6 = datas[7];
-                    string s1week7 = datas[8];
-                    string s1week8 = datas[9];
-                    string s1week9 = datas[10];
-                    string s1week10 = datas[11];
-                    string s1week11 = datas[12];
-                    string s1week12 = datas[13];
-                    string s2week1 = datas[14];
-                    string s2week2 = datas[15];
-                    string s2week3 = datas[16];
-                    string s2week4 = datas[17];
-                    string s2week5 = datas[18];
-                    string s2week6 = datas[19];
-                    string s2week7 = datas[20];
-                    string s2week8 = datas[21];
-                    string s2week9 = datas[22];
-                    string s2week10 = datas[23];
-                    string s2week11 = datas[24];
-                    string s2week12 = datas[25];
-                    string exams = datas[26];
-                    string assignements = datas[27];
-                    CoursePlan coursePlan = new CoursePlan(professorID, _class, s1week1, s1week2, s1week3, s1week4, s1week5, s1week6, s1week7, s1week8, s1week9, s1week10, s1week11, s1week12,
-                                                    s2week1, s2week2, s2week3, s2week4, s2week5, s2week6, s2week7, s2week8, s2week9, s2week10, s2week11,s2week12, exams, assignements);
-                    allCoursePlan.Add(coursePlan);
-                }
-                counter = 1;
-            }
-            fichLect.Close();
-
-            foreach(CoursePlan cp in allCoursePlan)
-            {
-                if(cp.ProfessorID == this.ID)
-                {
-                    profCoursePlan.Add(cp);
-                }
-            }
-
-            if(profCoursePlan.Count == 1)
-            {
-                CoursePlan1 = profCoursePlan[0];
-            }
-            if(profCoursePlan.Count == 2)
-            {
-                CoursePlan1 = profCoursePlan[0];
-                CoursePlan2 = profCoursePlan[1];
-            }
-            if(profCoursePlan.Count == 3)
-            {
-                CoursePlan1 = profCoursePlan[0];
-                CoursePlan2 = profCoursePlan[1];
-                CoursePlan3 = profCoursePlan[2];
-            }
-            if(profCoursePlan.Count == 4)
-            {
-                CoursePlan1 = profCoursePlan[0];
-                CoursePlan2 = profCoursePlan[1];
-                CoursePlan3 = profCoursePlan[2];
-                CoursePlan4 = profCoursePlan[3];
-            }
-        }
-
-        public void ShowAndModifyProfessorCoursePlan()
-        {
-            bool finish = false;
-            int nbClass = 0;
-            if(this.NameClass1 != null)
-            {
-                nbClass++;
-            }
-            if(this.NameClass2 != null)
-            {
-                nbClass++;
-            }
-            if(this.NameClass3 != null)
-            {
-                nbClass++;
-            }
-            if(this.NameClass4 != null)
-            {
-                nbClass++;
-            }
-
-
-            Console.WriteLine("You have " + nbClass + " class");
-            while (finish == false)
-            {
-                if (nbClass == 1)
-                {
-                    Console.WriteLine("Do you want to see or modify this course plan ?\n0 - Exit\n 1 - See the course plan\n2 - Modify the course plan\n3 - Manage the exam/assignment section");
-                    switch (Console.ReadLine())
-                    {
-                        case "0":
-                            finish = true;
-                            break;
-
-                        case "1":
-                            Console.Clear();
-                            CoursePlan1.ToString();
-                            break;
-
-                        case "2":
-                            Console.Clear();
-                            CoursePlan1.ModifyCoursePlan();
-                            break;
-
-                        case "3":
-                            Console.Clear();
-                            CoursePlan1.ModifyExamAndAssignmentSections();
-                            break;
-                    }
-                }
-                else if (nbClass == 2)
-                {
-                    Console.WriteLine($"For which class would you like to see or change the course plan ?\n0 - Exit\n1 - {CoursePlan1.Class}\n2 - {CoursePlan2.Class}");
-                    switch (Console.ReadLine())
-                    {
-                        case "0":
-                            finish = true;
-                            break;
-
-                        case "1":
-                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan\n3 - Manage the exam/assignment section");
-                            switch (Console.ReadLine())
-                            {
-                                case "1":
-                                    Console.Clear();
-                                    CoursePlan1.ToString();
-                                    break;
-
-                                case "2":
-                                    Console.Clear();
-                                    CoursePlan1.ModifyCoursePlan();
-                                    break;
-
-                                case "3":
-                                    Console.Clear();
-                                    CoursePlan1.ModifyExamAndAssignmentSections();
-                                    break;
-                            }
-                            break;
-
-                        case "2":
-                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan\n3 - Manage the exam/assignment section");
-                            switch (Console.ReadLine())
-                            {
-                                case "1":
-                                    Console.Clear();
-                                    CoursePlan2.ToString();
-                                    break;
-
-                                case "2":
-                                    Console.Clear();
-                                    CoursePlan2.ModifyCoursePlan();
-                                    break;
-
-                                case "3":
-                                    Console.Clear();
-                                    CoursePlan2.ModifyExamAndAssignmentSections();
-                                    break;
-                            }
-                            break;
-                    }
-                }
-                else if (nbClass == 3)
-                {
-                    Console.WriteLine($"For which class would you like to see or change the course plan ?\n0 - Exit\n1 - {CoursePlan1.Class}\n2 - {CoursePlan2.Class}\n3 - {CoursePlan3.Class}");
-                    switch (Console.ReadLine())
-                    {
-                        case "0":
-                            finish = true;
-                            break;
-
-                        case "1":
-                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan\n3 - Manage the exam/assignment section");
-                            switch (Console.ReadLine())
-                            {
-                                case "1":
-                                    Console.Clear();
-                                    CoursePlan1.ToString();
-                                    break;
-
-                                case "2":
-                                    Console.Clear();
-                                    CoursePlan1.ModifyCoursePlan();
-                                    break;
-
-                                case "3":
-                                    Console.Clear();
-                                    CoursePlan1.ModifyExamAndAssignmentSections();
-                                    break;
-                            }
-                            break;
-
-                        case "2":
-                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan\n3 - Manage the exam/assignment section");
-                            switch (Console.ReadLine())
-                            {
-                                case "1":
-                                    Console.Clear();
-                                    CoursePlan2.ToString();
-                                    break;
-
-                                case "2":
-                                    Console.Clear();
-                                    CoursePlan2.ModifyCoursePlan();
-                                    break;
-
-                                case "3":
-                                    Console.Clear();
-                                    CoursePlan2.ModifyExamAndAssignmentSections();
-                                    break;
-                            }
-                            break;
-
-                        case "3":
-                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan\n3 - Manage the exam/assignment section");
-                            switch (Console.ReadLine())
-                            {
-                                case "1":
-                                    Console.Clear();
-                                    CoursePlan3.ToString();
-                                    break;
-
-                                case "2":
-                                    Console.Clear();
-                                    CoursePlan3.ModifyCoursePlan();
-                                    break;
-
-                                case "3":
-                                    Console.Clear();
-                                    CoursePlan3.ModifyExamAndAssignmentSections();
-                                    break;
-                            }
-                            break;
-                    }
-                }
-                else if (nbClass == 4)
-                {
-                    Console.WriteLine($"For which class would you like to see or change the course plan ?\n0 - Exit\n1 - {CoursePlan1.Class}\n2 - {CoursePlan2.Class}\n3 - {CoursePlan3.Class}\n4 - {CoursePlan4.Class}");
-                    switch (Console.ReadLine())
-                    {
-                        case "0":
-                            finish = true;
-                            break;
-
-                        case "1":
-                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan\n3 - Manage the exam/assignment section");
-                            switch (Console.ReadLine())
-                            {
-                                case "1":
-                                    Console.Clear();
-                                    CoursePlan1.ToString();
-                                    break;
-
-                                case "2":
-                                    Console.Clear();
-                                    CoursePlan1.ModifyCoursePlan();
-                                    break;
-
-                                case "3":
-                                    Console.Clear();
-                                    CoursePlan1.ModifyExamAndAssignmentSections();
-                                    break;
-                            }
-                            break;
-
-                        case "2":
-                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan\n3 - Manage the exam/assignment section");
-                            switch (Console.ReadLine())
-                            {
-                                case "1":
-                                    Console.Clear();
-                                    CoursePlan2.ToString();
-                                    break;
-
-                                case "2":
-                                    Console.Clear();
-                                    CoursePlan2.ModifyCoursePlan();
-                                    break;
-
-                                case "3":
-                                    Console.Clear();
-                                    CoursePlan2.ModifyExamAndAssignmentSections();
-                                    break;
-                            }
-                            break;
-
-                        case "3":
-                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan\n3 - Manage the exam/assignment section");
-                            switch (Console.ReadLine())
-                            {
-                                case "1":
-                                    Console.Clear();
-                                    CoursePlan3.ToString();
-                                    break;
-
-                                case "2":
-                                    Console.Clear();
-                                    CoursePlan3.ModifyCoursePlan();
-                                    break;
-
-                                case "3":
-                                    Console.Clear();
-                                    CoursePlan3.ModifyExamAndAssignmentSections();
-                                    break;
-                            }
-                            break;
-                        case "4":
-                            Console.WriteLine("Do you want to see or modify this course plan ?\n1 - See the course plan\n2 - Modify the course plan\n3 - Manage the exam/assignment section");
-                            switch (Console.ReadLine())
-                            {
-                                case "1":
-                                    Console.Clear();
-                                    CoursePlan4.ToString();
-                                    break;
-
-                                case "2":
-                                    Console.Clear();
-                                    CoursePlan4.ModifyCoursePlan();
-                                    break;
-
-                                case "3":
-                                    Console.Clear();
-                                    CoursePlan4.ModifyExamAndAssignmentSections();
-                                    break;
-                            }
-                            break;
-                    }
-                }
-            }
-        }
-
     }
+}
 }

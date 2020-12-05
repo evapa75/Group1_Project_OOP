@@ -9,6 +9,15 @@ namespace Group1_OOP
 {
     public class Administrator : Person
     {
+        // GROUP 1
+        // 23173 Marie DONIER
+        // 22843 Célia BARRAS
+        // 22835 Laura TRAN
+        // 23187 Eva PADRINO
+        // 23207 Théo GALLAIS
+        // 23025 Romain LANDRAUD
+
+
         public List<Student> StudentList { get; set; }
         public List<Professor> ProfessorList { get; set; }
         public List<Administrator> AdminList { get; set; }
@@ -33,6 +42,20 @@ namespace Group1_OOP
             return ID + "@admin.faculty-vgc.ie";
         }
 
+        public string FirstPassword()
+        {
+            string password = "";
+            Random random = new Random();
+            for (int i = 0; i < 9; i++)
+            {
+                password += (char)random.Next('a', 'z');
+            }
+            return password;
+        }
+
+
+
+        // 1 - Contact and personal identifying information
         public void ShowAndModifyPersonalInformation()
         {
             bool finish = false;
@@ -83,17 +106,8 @@ namespace Group1_OOP
             }
         }
 
-        public string FirstPassword()
-        {
-            string password = "";
-            Random random = new Random();
-            for (int i = 0; i < 5; i++)
-            {
-                password += (char)random.Next('a', 'z') + (char)random.Next(1, 9);
-            }
-            return password;
-        }
 
+        // 2 - Add a new student
         public void AddStudent()
         {
             bool finish = false;
@@ -129,7 +143,7 @@ namespace Group1_OOP
                 while (complete == false)
                 {
                     Console.Clear();
-                    for (int j = 0; j < 70; j++) { Console.Write(" "); }
+                    for (int j = 0; j < 90; j++) { Console.Write(" "); }
                     Console.WriteLine("ADD A NEW STUDENT \n\n");
 
                     Console.WriteLine("Let's complete the registration of a new student. \n\nPlease complete the following information :");
@@ -148,7 +162,7 @@ namespace Group1_OOP
 
                     Console.WriteLine("\nIn which year do you want to register this student ? (1, 2, 3, 4 or 5 ?)");
                     int year = Convert.ToInt32(Console.ReadLine());
-                    _class = ChooseClass(year);
+                    _class = ChooseClass(year, "s");
                     CompleteTimetableNewStudent(id, _class);
                     CompleteGradebookNewStudent(id, _class);
 
@@ -193,7 +207,7 @@ namespace Group1_OOP
                 Console.WriteLine("The form is complete.");
 
                 Student student = new Student(id, firstName, name, gender, birthdate, _class, personalEmailAdress, phoneNumber, adress, password, tutorID, fees, StudentList);
-                Console.WriteLine(student.ID, student.FirstName, student.Name, student.Gender, student.Birthdate, student.Class, student.PersoEmail, student.PhoneNumber, student.Adress, student.Password, student.TutorID, student.Fees);
+                //Console.WriteLine(student.ID, student.FirstName, student.Name, student.Gender, student.Birthdate, student.Class, student.PersoEmail, student.PhoneNumber, student.Adress, student.Password, student.TutorID, student.Fees);
                 StudentList.Add(student);
 
                 ProfessorList.Find(x => x.ID.Contains(tutorID)).TutorStudentList.Add(student);
@@ -206,7 +220,7 @@ namespace Group1_OOP
                 }
             }
         }
-        public string ChooseClass(int year)
+        public string ChooseClass(int year, string mode)
         {
             string _class = "";
             List<string> classesYear1 = new List<string>();
@@ -248,19 +262,51 @@ namespace Group1_OOP
                 bool exist = false;
                 while (exist == false)
                 {
-                    Console.WriteLine("\nIn which class do you want to register this student ? ");
-                    for (int i = 0; i < classesYear1.Count; i++)
+                    if (mode == "s")
                     {
-                        Console.WriteLine(classesYear1[i]);
-                    }
-                    answer = Console.ReadLine();
-
-                    for (int i = 0; i < classesYear1.Count; i++)
-                    {
-                        if (classesYear1[i] == answer)
+                        Console.WriteLine("\nIn which class do you want to register this student ? ");
+                        for (int i = 0; i < classesYear1.Count; i++)
                         {
+                            Console.WriteLine(classesYear1[i]);
+                        }
+                        answer = Console.ReadLine();
+
+                        for (int i = 0; i < classesYear1.Count; i++)
+                        {
+                            if (classesYear1[i] == answer)
+                            {
+                                exist = true;
+                                _class = answer;
+                            }
+                        }
+                    }
+
+                    if (mode == "p")
+                    {
+                        Console.WriteLine("\nChoose a class : ");
+                        for (int i = 0; i < classesYear1.Count; i++)
+                        {
+                            Console.WriteLine(classesYear1[i]);
+                        }
+                        answer = Console.ReadLine();
+
+                        if (StudentList.Find(x => x.Class.Contains(answer)).NumberOfCourses == 10)
+                        {
+                            Console.WriteLine("This class has reached its maximum possible number of courses (10)");
+                            System.Threading.Thread.Sleep(4000);
+                            _class = "";
                             exist = true;
-                            _class = answer;
+                        }
+                        else
+                        {
+                            for (int i = 0; i < classesYear1.Count; i++)
+                            {
+                                if (classesYear1[i] == answer)
+                                {
+                                    exist = true;
+                                    _class = answer;
+                                }
+                            }
                         }
                     }
                 }
@@ -271,19 +317,52 @@ namespace Group1_OOP
                 bool exist = false;
                 while (exist == false)
                 {
-                    Console.WriteLine("\nIn which class do you want to register this student ? ");
-                    for (int i = 0; i < classesYear2.Count; i++)
+                    if (mode == "s")
                     {
-                        Console.WriteLine(classesYear2[i]);
-                    }
-                    answer = Console.ReadLine();
-
-                    for (int i = 0; i < classesYear2.Count; i++)
-                    {
-                        if (classesYear2[i] == answer)
+                        Console.WriteLine("\nIn which class do you want to register this student ? ");
+                        for (int i = 0; i < classesYear2.Count; i++)
                         {
+                            Console.WriteLine(classesYear2[i]);
+                        }
+                        answer = Console.ReadLine();
+
+                        for (int i = 0; i < classesYear2.Count; i++)
+                        {
+                            if (classesYear2[i] == answer)
+                            {
+                                exist = true;
+                                _class = answer;
+                            }
+                        }
+                    }
+
+                    if (mode == "p")
+                    {
+                        Console.WriteLine("\nChoose a class : ");
+                        for (int i = 0; i < classesYear2.Count; i++)
+                        {
+                            Console.WriteLine(classesYear2[i]);
+                        }
+                        answer = Console.ReadLine();
+
+                        if (StudentList.Find(x => x.Class.Contains(answer)).NumberOfCourses == 10)
+                        {
+                            Console.WriteLine("This class has reached its maximum possible number of courses (10)");
+                            System.Threading.Thread.Sleep(4000);
+                            _class = "";
                             exist = true;
-                            _class = answer;
+                        }
+
+                        else
+                        {
+                            for (int i = 0; i < classesYear2.Count; i++)
+                            {
+                                if (classesYear2[i] == answer)
+                                {
+                                    exist = true;
+                                    _class = answer;
+                                }
+                            }
                         }
                     }
                 }
@@ -294,19 +373,52 @@ namespace Group1_OOP
                 bool exist = false;
                 while (exist == false)
                 {
-                    Console.WriteLine("\nIn which class do you want to register this student ? ");
-                    for (int i = 0; i < classesYear3.Count; i++)
+                    if (mode == "s")
                     {
-                        Console.WriteLine(classesYear3[i]);
-                    }
-                    answer = Console.ReadLine();
-
-                    for (int i = 0; i < classesYear3.Count; i++)
-                    {
-                        if (classesYear3[i] == answer)
+                        Console.WriteLine("\nIn which class do you want to register this student ? ");
+                        for (int i = 0; i < classesYear3.Count; i++)
                         {
+                            Console.WriteLine(classesYear3[i]);
+                        }
+                        answer = Console.ReadLine();
+
+                        for (int i = 0; i < classesYear3.Count; i++)
+                        {
+                            if (classesYear3[i] == answer)
+                            {
+                                exist = true;
+                                _class = answer;
+                            }
+                        }
+                    }
+
+                    if (mode == "p")
+                    {
+                        Console.WriteLine("\nChoose a class : ");
+                        for (int i = 0; i < classesYear3.Count; i++)
+                        {
+                            Console.WriteLine(classesYear3[i]);
+                        }
+                        answer = Console.ReadLine();
+
+                        if (StudentList.Find(x => x.Class.Contains(answer)).NumberOfCourses == 10)
+                        {
+                            Console.WriteLine("This class has reached its maximum possible number of courses (10)");
+                            System.Threading.Thread.Sleep(4000);
+                            _class = "";
                             exist = true;
-                            _class = answer;
+                        }
+
+                        else
+                        {
+                            for (int i = 0; i < classesYear3.Count; i++)
+                            {
+                                if (classesYear3[i] == answer)
+                                {
+                                    exist = true;
+                                    _class = answer;
+                                }
+                            }
                         }
                     }
                 }
@@ -317,19 +429,52 @@ namespace Group1_OOP
                 bool exist = false;
                 while (exist == false)
                 {
-                    Console.WriteLine("\nIn which class do you want to register this student ? ");
-                    for (int i = 0; i < classesYear4.Count; i++)
+                    if (mode == "s")
                     {
-                        Console.WriteLine(classesYear4[i]);
-                    }
-                    answer = Console.ReadLine();
-
-                    for (int i = 0; i < classesYear4.Count; i++)
-                    {
-                        if (classesYear4[i] == answer)
+                        Console.WriteLine("\nIn which class do you want to register this student ? ");
+                        for (int i = 0; i < classesYear4.Count; i++)
                         {
+                            Console.WriteLine(classesYear4[i]);
+                        }
+                        answer = Console.ReadLine();
+
+                        for (int i = 0; i < classesYear4.Count; i++)
+                        {
+                            if (classesYear4[i] == answer)
+                            {
+                                exist = true;
+                                _class = answer;
+                            }
+                        }
+                    }
+
+                    if (mode == "p")
+                    {
+                        Console.WriteLine("\nChoose a class : ");
+                        for (int i = 0; i < classesYear4.Count; i++)
+                        {
+                            Console.WriteLine(classesYear4[i]);
+                        }
+                        answer = Console.ReadLine();
+
+                        if (StudentList.Find(x => x.Class.Contains(answer)).NumberOfCourses == 10)
+                        {
+                            Console.WriteLine("This class has reached its maximum possible number of courses (10)");
+                            System.Threading.Thread.Sleep(4000);
+                            _class = "";
                             exist = true;
-                            _class = answer;
+                        }
+
+                        else
+                        {
+                            for (int i = 0; i < classesYear4.Count; i++)
+                            {
+                                if (classesYear4[i] == answer)
+                                {
+                                    exist = true;
+                                    _class = answer;
+                                }
+                            }
                         }
                     }
                 }
@@ -340,19 +485,52 @@ namespace Group1_OOP
                 bool exist = false;
                 while (exist == false)
                 {
-                    Console.WriteLine("\nIn which class do you want to register this student ? ");
-                    for (int i = 0; i < classesYear5.Count; i++)
+                    if (mode == "s")
                     {
-                        Console.WriteLine(classesYear5[i]);
-                    }
-                    answer = Console.ReadLine();
-
-                    for (int i = 0; i < classesYear5.Count; i++)
-                    {
-                        if (classesYear5[i] == answer)
+                        Console.WriteLine("\nIn which class do you want to register this student ? ");
+                        for (int i = 0; i < classesYear5.Count; i++)
                         {
+                            Console.WriteLine(classesYear5[i]);
+                        }
+                        answer = Console.ReadLine();
+
+                        for (int i = 0; i < classesYear5.Count; i++)
+                        {
+                            if (classesYear5[i] == answer)
+                            {
+                                exist = true;
+                                _class = answer;
+                            }
+                        }
+                    }
+
+                    if (mode == "p")
+                    {
+                        Console.WriteLine("\nChoose a class : ");
+                        for (int i = 0; i < classesYear5.Count; i++)
+                        {
+                            Console.WriteLine(classesYear5[i]);
+                        }
+                        answer = Console.ReadLine();
+
+                        if (StudentList.Find(x => x.Class.Contains(answer)).NumberOfCourses == 10)
+                        {
+                            Console.WriteLine("This class has reached its maximum possible number of courses (10)");
+                            System.Threading.Thread.Sleep(4000);
+                            _class = "";
                             exist = true;
-                            _class = answer;
+                        }
+
+                        else
+                        {
+                            for (int i = 0; i < classesYear5.Count; i++)
+                            {
+                                if (classesYear5[i] == answer)
+                                {
+                                    exist = true;
+                                    _class = answer;
+                                }
+                            }
                         }
                     }
                 }
@@ -371,7 +549,7 @@ namespace Group1_OOP
             string[] datas = new string[127];
             while (fichLect.Peek() > 0)
             {
-                line = fichLect.ReadLine(); //Lecture d'une ligne
+                line = fichLect.ReadLine();
                 if (counter == 1)
                 {
                     datas = line.Split(sep);
@@ -463,10 +641,10 @@ namespace Group1_OOP
             }
             fichEcr.WriteLine(lastLine);
             fichEcr.Close();
-
         }
 
 
+        // 3 - Add a new professor
         public void AddProfessor()
         {
             bool finish = false;
@@ -496,7 +674,7 @@ namespace Group1_OOP
                 while (complete == false)
                 {
                     Console.Clear();
-                    for (int j = 0; j < 70; j++) { Console.Write(" "); }
+                    for (int j = 0; j < 90; j++) { Console.Write(" "); }
                     Console.WriteLine("ADD A NEW PROFESSOR \n\n");
                     Console.WriteLine("Let's complete the registration of a new professor. \n\nPlease complete the following information about this professor:");
 
@@ -542,89 +720,257 @@ namespace Group1_OOP
                         {
                             Console.WriteLine("\nWhat’s the year of first class? (1, 2, 3, 4 or 5 ?)");
                             int year = Convert.ToInt32(Console.ReadLine());
-                            name_class1 = ChooseClass(year);
+                            name_class1 = ChooseClass(year, "p");
 
-                            index1 = FindIndexCourse(name_class1);
-                            indexfile1 = FindIndexFile(index1);
-                            CompleteTimetableProfessor(id, subject, nb, name_class1, name_class2, name_class3, name_class4, indexfile1, indexfile2, indexfile3, indexfile4);
+                            if (name_class1 != "")
+                            {
+                                index1 = FindIndexCourse(name_class1);
+
+                                indexfile1 = FindIndexFile(index1);
+                            }
                         }
                         if (nb == 2)
                         {
                             Console.WriteLine("\nWhat’s the year of first class? (1, 2, 3, 4 or 5 ?)");
                             int year = Convert.ToInt32(Console.ReadLine());
-                            name_class1 = ChooseClass(year);
+                            name_class1 = ChooseClass(year, "p");
                             Console.WriteLine("\n\nWhat’s the year of second class? (1, 2, 3, 4 or 5 ?)");
                             year = Convert.ToInt32(Console.ReadLine());
-                            name_class2 = ChooseClass(year);
+                            name_class2 = ChooseClass(year, "p");
 
-                            index1 = FindIndexCourse(name_class1);
-                            index2 = FindIndexCourse(name_class2);
-                            indexfile1 = FindIndexFile(index1);
-                            indexfile2 = FindIndexFile(index2);
-                            CompleteTimetableProfessor(id, subject, nb, name_class1, name_class2, name_class3, name_class4, indexfile1, indexfile2, indexfile3, indexfile4);
+                            if (name_class1 != "" && name_class2 != "")
+                            {
+                                index1 = FindIndexCourse(name_class1);
+                                index2 = FindIndexCourse(name_class2);
+
+                                indexfile1 = FindIndexFile(index1);
+                                indexfile2 = FindIndexFile(index2);
+                            }
                         }
                         if (nb == 3)
                         {
                             Console.WriteLine("\nWhat’s the year of first class? (1, 2, 3, 4 or 5 ?)");
                             int year = Convert.ToInt32(Console.ReadLine());
-                            name_class1 = ChooseClass(year);
+                            name_class1 = ChooseClass(year, "p");
                             Console.WriteLine("\n\nWhat’s the year of second class? (1, 2, 3, 4 or 5 ?)");
                             year = Convert.ToInt32(Console.ReadLine());
-                            name_class2 = ChooseClass(year);
+                            name_class2 = ChooseClass(year, "p");
                             Console.WriteLine("\n\nWhat’s the year of third class? (1, 2, 3, 4 or 5 ?)");
                             year = Convert.ToInt32(Console.ReadLine());
-                            name_class3 = ChooseClass(year);
+                            name_class3 = ChooseClass(year, "p");
 
-                            index1 = FindIndexCourse(name_class1);
-                            index2 = FindIndexCourse(name_class2);
-                            index3 = FindIndexCourse(name_class3);
-                            indexfile1 = FindIndexFile(index1);
-                            indexfile2 = FindIndexFile(index2);
-                            indexfile3 = FindIndexFile(index3);
-                            CompleteTimetableProfessor(id, subject, nb, name_class1, name_class2, name_class3, name_class4, indexfile1, indexfile2, indexfile3, indexfile4);
+                            if (name_class1 != "" && name_class2 != "" && name_class3 != "")
+                            {
+                                index1 = FindIndexCourse(name_class1);
+                                index2 = FindIndexCourse(name_class2);
+                                index3 = FindIndexCourse(name_class3);
+
+                                indexfile1 = FindIndexFile(index1);
+                                indexfile2 = FindIndexFile(index2);
+                                indexfile3 = FindIndexFile(index3);
+                            }
                         }
                         if (nb == 4)
                         {
                             Console.WriteLine("\nWhat’s the year of first class? (1, 2, 3, 4 or 5 ?)");
                             int year = Convert.ToInt32(Console.ReadLine());
-                            name_class1 = ChooseClass(year);
+                            name_class1 = ChooseClass(year, "p");
                             Console.WriteLine("\n\nWhat’s the year of second class? (1, 2, 3, 4 or 5 ?)");
                             year = Convert.ToInt32(Console.ReadLine());
-                            name_class2 = ChooseClass(year);
+                            name_class2 = ChooseClass(year, "p");
                             Console.WriteLine("\nWhat’s the year of third class? (1, 2, 3, 4 or 5 ?)");
                             year = Convert.ToInt32(Console.ReadLine());
-                            name_class3 = ChooseClass(year);
+                            name_class3 = ChooseClass(year, "p");
                             Console.WriteLine("\n\nWhat’s the year of fourth class? (1, 2, 3, 4 or 5 ?)");
                             year = Convert.ToInt32(Console.ReadLine());
-                            name_class4 = ChooseClass(year);
+                            name_class4 = ChooseClass(year, "p");
 
-                            index1 = FindIndexCourse(name_class1);
-                            index2 = FindIndexCourse(name_class2);
-                            index3 = FindIndexCourse(name_class3);
-                            index4 = FindIndexCourse(name_class4);
+                            if (name_class1 != "" && name_class2 != "" && name_class3 != "" && name_class4 != "")
+                            {
+                                index1 = FindIndexCourse(name_class1);
+                                index2 = FindIndexCourse(name_class2);
+                                index3 = FindIndexCourse(name_class3);
+                                index4 = FindIndexCourse(name_class4);
 
-                            indexfile1 = FindIndexFile(index1);
-                            indexfile2 = FindIndexFile(index2);
-                            indexfile3 = FindIndexFile(index3);
-                            indexfile4 = FindIndexFile(index4);
-                            CompleteTimetableProfessor(id, subject, nb, name_class1, name_class2, name_class3, name_class4, indexfile1, indexfile2, indexfile3, indexfile4);
+                                indexfile1 = FindIndexFile(index1);
+                                indexfile2 = FindIndexFile(index2);
+                                indexfile3 = FindIndexFile(index3);
+                                indexfile4 = FindIndexFile(index4);
+                            }
                         }
 
                     }
-
                     if (subject != null && tutor != null && firstName != null && name != null && gender != null && birthdate != null && personalEmailAdress != null && phoneNumber != null && adress != null)
                     {
                         if (tutor == "yes" || tutor == "no")
                         {
                             if (name_class1 != null && name_class2 != null && name_class3 != null && name_class4 != null)
                             {
-                                complete = true;
+                                if (name_class1 != "")
+                                {
+                                    complete = true;
+                                    CompleteTimetableProfessor(id, subject, nb, name_class1, name_class2, name_class3, name_class4, indexfile1, indexfile2, indexfile3, indexfile4);
+                                    foreach (Student s in StudentList)
+                                    {
+                                        if (s.Class == name_class1)
+                                        {
+                                            s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index1))).Subject = subject;
+                                            s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index1))).ProfessorID_or_NameOfClass = id;
+                                            s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index1))).Number_of_times = 0;
+                                            s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index1))).Attendance = 0;
+
+                                            //Mettre à jour le gradebook de la classe concernée
+                                            int counter = 0;
+                                            for (int j = 0; j < s.Gradebook.Subjects.Count; j++)
+                                            {
+                                                if (s.Gradebook.Subjects[j] == "" && counter <= 0)
+                                                {
+                                                    s.Gradebook.Subjects[j] = subject;
+                                                    counter++;
+                                                }
+                                            }
+
+                                            counter = 0;
+                                            for (int j = 0; j < s.Gradebook.GradesAssignements.Count; j++)
+                                            {
+                                                if (s.Gradebook.GradesAssignements[j] == "" && counter <= 0)
+                                                {
+                                                    s.Gradebook.GradesAssignements[j] = "";
+                                                    counter++;
+                                                }
+                                            }
+
+                                            counter = 0;
+                                            for (int j = 0; j < s.Gradebook.GradesExams.Count; j++)
+                                            {
+                                                if (s.Gradebook.GradesExams[j] == "" && counter <= 0)
+                                                {
+                                                    s.Gradebook.GradesExams[j] = "";
+                                                    counter++;
+                                                }
+                                            }
+                                        }
+
+                                        if (s.Class == name_class2)
+                                        {
+                                            s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index2))).Subject = subject;
+                                            s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index2))).ProfessorID_or_NameOfClass = id;
+                                            s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index2))).Number_of_times = 0;
+                                            s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index2))).Attendance = 0;
+
+                                            int counter = 0;
+                                            for (int j = 0; j < s.Gradebook.Subjects.Count; j++)
+                                            {
+                                                if (s.Gradebook.Subjects[j] == "" && counter <= 0)
+                                                {
+                                                    s.Gradebook.Subjects[j] = subject;
+                                                    counter++;
+                                                }
+                                            }
+
+                                            counter = 0;
+                                            for (int j = 0; j < s.Gradebook.GradesAssignements.Count; j++)
+                                            {
+                                                if (s.Gradebook.GradesAssignements[j] == "" && counter <= 0)
+                                                {
+                                                    s.Gradebook.GradesAssignements[j] = "";
+                                                    counter++;
+                                                }
+                                            }
+
+                                            counter = 0;
+                                            for (int j = 0; j < s.Gradebook.GradesExams.Count; j++)
+                                            {
+                                                if (s.Gradebook.GradesExams[j] == "" && counter <= 0)
+                                                {
+                                                    s.Gradebook.GradesExams[j] = "";
+                                                    counter++;
+                                                }
+                                            }
+                                        }
+
+                                        if (s.Class == name_class3)
+                                        {
+                                            s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index3))).Subject = subject;
+                                            s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index3))).ProfessorID_or_NameOfClass = id;
+                                            s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index3))).Number_of_times = 0;
+                                            s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index3))).Attendance = 0;
+
+                                            int counter = 0;
+                                            for (int j = 0; j < s.Gradebook.Subjects.Count; j++)
+                                            {
+                                                if (s.Gradebook.Subjects[j] == "" && counter <= 0)
+                                                {
+                                                    s.Gradebook.Subjects[j] = subject;
+                                                    counter++;
+                                                }
+                                            }
+
+                                            counter = 0;
+                                            for (int j = 0; j < s.Gradebook.GradesAssignements.Count; j++)
+                                            {
+                                                if (s.Gradebook.GradesAssignements[j] == "" && counter <= 0)
+                                                {
+                                                    s.Gradebook.GradesAssignements[j] = "";
+                                                    counter++;
+                                                }
+                                            }
+
+                                            counter = 0;
+                                            for (int j = 0; j < s.Gradebook.GradesExams.Count; j++)
+                                            {
+                                                if (s.Gradebook.GradesExams[j] == "" && counter <= 0)
+                                                {
+                                                    s.Gradebook.GradesExams[j] = "";
+                                                    counter++;
+                                                }
+                                            }
+                                        }
+
+                                        if (s.Class == name_class4)
+                                        {
+                                            s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index4))).Subject = subject;
+                                            s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index4))).ProfessorID_or_NameOfClass = id;
+                                            s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index4))).Number_of_times = 0;
+                                            s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index4))).Attendance = 0;
+
+                                            int counter = 0;
+                                            for (int j = 0; j < s.Gradebook.Subjects.Count; j++)
+                                            {
+                                                if (s.Gradebook.Subjects[j] == "" && counter <= 0)
+                                                {
+                                                    s.Gradebook.Subjects[j] = subject;
+                                                    counter++;
+                                                }
+                                            }
+
+                                            counter = 0;
+                                            for (int j = 0; j < s.Gradebook.GradesAssignements.Count; j++)
+                                            {
+                                                if (s.Gradebook.GradesAssignements[j] == "" && counter <= 0)
+                                                {
+                                                    s.Gradebook.GradesAssignements[j] = "";
+                                                    counter++;
+                                                }
+                                            }
+
+                                            counter = 0;
+                                            for (int j = 0; j < s.Gradebook.GradesExams.Count; j++)
+                                            {
+                                                if (s.Gradebook.GradesExams[j] == "" && counter <= 0)
+                                                {
+                                                    s.Gradebook.GradesExams[j] = "";
+                                                    counter++;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
                     else
                     {
-                        Console.Clear();
                         Console.WriteLine("Your form is incomplete or incorrectly completed. Please, complete it again");
                         System.Threading.Thread.Sleep(3000);
                     }
@@ -634,6 +980,27 @@ namespace Group1_OOP
 
                 Professor professor = new Professor(id, firstName, name, gender, birthdate, personalEmailAdress, phoneNumber, adress, password, subject, tutor, name_class1, name_class2, name_class3, name_class4, StudentList);
                 ProfessorList.Add(professor);
+                //AddCoursePlan(professor);
+                if (name_class1 != "")
+                {
+                    CoursePlan coursePlan = new CoursePlan(id, name_class1, StudentList, ProfessorList, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+                    professor.CoursePlan.Add(coursePlan);
+                }
+                if (name_class2 != "")
+                {
+                    CoursePlan coursePlan = new CoursePlan(id, name_class2, StudentList, ProfessorList, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+                    professor.CoursePlan.Add(coursePlan);
+                }
+                if (name_class3 != "")
+                {
+                    CoursePlan coursePlan = new CoursePlan(id, name_class3, StudentList, ProfessorList, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+                    professor.CoursePlan.Add(coursePlan);
+                }
+                if (name_class4 != "")
+                {
+                    CoursePlan coursePlan = new CoursePlan(id, name_class4, StudentList, ProfessorList, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+                    professor.CoursePlan.Add(coursePlan);
+                }
 
                 Console.WriteLine("\n\n\nReturn to the dashboard ? \n1- YES \n2- NO");
                 int decision = Convert.ToInt32(Console.ReadLine());
@@ -732,6 +1099,31 @@ namespace Group1_OOP
 
             return indexfile;
         }
+        //public void AddCoursePlan(Professor professor)
+        //{
+        //    foreach(string c in professor.NameClasses)
+        //    {
+        //        if (c != "")
+        //        {
+        //            StreamWriter fichEcr = new StreamWriter("CoursePlan" + c + ".csv", true);
+        //            string line1 = "";
+        //            string line2 = "Professor ID" + ";" + "Semester1 Week1" + ";" + "S1W2" + ";" + "S1W3" + ";" + "S1W4" + ";" + "S1W5" + ";" + "S1W6" + ";" + "S1W7" + ";" + "S1W8" + ";" + "S1W9" + ";" + "S1W10" + ";" + "S1W11" + ";" + "S1W12" + ";" + "Semester2 Week1" + ";" + "S2W2" + ";" + "S2W3" + ";" + "S2W4" + ";" + "S2W5" + ";" + "S2W6" + ";" + "S2W7" + ";" + "S2W8" + ";" + "S2W9" + ";" + "S2W10" + ";" + "S2W11" + ";" + "S2W12";
+        //            string line3 = professor.ID + ";";
+        //            string line4 = "Exams" + ";";
+        //            string line5 = "";
+        //            string line6 = "Assignements" + ";";
+        //            string line7 = "";
+        //            fichEcr.WriteLine(line1);
+        //            fichEcr.WriteLine(line2);
+        //            fichEcr.WriteLine(line3);
+        //            fichEcr.WriteLine(line4);
+        //            fichEcr.WriteLine(line5);
+        //            fichEcr.WriteLine(line6);
+        //            fichEcr.WriteLine(line7);
+        //            fichEcr.Close();
+        //        }
+        //    }
+        //}
         public void CompleteTimetableProfessor(string id, string subject, int nb, string name_class1, string name_class2, string name_class3, string name_class4, int indexfile1, int indexfile2, int indexfile3, int indexfile4)
         {
             List<List<string>> list = new List<List<string>>();
@@ -811,6 +1203,7 @@ namespace Group1_OOP
         }
 
 
+        // 4 - Add a new administrator
         public void AddAministrator()
         {
             bool finish = false;
@@ -884,6 +1277,8 @@ namespace Group1_OOP
             }
         }
 
+
+        // 5 - Create a course
         public void CreateACourse()
         {
             bool finish = false;
@@ -964,6 +1359,8 @@ namespace Group1_OOP
             }
         }
 
+
+        // 6 - Manage applications for courses
         public void ManageApplicationsForCourses()
         {
             bool finish = false;
@@ -1013,7 +1410,8 @@ namespace Group1_OOP
 
                         CompleteTimetable(listApplications[index - 1].StudentID, choiceClass, listApplications[index - 1].ProfID);
                         StudentList.Find(x => x.ID.Contains(listApplications[index - 1].StudentID)).Gradebook.Subjects.Add(listApplications[index - 1].CourseName);
-                        StudentList.Find(x => x.ID.Contains(listApplications[index - 1].StudentID)).Gradebook.Grades.Add(" ");
+                        StudentList.Find(x => x.ID.Contains(listApplications[index - 1].StudentID)).Gradebook.GradesAssignements.Add(" ");
+                        StudentList.Find(x => x.ID.Contains(listApplications[index - 1].StudentID)).Gradebook.GradesExams.Add(" ");
                         StudentList.Find(x => x.ID.Contains(listApplications[index - 1].StudentID)).ShowGradeBook(2);
                         Console.Clear();
                         Console.WriteLine("Request accepted");
@@ -1071,7 +1469,6 @@ namespace Group1_OOP
             fichLect.Close();
             return listApplications;
         }
-
         public void CompleteTimetable(string studentID, string nameClass, string profID)
         {
             List<List<string>> list = new List<List<string>>();
@@ -1150,6 +1547,341 @@ namespace Group1_OOP
         }
 
 
+        // 7 - Manage Timetables
+        public void ManageTimetables()
+        {
+            bool finish = false;
+
+            while (finish == false)
+            {
+                Console.Clear();
+                string _class = "";
+                for (int i = 0; i < 80; i++) { Console.Write(" "); }
+                Console.Write("MANAGE TIMETABLES \n\n");
+                Console.WriteLine("Do you want to modify the timetable of a professor or of a class of students ? :\n1- Professor  \n2- Class of students");
+                switch (Console.ReadLine())
+                {
+                    case "1":
+                        Professor professor = ChooseProfessor();
+                        professor.Timetable.ShowTimetableProfessor();
+                        Console.WriteLine("Here is the timetable of " + professor.FirstName + " " + professor.Name + " :");
+
+                        bool classCorrect = false;
+                        while (classCorrect == false)
+                        {
+                            Console.WriteLine("\nFor which class do you want to change the course slot ?");
+                            Console.WriteLine(professor.NameClass1);
+                            if (professor.NameClass2 != "")
+                            {
+                                Console.WriteLine(professor.NameClass2);
+                            }
+                            if (professor.NameClass3 != "")
+                            {
+                                Console.WriteLine(professor.NameClass3);
+                            }
+                            if (professor.NameClass2 != "")
+                            {
+                                Console.WriteLine(professor.NameClass4);
+                            }
+                            _class = Console.ReadLine();
+
+                            if (professor.NameClasses.Contains(_class))
+                            {
+                                classCorrect = true;
+                            }
+                            else
+                            {
+                                Console.WriteLine("You didn't enter the class name correctly.");
+                            }
+                        }
+
+                        Course c = professor.Courses.Find(x => x.ProfessorID_or_NameOfClass.Contains(_class));
+                        double oldIndexCourse = Convert.ToDouble(c.CourseIndex);
+                        int oldIndexFile = FindIndexFile(oldIndexCourse);
+                        Console.WriteLine("old index course = " + oldIndexCourse + "\nold index file = " + oldIndexFile);
+
+                        StudentList.Find(x => x.Class.Contains(_class)).Timetable.ShowTimetableStudent();
+                        Console.WriteLine("Here is the timetable of class " + _class);
+
+                        //Choice of a timeslot
+                        double newIndexCourse = ChooseIndexCourse();
+                        int newIndexFile = FindIndexFile(newIndexCourse);
+
+                        if (professor.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(newIndexCourse))).ProfessorID_or_NameOfClass == "" && StudentList.Find(x => x.Class.Contains(_class)).Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(newIndexCourse))).Subject == "Free")
+                        {
+                            ModifyTimetableStudents(professor, _class, c, oldIndexFile, newIndexFile);
+                            foreach (Student s in StudentList)
+                            {
+                                if (s.Class.Contains(_class))
+                                {
+                                    s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(oldIndexCourse))).ModifyCourseIndex(newIndexCourse);
+                                }
+                            }
+
+                            ModifyTimetableProfessor(professor, _class, c, oldIndexFile, newIndexFile);
+                            professor.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(oldIndexCourse))).ModifyCourseIndex(newIndexCourse);
+
+                            //Console.Clear();
+                            //professor.Timetable.ShowTimetableProfessor();
+                            //Console.WriteLine("Here is the new timetable of " + professor.FirstName + " " + professor.Name + " :");
+
+                            //StudentList.Find(x => x.Class.Contains(_class)).Timetable.ShowTimetableStudent();
+                            //Console.WriteLine("Here is the new timetable of class " + _class);
+
+                            Console.WriteLine("Timetables updated");
+                        }
+
+                        else
+                        {
+                            Console.WriteLine("This timeslot is not available.");
+                        }
+                        break;
+
+
+
+                    case "2":
+                        Console.WriteLine("What's the year of this class ? (1, 2, 3, 4 or 5)");
+                        int year = Convert.ToInt32(Console.ReadLine());
+                        _class = ChooseClass(year, "p");
+
+                        StudentList.Find(x => x.Class.Contains(_class)).Timetable.ShowTimetableStudent();
+                        Console.WriteLine("Here is the timetable of class " + _class);
+
+                        bool nameCorrect = false;
+                        string courseName = "";
+                        while (nameCorrect == false)
+                        {
+                            Console.WriteLine("\nFor which course do you want to change the timeslot ?");
+                            courseName = Console.ReadLine();
+                            if (StudentList.Find(x => x.Class.Contains(_class)).CoursesName.Contains(courseName))
+                            {
+                                nameCorrect = true;
+                            }
+                            else
+                            {
+                                Console.WriteLine("You didn't enter the course name correctly.");
+                            }
+                        }
+
+                        Course c2 = StudentList.Find(x => x.Class.Contains(_class)).Courses.Find(x => x.Subject.Contains(courseName));
+                        double oldIndexCourse2 = Convert.ToDouble(c2.CourseIndex);
+                        int oldIndexFile2 = FindIndexFile(oldIndexCourse2);
+
+                        ProfessorList.Find(x => x.Subject.Contains(c2.Subject)).Timetable.ShowTimetableProfessor();
+                        Console.WriteLine("Here is the timetable of the professor for this course");
+
+                        //Choice of a timeslot
+                        double newIndexCourse2 = ChooseIndexCourse();
+                        int newIndexFile2 = FindIndexFile(newIndexCourse2);
+
+                        if (StudentList.Find(x => x.Class.Contains(_class)).Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(newIndexCourse2))).Subject == "Free" && ProfessorList.Find(x => x.Subject.Contains(c2.Subject)).Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(newIndexCourse2))).ProfessorID_or_NameOfClass == "")
+                        {
+                            ModifyTimetableStudents(ProfessorList.Find(x => x.Subject.Contains(c2.Subject)), _class, c2, oldIndexFile2, newIndexFile2);
+                            foreach (Student s in StudentList)
+                            {
+                                if (s.Class.Contains(_class))
+                                {
+                                    s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(oldIndexCourse2))).CourseIndex = Convert.ToString(newIndexCourse2);
+                                }
+                            }
+
+                            ModifyTimetableProfessor(ProfessorList.Find(x => x.Subject.Contains(c2.Subject)), _class, c2, oldIndexFile2, newIndexFile2);
+                            ProfessorList.Find(x => x.Subject.Contains(c2.Subject)).Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(oldIndexCourse2))).CourseIndex = Convert.ToString(newIndexCourse2);
+
+                            //Console.Clear();
+                            //StudentList.Find(x => x.Class.Contains(_class)).Timetable.ShowTimetableStudent();
+                            //Console.WriteLine("Here is the new timetable of class " + _class);
+
+                            //ProfessorList.Find(x => x.Subject.Contains(c2.Subject)).Timetable.ShowTimetableProfessor();
+                            //Console.WriteLine("Here is the new timetable of " + ProfessorList.Find(x => x.Subject.Contains(c2.Subject)).FirstName + ProfessorList.Find(x => x.Subject.Contains(c2.Subject)).Name + " :");
+
+                            Console.WriteLine("Timetables updated");
+                        }
+
+                        else
+                        {
+                            Console.WriteLine("This timeslot is not available.");
+                        }
+                        break;
+                }
+
+                Console.WriteLine("\n\n\nReturn to the dashboard ? \n1- YES \n2- NO");
+                int decision = Convert.ToInt32(Console.ReadLine());
+                if (decision == 1)
+                {
+                    finish = true;
+                }
+            }
+        }
+        public double ChooseIndexCourse()
+        {
+            double index = 0;
+            Console.WriteLine("\n\nChoose the day of the new course slot, a slot where the class and the professor don't already have another course : " + "\n1- Monday \n2- Tuesday \n3- Wednesday \n4- Thursday \n5- Friday");
+            switch (Console.ReadLine())
+            {
+                case "1":
+                    index = 1;
+                    break;
+
+                case "2":
+                    index = 2;
+                    break;
+
+                case "3":
+                    index = 3;
+                    break;
+
+                case "4":
+                    index = 4;
+                    break;
+
+                case "5":
+                    index = 5;
+                    break;
+            }
+
+            Console.WriteLine("\n\nChoose the new course shedule : " + "\n1- 8h30-10h15 \n2- 10h30-12h15 \n3- 13h30-15h15 \n4- 15h30-17h15 \n5- 17h30-19h15");
+            switch (Console.ReadLine())
+            {
+                case "1":
+                    index += 0.1;
+                    break;
+
+                case "2":
+                    index += 0.2;
+                    break;
+
+                case "3":
+                    index += 0.3;
+                    break;
+
+                case "4":
+                    index += 0.4;
+                    break;
+
+                case "5":
+                    index += 0.5;
+                    break;
+            }
+            return index;
+        }
+        public void ModifyTimetableStudents(Professor professor, string _class, Course c, int oldIndexFile, int newIndexFile)
+        {
+            List<List<string>> list = new List<List<string>>();
+
+            int counter = 0;
+            StreamReader fichLect = new StreamReader("Timetables_Students.csv");
+            char[] sep = new char[1] { ';' };
+            string line = "";
+            string[] datas = new string[127];
+            while (fichLect.Peek() > 0)
+            {
+                line = fichLect.ReadLine();
+                if (counter == 1)
+                {
+                    datas = line.Split(sep);
+                    List<string> l = new List<string>();
+                    for (int i = 0; i < datas.Length; i++)
+                    {
+                        l.Add(datas[i]);
+                    }
+                    list.Add(l);
+                }
+                counter = 1;
+            }
+            fichLect.Close();
+
+
+            foreach (List<string> l in list)
+            {
+                if (l[l.Count - 1] == _class)
+                {
+                    l[newIndexFile] = l[oldIndexFile];
+                    l[newIndexFile + 1] = l[oldIndexFile + 1];
+                    l[newIndexFile + 2] = l[oldIndexFile + 2];
+                    l[newIndexFile + 3] = l[oldIndexFile + 3];
+
+                    l[oldIndexFile] = " ";
+                    l[oldIndexFile + 1] = "Free";
+                    l[oldIndexFile + 2] = "0";
+                    l[oldIndexFile + 3] = "0";
+                }
+            }
+
+            StreamWriter fichEcr = new StreamWriter("Timetables_Students.csv");
+            string firstLine = "StudentID" + ";" + "CourseM1 index" + ";" + "ProfID" + ";" + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseM2 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseM3 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseM4 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseM5 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseT1 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseT2 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseT3 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseT4 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseT5 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseW1 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseW2 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseW3 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseW4 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseW5 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseTH1 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseTH2 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseTH3 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseTH4 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseTH5 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseF1 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseF2 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseF3 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseF4 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseF5 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "Class";
+            fichEcr.WriteLine(firstLine);
+
+            foreach (List<string> l in list)
+            {
+                string Line = "";
+                for (int i = 0; i < l.Count; i++)
+                {
+                    Line += l[i] + ";";
+                }
+                fichEcr.WriteLine(Line);
+            }
+            fichEcr.Close();
+        }
+        public void ModifyTimetableProfessor(Professor professor, string _class, Course c, int oldIndexFile, int newIndexFile)
+        {
+            List<List<string>> list = new List<List<string>>();
+
+            int counter = 0;
+            StreamReader fichLect = new StreamReader("Timetables_Professors.csv");
+            char[] sep = new char[1] { ';' };
+            string line = "";
+            string[] datas = new string[126];
+            while (fichLect.Peek() > 0)
+            {
+                line = fichLect.ReadLine();
+                if (counter == 1)
+                {
+                    datas = line.Split(sep);
+                    List<string> l = new List<string>();
+                    for (int i = 0; i < datas.Length; i++)
+                    {
+                        l.Add(datas[i]);
+                    }
+                    list.Add(l);
+                }
+                counter = 1;
+            }
+            fichLect.Close();
+
+
+            foreach (List<string> l in list)
+            {
+                if (l[0] == professor.ID)
+                {
+                    l[newIndexFile] = l[oldIndexFile];
+                    l[newIndexFile + 2] = l[oldIndexFile + 2];
+                    l[newIndexFile + 3] = l[oldIndexFile + 3];
+
+                    l[oldIndexFile] = " ";
+                    l[oldIndexFile + 2] = "0";
+                    l[oldIndexFile + 3] = "0";
+                }
+            }
+
+            StreamWriter fichEcr = new StreamWriter("Timetables_Professors.csv");
+            string firstLine = "ProfessorID" + ";" + "CourseM1 index" + ";" + "Class number" + ";" + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseM2 index" + "; " + "Class number" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseM3 index" + "; " + "Class number" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseM4 index" + "; " + "Class number" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseM5 index" + "; " + "Class number" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseT1 index" + "; " + "Class number" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseT2 index" + "; " + "Class number" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseT3 index" + "; " + "Class number" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseT4 index" + "; " + "Class number" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseT5 index" + "; " + "Class number" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseW1 index" + "; " + "Class number" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseW2 index" + "; " + "Class number" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseW3 index" + "; " + "Class number" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseW4 index" + "; " + "Class number" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseW5 index" + "; " + "Class number" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseTH1 index" + "; " + "Class number" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseTH2 index" + "; " + "Class number" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseTH3 index" + "; " + "Class number" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseTH4 index" + "; " + "Class number" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseTH5 index" + "; " + "Class number" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseF1 index" + "; " + "Class number" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseF2 index" + "; " + "Class number" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseF3 index" + "; " + "Class number" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseF4 index" + "; " + "Class number" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseF5 index" + "; " + "Class number" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course";
+            fichEcr.WriteLine(firstLine);
+
+            foreach (List<string> l in list)
+            {
+                string Line = "";
+                for (int i = 0; i < l.Count; i++)
+                {
+                    Line += l[i] + ";";
+                }
+                fichEcr.WriteLine(Line);
+            }
+            fichEcr.Close();
+        }
+
+
+        // 8 - Manage student information (contact, fees, tutor)
         public void ManageStudentInformation()
         {
             bool finish = false;
@@ -1351,6 +2083,8 @@ namespace Group1_OOP
             fichEcr.Close();
         }
 
+
+        // 9 - Manage professor information (contact, tutoring)
         public void ManageProfessorInformation()
         {
             bool finish = false;
@@ -1362,7 +2096,7 @@ namespace Group1_OOP
                 Professor professor = ChooseProfessor();
 
                 Console.Clear();
-                Console.WriteLine($"Professor Profile {professor.FirstName} {professor.Name.ToUpper()} \n\n");
+                Console.WriteLine($"Student Profile {professor.FirstName} {professor.Name.ToUpper()} \n\n");
                 Console.WriteLine("Personal identifying information : \n\n" +
                     professor.FirstName + " " + professor.Name.ToUpper() +
                     $"\nID : {professor.ID}" +
@@ -1385,7 +2119,7 @@ namespace Group1_OOP
                     }
                 }
 
-                Console.WriteLine("Do you want to change any of the professor's information? ");
+                Console.WriteLine("Do you want to change any of the student's information? ");
                 Console.WriteLine("0 - Nothing\n" +
                     "1 - First Name\n" +
                     "2 - Name\n" +
@@ -1410,38 +2144,38 @@ namespace Group1_OOP
                         break;
 
                     case "1":
-                        Console.WriteLine("\nEnter the new first name of the professor");
+                        Console.WriteLine("\nEnter the new first name of the student");
                         professor.FirstName = Console.ReadLine();
                         break;
 
                     case "2":
-                        Console.WriteLine("\nEnter the new name of the professor");
+                        Console.WriteLine("\nEnter the new name of the student");
                         professor.Name = Console.ReadLine();
                         break;
 
                     case "3":
-                        Console.WriteLine("\nEnter the new gender of the professor");
+                        Console.WriteLine("\nEnter the new gender of the student");
                         professor.Adress = Console.ReadLine();
                         break;
 
                     case "4":
-                        Console.WriteLine("\nEnter the new birthdate of the professor (dd/mm/yyyy)");
+                        Console.WriteLine("\nEnter the new birthdate of the student (dd/mm/yyyy)");
                         string birthdate = Console.ReadLine();
                         professor.Birthdate = professor.BirthdateCalculation(birthdate);
                         break;
 
                     case "5":
-                        Console.WriteLine("\nEnter the new address of the professor");
+                        Console.WriteLine("\nEnter the new address of the student");
                         professor.Adress = Console.ReadLine();
                         break;
 
                     case "6":
-                        Console.WriteLine("\nEnter the new phone number of the professor");
+                        Console.WriteLine("\nEnter the new phone number of the student");
                         professor.PhoneNumber = Console.ReadLine();
                         break;
 
                     case "7":
-                        Console.WriteLine("\nEnter the new personal email adress of the professor");
+                        Console.WriteLine("\nEnter the new personal email adress of the student");
                         professor.PersoEmail = Console.ReadLine();
                         break;
 

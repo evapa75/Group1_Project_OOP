@@ -1,13 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.IO;
 using System.Text;
 
 namespace Group1_OOP
 {
     public abstract class Person
     {
+        // GROUP 1
+        // 23173 Marie DONIER
+        // 22843 Célia BARRAS
+        // 22835 Laura TRAN
+        // 23187 Eva PADRINO
+        // 23207 Théo GALLAIS
+        // 23025 Romain LANDRAUD
+
         public bool LoginStatus { get; set; }
         public string ID { get; }
         public string Password { get; set; }
@@ -22,7 +28,7 @@ namespace Group1_OOP
         public string PhoneNumber { get; set; }
         public string Adress { get; set; }
 
-            
+
 
         public Person(string id, string firstName, string name, string gender, string birthdate, string persoEmailAdress, string phoneNumber, string adress, string password)
         {
@@ -38,7 +44,6 @@ namespace Group1_OOP
             Adress = adress;
             Password = password;
         }
-
 
 
 
