@@ -15,7 +15,6 @@ namespace Group1_OOP
         // 23207 Théo GALLAIS
         // 23025 Romain LANDRAUD
 
-
         public string Class { get; set; }
         public string ProfessorID { get; set; }
         public string Subject { get; set; }
@@ -52,7 +51,7 @@ namespace Group1_OOP
         public List<string> Exams { get; set; }
         public List<string> Assignments { get; set; }
 
-        public CoursePlan(string professorID, string _class, List<Student> studentList, List<Professor> professorList, string s1week1, string s1week2, string s1week3, string s1week4, string s1week5, string s1week6, 
+        public CoursePlan(string professorID, string _class, List<Student> studentList, List<Professor> professorList, string s1week1, string s1week2, string s1week3, string s1week4, string s1week5, string s1week6,
             string s1week7, string s1week8, string s1week9, string s1week10, string s1week11, string s1week12,
             string s2week1, string s2week2, string s2week3, string s2week4, string s2week5, string s2week6,
             string s2week7, string s2week8, string s2week9, string s2week10, string s2week11, string s2week12)
@@ -93,7 +92,6 @@ namespace Group1_OOP
             Exams = new List<string>();
             Assignments = new List<string>();
         }
-
 
         public override string ToString()
         {

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Linq;
 using System.IO;
 
 namespace Group1_OOP
@@ -16,7 +15,6 @@ namespace Group1_OOP
         // 23207 Théo GALLAIS
         // 23025 Romain LANDRAUD
 
-
         public string Subject { get; set; }
         public Professor Teacher { get; set; }
         public string ProfessorID_or_NameOfClass { get; set; }
@@ -24,7 +22,7 @@ namespace Group1_OOP
         public string Day { get; set; }
         public string Schedule { get; set; }
         public double Duration { get; set; }
-        public List<Professor> ProfessorList { get; set; }
+        public List<Professor> professorList { get; set; }
 
         public int Number_of_times { get; set; }
         public int Attendance { get; set; }
@@ -32,16 +30,10 @@ namespace Group1_OOP
 
         public Course(double course_index, string professorID_or_name_of_class, string subject, int number_of_times, int attendance, List<Student> studentList)
         {
-             //seek the teacher only when you need to get to know him
-             //if (subject!="Free")
-             //{
-             //    Teacher = FindTeacher(professorID);
-             //}
             CourseIndex = "";
             CourseIndex = Convert.ToString(course_index);
 
             ProfessorID_or_NameOfClass = professorID_or_name_of_class;
-
 
             Subject = subject;
             Day = CourseDay(course_index);
@@ -49,9 +41,7 @@ namespace Group1_OOP
             Duration = 1.45;
             Number_of_times = number_of_times;
             Attendance = attendance;
-
         }
-
 
 
         public override string ToString()
@@ -65,6 +55,7 @@ namespace Group1_OOP
             this.Day = CourseDay(newIndexCourse);
             this.Schedule = CourseSchedule(newIndexCourse);
         }
+
 
         //public Professor FindTeacher(string professorID)
         //{
@@ -101,7 +92,7 @@ namespace Group1_OOP
         //        }
         //        counter = 1;
         //    }
-        //    Professor p = professorList.Find(x => x.ID.Contains(professorID));
+        //        Professor p = professorList.Find(x => x.ID.Contains(professorID));
         //    return p;
         //}
 
@@ -162,6 +153,5 @@ namespace Group1_OOP
             if (index == 1.5 || index == 2.5 || index == 3.5 || index == 4.5 || index == 5.5) { schedule = "17h30-19h15"; }
             return schedule;
         }
-
     }
 }

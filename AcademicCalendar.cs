@@ -17,103 +17,95 @@ namespace Group1_OOP
         // 23025 Romain LANDRAUD
 
 
-        public SortedList<string, DateTime> Calendar;
+        public SortedList<DateTime, List<string>> Calendar;
 
         public AcademicCalendar()
         {
-            Calendar = AcademicCalendarCSV();
-        }
+            Calendar = new SortedList<DateTime, List<string>>();
 
-        public SortedList<string, DateTime> AcademicCalendarCSV()
-        {
-            SortedList<string, DateTime> memoryList = new SortedList<string, DateTime>();
             int counter = 0;
             StreamReader fichLect = new StreamReader("AcademicCalendar.csv");
             char[] sep = new char[1] { ';' };
             string line = "";
-            string[] datas = new string[2];
+            string[] datas = new string[6];
             while (fichLect.Peek() > 0)
             {
                 line = fichLect.ReadLine();
+                List<string> l = new List<string>();
                 if (counter == 1)
                 {
                     datas = line.Split(sep);
 
-                    char[] sep2 = new char[1] { '/' };
-                    string[] datas2 = new string[3];
-                    datas2 = datas[1].Split(sep2);
+                    string date = datas[0];
 
-                    int day = Convert.ToInt16(datas2[0]);
-                    int month = Convert.ToInt16(datas2[1]);
-                    int year = Convert.ToInt16(datas2[2]);
+                    int day = Convert.ToInt32(date[0] + "" + date[1]);
+                    int month = Convert.ToInt32(date[3] + "" + date[4]);
+                    int year = Convert.ToInt32(date[6] + "" + date[7] + "" + date[8] + "" + date[9]);
+                    DateTime Date = new DateTime(year, month, day);
 
-                    DateTime date = new DateTime(year, month, day);
+                    for (int i = 1; i < datas.Length; i++)
+                    {
+                        l.Add(datas[i]);
+                    }
 
-                    memoryList.Add(datas[0], date);
-
+                    Calendar.Add(Date, l);
                 }
                 counter = 1;
             }
-            return memoryList;
+            fichLect.Close();
         }
+
 
         public void AddAnEvent()
         {
-            Console.Clear();
-            bool size = false;
-            SortedList<string, DateTime> memoryList = new SortedList<string, DateTime>();
-            string eventName = "";
-
-            while (size == false)
-            {
-                Console.WriteLine("What's the name of the event ? (only 100 characters)");
-                eventName = Console.ReadLine();
-                if (eventName.Length <= 100)
-                {
-                    size = true;
-                }
-            }
-
-            Console.WriteLine("What's the day of the beginning of the event");
-            int day = Convert.ToInt16(Console.ReadLine());
-            Console.WriteLine("What's the month of the beginning of the event");
-            int month = Convert.ToInt16(Console.ReadLine());
-            Console.WriteLine("What's the year of the beginning of the event ?");
-            int year = Convert.ToInt16(Console.ReadLine());
-
-            DateTime date = new DateTime(year, month, day);
-
-            //Parcourir la liste et comparer les dates pour mettre par ordre chronologique les événements
-            IList<DateTime> values = Calendar.Values;
-            IList<string> keys = Calendar.Keys;
-
-            int count = 0;
             bool finish = false;
             while (finish == false)
             {
-                foreach (DateTime d in values)
+                Console.Clear();
+                for (int i = 0; i < 95; i++) { Console.Write(" "); }
+                Console.Write("________________");
+                Console.WriteLine("\n");
+                for (int i = 0; i < 95; i++) { Console.Write(" "); }
+                Console.Write("| ADD AN EVENT |");
+                Console.WriteLine("");
+                for (int i = 0; i < 95; i++) { Console.Write(" "); }
+                Console.Write("________________\n\n");
+
+                Console.WriteLine("\n\nWhat's the name of the event ?");
+                string eventName = Console.ReadLine();
+
+                Console.WriteLine("\n\nWhat's the date of the event (jj/mm/dddd) ?");
+                string date = Console.ReadLine();
+
+                int day = Convert.ToInt32(date[0] + "" + date[1]);
+                int month = Convert.ToInt32(date[3] + "" + date[4]);
+                int year = Convert.ToInt32(date[6] + "" + date[7] + "" + date[8] + "" + date[9]);
+                DateTime Date = new DateTime(year, month, day);
+
+                bool exist = false;
+
+                foreach (KeyValuePair<DateTime, List<string>> c in Calendar)
                 {
-                    int compare = DateTime.Compare(d, date);
-                    if (compare < 0)
+                    if (Date == c.Key)
                     {
-                        //l'événement est avant cette date
-                        //=> ajouter l'événement juste avant donc à son index et décaler le reste
-                        for (int i = 0; i <= count; i++)
-                        {
-                            memoryList.Add(keys[i], values[i]);
-                        }
-                        memoryList.Add(eventName, date);
-                        for (int i = count + 1; i < keys.Count; i++)
-                        {
-                            memoryList.Add(keys[i], values[i]);
-                        }
-                        finish = true;
+                        c.Value.Add(eventName);
+                        exist = true;
                     }
-                    count++;
+                }
+                if (exist == false)
+                {
+                    List<string> l = new List<string>();
+                    l.Add(eventName);
+
+                    Calendar.Add(Date, l);
+                }
+
+                Console.WriteLine("\n\nDo you want to add another event to the calendar? \n1 - YES \n2 - NO");
+                if (Console.ReadLine() == "2")
+                {
+                    finish = true;
                 }
             }
-            Calendar = memoryList;
-
         }
 
         public void DeleteAnEvent()
@@ -123,95 +115,50 @@ namespace Group1_OOP
             while (finish == false)
             {
                 Console.Clear();
-                Console.WriteLine("What's the day of the event you want to delete ?");
-                int day = Convert.ToInt16(Console.ReadLine());
-                Console.WriteLine("What's the month of the event you want to delete ?");
-                int month = Convert.ToInt16(Console.ReadLine());
-                Console.WriteLine("What's the year of the event you want to delete ?");
-                int year = Convert.ToInt16(Console.ReadLine());
+                for (int i = 0; i < 95; i++) { Console.Write(" "); }
+                Console.Write("__________________");
+                Console.WriteLine("\n");
+                for (int i = 0; i < 95; i++) { Console.Write(" "); }
+                Console.Write("| DELETE AN EVENT |");
+                Console.WriteLine("");
+                for (int i = 0; i < 95; i++) { Console.Write(" "); }
+                Console.Write("__________________\n\n");
 
-                DateTime date = new DateTime(year, month, day);
-
-                IList<DateTime> values = Calendar.Values;
-                IList<string> keys = Calendar.Keys;
-
-                int count = 0;
-                int index = 0;
-                List<int> indexList = new List<int>();
-
-                foreach (DateTime d in values)
+                int index = 1;
+                foreach (KeyValuePair<DateTime, List<string>> c in Calendar)
                 {
-                    int compare = DateTime.Compare(d, date);
-                    if (compare == 0)
+                    Console.Write(index + " - " + c.Key.ToShortDateString() + " : ");
+                    foreach (string Event in c.Value)
                     {
-                        count++;
-                        indexList.Add(index);
+                        Console.Write(Event + "          ");
                     }
                     index++;
+                    Console.WriteLine("\n");
                 }
 
-                Console.Clear();
-                if (count == 0)
+                Console.WriteLine("\n\nChoose the index of the event you want to delete : ");
+                int answer = Convert.ToInt32(Console.ReadLine()) - 1;
+
+                if (Calendar.ElementAt(answer).Value.Count > 1)
                 {
-                    Console.WriteLine("There are no events on the date indicated.");
-                    Console.WriteLine("Do you want to enter a new date ?\n1 - YES\n2 - NO");
-                    int nb = Convert.ToInt16(Console.ReadLine());
-                    switch (nb)
+                    int index2 = 1;
+                    Console.WriteLine("\n\nChoose the event that you want to delete :");
+                    foreach (string Event in Calendar.ElementAt(answer).Value)
                     {
-                        case 1:
-                            finish = false;
-                            break;
-
-                        case 2:
-                            finish = true;
-                            break;
+                        Console.WriteLine(index2 + " - " + Event);
+                        index2++;
                     }
-
-                }
-                else if (count == 1)
-                {
-                    Console.WriteLine("There is an event on the indicated date.");
-                    Console.WriteLine("Event : " + keys[indexList[0]]);
-                    Console.WriteLine("Do you want to delete this event?\n1 - YES\n2 - NO");
-                    int nb = Convert.ToInt16(Console.ReadLine());
-                    switch(nb)
-                    {
-                        case 1:
-                            Calendar.RemoveAt(indexList[0]);
-                            finish = true;
-                            break;
-
-                        case 2:
-                            Console.WriteLine("Do you want to enter a new date ?\n1 - YES\n2 - NO");
-                            int nb2 = Convert.ToInt16(Console.ReadLine());
-                            switch (nb2)
-                            {
-                                case 1:
-                                    finish = false;
-                                    break;
-
-                                case 2:
-                                    finish = true;
-                                    break;
-                            }
-                            break;
-                    }
+                    int answer2 = Convert.ToInt32(Console.ReadLine()) - 1;
+                    Calendar.ElementAt(answer).Value.RemoveAt(answer2);
                 }
                 else
                 {
-                    Console.WriteLine("There are " + count + " on the indicated date");
-                    for(int i = 0; i < count; i++)
-                    {
-                        Console.WriteLine((i+1) + " : " + keys[indexList[i]]);
-                    }
-                    Console.WriteLine("Which event do you want to delete?\nEnter 0 to exit");
-                    int eventNb = Convert.ToInt16(Console.ReadLine());
-                    if(eventNb <= count && eventNb > 0)
-                    {
-                        int indexTab = eventNb - 1;
-                        Calendar.RemoveAt(indexList[indexTab]);
+                    Calendar.RemoveAt(answer);
+                }
 
-                    }
+                Console.WriteLine("\n\n\nDo you want to delete another event from the calendar? \n1 - YES \n2 - NO");
+                if (Console.ReadLine() == "2")
+                {
                     finish = true;
                 }
             }
@@ -219,22 +166,34 @@ namespace Group1_OOP
 
         public void ShowAcademicCalendar()
         {
-            IList<string> allEvents = Calendar.Keys;
-            IList<DateTime> allDates = Calendar.Values;
-
-            Console.WriteLine("             ACADEMIC CALENDAR");
-
-            for(int i = 0; i < allEvents.Count; i++)
+            bool finish = false;
+            while (finish == false)
             {
-                Console.Write(allEvents[i]);
-                for (int j = allEvents[i].Length; j <= 100; j++)
+                for (int i = 0; i < 95; i++) { Console.Write(" "); }
+                Console.Write("_____________________");
+                Console.WriteLine("\n");
+                for (int i = 0; i < 95; i++) { Console.Write(" "); }
+                Console.Write("| ACADEMIC CALENDAR |");
+                Console.WriteLine("");
+                for (int i = 0; i < 95; i++) { Console.Write(" "); }
+                Console.Write("_____________________\n\n\n\n");
+
+                foreach (KeyValuePair<DateTime, List<string>> c in Calendar)
                 {
-                    Console.Write(" ");
+                    Console.Write(c.Key.ToShortDateString() + " : ");
+                    foreach (string Event in c.Value)
+                    {
+                        Console.Write(Event + "          ");
+                    }
+                    Console.WriteLine("\n");
                 }
-                Console.Write("   " + allDates[i].Day + "/" + allDates[i].Month + "/" + allDates[i].Year);
-
+                Console.WriteLine("\n\n\nReturn to the dashboard ? \n1- YES \n2- NO");
+                int decision = Convert.ToInt32(Console.ReadLine());
+                if (decision == 1)
+                {
+                    finish = true;
+                }
             }
-
         }
 
     }

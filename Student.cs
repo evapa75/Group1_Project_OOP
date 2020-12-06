@@ -21,7 +21,6 @@ namespace Group1_OOP
         public double Fees { get; set; }
         public string ModePayment { get; set; }
         public string TutorID { get; set; }
-
         public List<Course> Courses { get; set; }
         public List<string> CoursesName { get; set; }
         public int NumberOfCourses { get; set; }
@@ -31,6 +30,7 @@ namespace Group1_OOP
         public List<CoursePlan> CoursePlan { get; set; }
 
         public List<Student> StudentList { get; set; }
+
 
         public Student(string id, string firstName, string name, string gender, string birthdate, string _class, string persoEmailAdress, string phoneNumber, string adress, string password, string tutorID, double fees, List<Student> studentList)
             : base(id, firstName, name, gender, birthdate, persoEmailAdress, phoneNumber, adress, password)
@@ -43,7 +43,7 @@ namespace Group1_OOP
             Courses = new List<Course>();
             StudentList = studentList;
 
-            // Filling in the course list Courses
+            //Remplissage de la liste de cours Courses
             List<string> listCourses = new List<string>();
             SortedList<string, List<string>> list = new SortedList<string, List<string>>();
 
@@ -78,7 +78,7 @@ namespace Group1_OOP
                 listCourses.Add(list.ElementAt(key).Value[i]);
             }
 
-            // Filling in the course list
+            //Remplissage de la liste des cours
             for (int i = 0; i < 125; i = i + 5)
             {
                 Course c = new Course(Convert.ToDouble(listCourses[i]), listCourses[i + 1], listCourses[i + 2], Convert.ToInt32(listCourses[i + 3]), Convert.ToInt32(listCourses[i + 4]), studentList);
@@ -104,13 +104,13 @@ namespace Group1_OOP
             }
 
 
-            //Creation of the edt from the list of courses
+            //Création de l'edt à partir de la liste de cours
             Timetable = new Timetable(Courses);
 
             //Création du livret de notes de l'étudiant
             Gradebook = new GradeBook(ID, Class, Courses);
 
-            //Creation of the student's gradebook
+
             CoursePlan = new List<CoursePlan>();
         }
 
@@ -247,7 +247,6 @@ namespace Group1_OOP
                 string line = "";
                 string[] datas = new string[4];
 
-
                 while (fichLect.Peek() > 0)
                 {
                     line = fichLect.ReadLine();
@@ -263,7 +262,6 @@ namespace Group1_OOP
                     }
                     counter = 1;
                 }
-
                 fichLect.Close();
 
                 int index = 1;
@@ -331,8 +329,9 @@ namespace Group1_OOP
                 for (int i = 0; i < 92; i++) { Console.Write(" "); }
                 Console.Write("_____________\n\n\n\n");
 
+                Console.WriteLine(FirstName + " " + Name + " " + Class);
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(" Taken sessions / Total number of sessions \n\n");
+                Console.WriteLine(" \n\nTaken sessions / Total number of sessions \n\n");
                 Console.ForegroundColor = ConsoleColor.White;
                 foreach (Course c in Courses)
                 {
@@ -467,5 +466,7 @@ namespace Group1_OOP
 
             }
         }
+
     }
 }
+

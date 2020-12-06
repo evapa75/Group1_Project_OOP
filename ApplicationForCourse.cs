@@ -16,7 +16,6 @@ namespace Group1_OOP
         // 23207 Théo GALLAIS
         // 23025 Romain LANDRAUD
 
-
         public string StudentID { get; set; }
         public string StudentFirstName { get; set; }
         public string StudentName { get; set; }
@@ -25,15 +24,14 @@ namespace Group1_OOP
         public List<Course> StudentCourses { get; set; }
         public Timetable StudentTimetable { get; set; }
 
-
         public string CourseName { get; set; }
         public string ProfID { get; set; }
         public string ProfFirstName { get; set; }
         public string ProfName { get; set; }
 
+
         public List<Student> StudentList { get; set; }
         public List<Professor> ProfessorList { get; set; }
-
 
         public ApplicationForCourse(string id, string firstname, string name, int year, string _class, List<Course> courses, Timetable timetable, string courseName, string profID, string profFirstName, string profName, List<Student> studentList)
         {

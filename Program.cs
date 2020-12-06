@@ -14,7 +14,6 @@ namespace Group1_OOP
         // 23207 Théo GALLAIS
         // 23025 Romain LANDRAUD
 
-
         static void Connection(List<Student> studentList, List<Professor> professorList, List<Administrator> adminList, AcademicCalendar academicCalendar)
         {
             string id = "";
@@ -103,70 +102,6 @@ namespace Group1_OOP
             }
         }
 
-        static void StudentRegistration(List<ApplicationForRegistration> studentWaitingList)
-        {
-            bool complete = false;
-            string firstName = "";
-            string name = "";
-            char sex = ' ';
-            DateTime birthdate = new DateTime();
-            int studyYear = 0;
-            string personalEmailAdress = "";
-            string phoneNumber = "";
-            string adress = "";
-
-            while (complete == false)
-            {
-                Console.Clear();
-                Console.WriteLine("Let's complete your registration. \n\nPlease complete the following informations :");
-
-                Console.WriteLine(" \nFirst Name :");
-                firstName = Console.ReadLine();
-
-                Console.WriteLine(" \nName :");
-                name = Console.ReadLine();
-
-                Console.WriteLine(" \nSex : F or M");
-                sex = Convert.ToChar(Console.ReadLine());
-
-                Console.WriteLine(" \nBirthdate : ");
-                Console.Write("Day : ");
-                int day = Convert.ToInt32(Console.ReadLine());
-                Console.Write("Month : (number, example: February -> 2) ");
-                int month = Convert.ToInt32(Console.ReadLine());
-                Console.Write("Year : ");
-                int year = Convert.ToInt32(Console.ReadLine());
-                birthdate = new DateTime(year, month, day);
-
-                Console.WriteLine(" \nIn which grade do you wish to register? ( 1,2,3. . . )");
-                studyYear = Convert.ToInt32(Console.ReadLine());
-
-                Console.WriteLine(" \nPersonal email adress :");
-                personalEmailAdress = Console.ReadLine();
-
-                Console.WriteLine(" \nTelephone number :");
-                phoneNumber = Console.ReadLine();
-
-                Console.WriteLine(" \nAdress (street number, street, postal code, city) :");
-                adress = Console.ReadLine();
-
-                if (firstName != null && name != null && sex != null && day != 0 && month != 0 && year != 0 && studyYear != 0 && personalEmailAdress != null && phoneNumber != null && adress != null)
-                {
-                    complete = true;
-                }
-                else
-                {
-                    Console.Clear();
-                    Console.WriteLine("Your form is incomplete. Please, complete it again");
-                    System.Threading.Thread.Sleep(3000);
-                }
-            }
-            Console.Clear();
-            Console.WriteLine("The form is complete. \nYour request will be processed as soon as possible. \nYou will receive an email to keep you informed of the status of your application.");
-            ApplicationForRegistration application = new ApplicationForRegistration(firstName, name, sex, birthdate, studyYear, personalEmailAdress, phoneNumber, adress);
-            studentWaitingList.Add(application);
-        }
-
         static void StudentPortal(Student student, AcademicCalendar academicCalendar)
         {
             student.LoginStatus = true;
@@ -182,10 +117,10 @@ namespace Group1_OOP
                 Console.WriteLine("2 - Courses\n\n");
                 Console.WriteLine("3 - Course Plans\n\n");
                 Console.WriteLine("4 - Timetable \n\n");
-                Console.WriteLine("5 - Attendance \n\n");
-                Console.WriteLine("6 - Gradebook \n\n");
-                Console.WriteLine("7 - Payment of fees \n\n");
-                Console.WriteLine("8 - Academic Calendar\n\n");
+                Console.WriteLine("5 - Academic Calendar \n\n");
+                Console.WriteLine("6 - Attendance \n\n");
+                Console.WriteLine("7 - Gradebook \n\n");
+                Console.WriteLine("8 - Payment of fees \n\n");
                 Console.WriteLine("9 - Disconnect");
 
                 switch (Console.ReadLine())
@@ -245,22 +180,22 @@ namespace Group1_OOP
 
                     case "5":
                         Console.Clear();
-                        student.ShowAttendance();
+                        academicCalendar.ShowAcademicCalendar();
                         break;
 
                     case "6":
                         Console.Clear();
-                        student.ShowGradeBook(1);
+                        student.ShowAttendance();
                         break;
 
                     case "7":
                         Console.Clear();
-                        student.PayementOfFees();
+                        student.ShowGradeBook(1);
                         break;
 
                     case "8":
                         Console.Clear();
-                        academicCalendar.ShowAcademicCalendar();
+                        student.PayementOfFees();
                         break;
 
                     case "9":
@@ -286,9 +221,9 @@ namespace Group1_OOP
                 Console.WriteLine(" ________________________________________");
                 Console.WriteLine("\n\n\n1 - Contact and personal identifying information \n\n");
                 Console.WriteLine("2 - Timetable \n\n");
-                Console.WriteLine("3 - Student's Attendance \n\n");
-                Console.WriteLine("4 - Grade a student \n\n");
-                Console.WriteLine("5 - Show the academic calendar\n\n");
+                Console.WriteLine("3 - Academic Calendar \n\n");
+                Console.WriteLine("4 - Student's Attendance \n\n");
+                Console.WriteLine("5 - Grade a student \n\n");
                 Console.WriteLine("6 - Edit your course plan - Create an exam - Create an assignement\n\n");
                 Console.WriteLine("7 - Display information of one of your student \n\n");
                 if (professor.Tutor == true)
@@ -326,17 +261,17 @@ namespace Group1_OOP
 
                     case "3":
                         Console.Clear();
-                        professor.StudentsAttendance();
+                        academicCalendar.ShowAcademicCalendar();
                         break;
 
                     case "4":
                         Console.Clear();
-                        professor.GradeAStudent();
+                        professor.StudentsAttendance();
                         break;
 
                     case "5":
                         Console.Clear();
-                        academicCalendar.ShowAcademicCalendar();
+                        professor.GradeAStudent();
                         break;
 
                     case "6":
@@ -463,23 +398,26 @@ namespace Group1_OOP
 
         static void AdministratorPortal(Administrator admin, AcademicCalendar academicCalendar)
         {
-
             admin.LoginStatus = true;
             while (admin.LoginStatus == true)
             {
                 Console.Clear();
-                Console.WriteLine("\nADMINISTRATOR PORTAL - Virtual Global College \n \n");
-                Console.WriteLine($"Administrator Dashboard {admin.FirstName} {admin.Name.ToUpper()} \n\n\n");
-                Console.WriteLine("1 - Contact and personal identifying information \n\n");
+                Console.WriteLine("\n ________________________________________________");
+                Console.WriteLine("\n | ADMINISTRATOR PORTAL - Virtual Global College |");
+                Console.WriteLine(" ________________________________________________");
+                Console.WriteLine($"\n\n Administrator Dashboard {admin.FirstName} {admin.Name.ToUpper()} ");
+                Console.WriteLine(" ________________________________________");
+
+                Console.WriteLine("\n\n\n1 - Contact and personal identifying information \n\n");
                 Console.WriteLine("2 - Add a new student \n\n");
                 Console.WriteLine("3 - Add a new professor \n\n");
                 Console.WriteLine("4 - Add a new administrator \n\n");
                 Console.WriteLine("5 - Create a course \n\n");
                 Console.WriteLine("6 - Manage applications for courses \n\n");
                 Console.WriteLine("7 - Manage Timetables \n\n");
-                Console.WriteLine("8 - Manage student information (contact, fees, tutor) \n\n");
-                Console.WriteLine("9 - Manage professor information (contact, tutoring) \n\n");
-                Console.WriteLine("10 - Manage the academic calendar\n\n");
+                Console.WriteLine("8 - Manage Academic Calendar \n\n");
+                Console.WriteLine("9 - Manage student information (contact, fees, tutor) \n\n");
+                Console.WriteLine("10 - Manage professor information (contact, tutoring) \n\n");
                 Console.WriteLine("11 - Disconnect");
 
                 switch (Console.ReadLine())
@@ -520,17 +458,39 @@ namespace Group1_OOP
 
                     case "8":
                         Console.Clear();
-                        admin.ManageStudentInformation();
+                        for (int i = 0; i < 95; i++) { Console.Write(" "); }
+                        Console.Write("_____________________");
+                        Console.WriteLine("\n");
+                        for (int i = 0; i < 95; i++) { Console.Write(" "); }
+                        Console.Write("| ACADEMIC CALENDAR |");
+                        Console.WriteLine("");
+                        for (int i = 0; i < 95; i++) { Console.Write(" "); }
+                        Console.Write("_____________________\n\n\n\n");
+                        Console.WriteLine("\n\nWhat do you want to do with the academic calendar ? \n\n1 - Look at the academic calendar \n\n2 - Add an event to the academic calendar \n\n3 - Delete an event from the academic calendar");
+                        switch (Console.ReadLine())
+                        {
+                            case "1":
+                                academicCalendar.ShowAcademicCalendar();
+                                break;
+
+                            case "2":
+                                academicCalendar.AddAnEvent();
+                                break;
+
+                            case "3":
+                                academicCalendar.DeleteAnEvent();
+                                break;
+                        }
                         break;
 
                     case "9":
                         Console.Clear();
-                        admin.ManageProfessorInformation();
+                        admin.ManageStudentInformation();
                         break;
 
                     case "10":
                         Console.Clear();
-                        admin.ManageAcademicCalendar(academicCalendar);
+                        admin.ManageProfessorInformation();
                         break;
 
                     case "11":
@@ -543,16 +503,18 @@ namespace Group1_OOP
         }
 
 
+
         static void Main(string[] args)
         {
             List<Student> studentList = new List<Student>();
             List<Professor> professorList = new List<Professor>();
             List<Administrator> adminList = new List<Administrator>();
-            AcademicCalendar academicCalendar = new AcademicCalendar();
+
+            AcademicCalendar AcademicCalendar = new AcademicCalendar();
 
             // List of students
             int counter = 0;
-            StreamReader fichLect = new StreamReader("StudentsBIS.csv");
+            StreamReader fichLect = new StreamReader("Students.csv");
             char[] sep = new char[1] { ';' };
             string line = "";
             string[] datas = new string[12];
@@ -799,12 +761,12 @@ namespace Group1_OOP
             }
 
 
-            Connection(studentList, professorList, adminList, academicCalendar);
+            Connection(studentList, professorList, adminList, AcademicCalendar);
 
 
 
             // Save changes for Students
-            StreamWriter fichEcrStudent = new StreamWriter("StudentsBIS.csv");
+            StreamWriter fichEcrStudent = new StreamWriter("Students.csv");
             string firstLineStudent = "ID (begins by 1 for all students)" + ";" + "First name" + ";" + "Name" + ";" + "Gender" + ";" + "Birthdate" + ";" + "Class" + ";" + "Personal email adress" + ";" + "Phone number" + ";" + "Adress" + ";" + "Password" + ";" + "Tutor's ID" + ";" + "Fees to pay";
             fichEcrStudent.WriteLine(firstLineStudent);
             foreach (Student s in studentList)
@@ -816,7 +778,7 @@ namespace Group1_OOP
 
 
             // Save changes for Professors
-            StreamWriter fichEcrProfessor = new StreamWriter("ProfessorsBIS.csv");
+            StreamWriter fichEcrProfessor = new StreamWriter("Professors.csv");
             string firstLineProfessor = "ID (begins by 2 for all professors)" + ";" + "First name" + ";" + "Name" + ";" + "Gender" + ";" + "Birthdate" + ";" + "Personal email adress" + ";" + "Phone number" + ";" + "Adress" + ";" + "Password" + ";" + "Subject" + ";" + "Tutor?" + ";" + "Classes";
             fichEcrProfessor.WriteLine(firstLineProfessor);
             foreach (Professor p in professorList)
@@ -831,7 +793,7 @@ namespace Group1_OOP
 
 
             // Save changes for Administrators
-            StreamWriter fichEcrAdmin = new StreamWriter("AdministratorsBIS.csv");
+            StreamWriter fichEcrAdmin = new StreamWriter("Administrators.csv");
             string firstLineAdmin = "ID (begins by 3 for all administrators)" + ";" + "First name" + ";" + "Name" + ";" + "Gender" + ";" + "Birthdate" + ";" + "Personal email adress" + ";" + "Phone number" + ";" + "Adress" + ";" + "Password";
             fichEcrAdmin.WriteLine(firstLineAdmin);
             foreach (Administrator a in adminList)
@@ -845,7 +807,7 @@ namespace Group1_OOP
             //Save changes for Gradebook
             foreach (string c in classes)
             {
-                string filename = "GradeBookClass" + c + "BIS.csv";
+                string filename = "GradeBookClass" + c + ".csv";
                 StreamWriter fichEcrGradebook = new StreamWriter(filename);
                 string firstLineGradebook = "StudentID" + ";" + "Subject" + ";" + "Grades Assignements" + ";" + "Grades Exams" + ";" + "Subject" + ";" + "Grades Assignements" + ";" + "Grades Exams" + ";" + "Subject" + ";" + "Grades Assignements" + ";" + "Grades Exams" + ";" + "Subject" + ";" + "Grades Assignements" + ";" + "Grades Exams" + ";" + "Subject" + ";" + "Grades Assignements" + ";" + "Grades Exams" + ";" + "Subject" + ";" + "Grades Assignements" + ";" + "Grades Exams" + ";" + "Subject" + ";" + "Grades Assignements" + ";" + "Grades Exams" + ";" + "Subject" + ";" + "Grades Assignements" + ";" + "Grades Exams" + ";" + "Subject" + ";" + "Grades Assignements" + ";" + "Grades Exams" + ";" + "Subject" + ";" + "Grades Assignements" + ";" + "Grades Exams";
                 fichEcrGradebook.WriteLine(firstLineGradebook);
@@ -869,7 +831,7 @@ namespace Group1_OOP
             //Save changes for Course Plan
             foreach (string c in classes)
             {
-                string filename = "CoursePlan" + c + "BIS.csv";
+                string filename = "CoursePlan" + c + ".csv";
                 StreamWriter fichEcrCoursePlan = new StreamWriter(filename);
 
                 string firstLineCoursePlan = "Professor ID" + ";" + "Semester1 Week1" + ";" + "S1W2" + ";" + "S1W3" + ";" + "S1W4" + ";" + "S1W5" + ";" + "S1W6" + ";" + "S1W7" + ";" + "S1W8" + ";" + "S1W9" + ";" + "S1W10" + ";" + "S1W11" + ";" + "S1W12" + ";" + "Semester2 Week1" + ";" + "S2W2" + ";" + "S2W3" + ";" + "S2W4" + ";" + "S2W5" + ";" + "S2W6" + ";" + "S2W7" + ";" + "S2W8" + ";" + "S2W9" + ";" + "S2W10" + ";" + "S2W11" + ";" + "S2W12";
@@ -918,7 +880,7 @@ namespace Group1_OOP
 
 
             //Save changes for Timetable Students
-            StreamWriter fichEcrTimetableStudents = new StreamWriter("Timetables_StudentsBIS.csv");
+            StreamWriter fichEcrTimetableStudents = new StreamWriter("Timetables_Students.csv");
             string firstLineTimetable = "StudentID" + ";" + "CourseM1 index" + ";" + "ProfID" + ";" + "Subject" + ";" + " Attendance at this course" + ";" + " Number of this course" + ";" + "CourseM2 index" + ";" + "ProfID" + ";" + "Subject" + ";" + "Attendance at this course" + ";" + "Number of this course" + ";" + "CourseM3 index" + ";" + "ProfID" + ";" + "Subject" + ";" + "Attendance at this course" + ";" + "Number of this course" + ";" + "CourseM4 index" + ";" + "ProfID" + ";" + "Subject" + ";" + "Attendance at this course" + ";" + "Number of this course" + ";" + "CourseM5 index" + ";" + "ProfID" + ";" + "Subject" + ";" + "Attendance at this course" + ";" + "Number of this course" + ";" + "CourseT1 index" + ";" + "ProfID" + ";" + "Subject" + ";" + "Attendance at this course" + ";" + "Number of this course" + ";" + "CourseT2 index" + ";" + "ProfID" + ";" + "Subject" + ";" + "Attendance at this course" + ";" + "Number of this course" + ";" + "CourseT3 index" + ";" + "ProfID" + ";" + "Subject" + ";" + "Attendance at this course" + ";" + "Number of this course" + ";" + "CourseT4 index" + ";" + "ProfID" + ";" + "Subject" + ";" + "Attendance at this course" + ";" + "Number of this course" + ";" + "CourseT5 index" + ";" + "ProfID" + ";" + "Subject" + ";" + "Attendance at this course" + ";" + "Number of this course" + ";" + "CourseW1 index" + ";" + "ProfID" + ";" + "Subject" + ";" + "Attendance at this course" + ";" + "Number of this course" + ";" + "CourseW2 index" + ";" + "ProfID" + ";" + "Subject" + ";" + "Attendance at this course" + ";" + "Number of this course" + ";" + "CourseW3 index" + ";" + "ProfID" + ";" + "Subject" + ";" + "Attendance at this course" + ";" + "Number of this course" + ";" + "CourseW4 index" + ";" + "ProfID" + ";" + "Subject" + ";" + "Attendance at this course" + ";" + "Number of this course" + ";" + "CourseW5 index" + ";" + "ProfID" + ";" + "Subject" + ";" + "Attendance at this course" + ";" + "Number of this course" + ";" + "CourseTH1 index" + ";" + "ProfID" + ";" + "Subject" + ";" + "Attendance at this course" + ";" + "Number of this course" + ";" + "CourseTH2 index" + ";" + "ProfID" + ";" + "Subject" + ";" + "Attendance at this course" + ";" + "Number of this course" + ";" + "CourseTH3 index" + ";" + "ProfID" + ";" + "Subject" + ";" + "Attendance at this course" + ";" + "Number of this course" + ";" + "CourseTH4 index" + ";" + "ProfID" + ";" + "Subject" + ";" + "Attendance at this course" + ";" + "Number of this course" + ";" + "CourseTH5 index" + ";" + "ProfID" + ";" + "Subject" + ";" + "Attendance at this course" + ";" + "Number of this course" + ";" + "CourseF1 index" + ";" + "ProfID" + ";" + "Subject" + ";" + "Attendance at this course" + ";" + "Number of this course" + ";" + "CourseF2 index" + ";" + "ProfID" + ";" + "Subject" + ";" + "Attendance at this course" + ";" + "Number of this course" + ";" + "CourseF3 index" + ";" + "ProfID" + ";" + "Subject" + ";" + "Attendance at this course" + ";" + "Number of this course" + ";" + "CourseF4 index" + ";" + "ProfID" + ";" + "Subject" + ";" + "Attendance at this course" + ";" + "Number of this course" + ";" + "CourseF5 index" + ";" + "ProfID" + ";" + "Subject" + ";" + "Attendance at this course" + ";" + "Number of this course" + ";" + "Class";
             fichEcrTimetableStudents.WriteLine(firstLineTimetable);
             foreach (Student s in studentList)
@@ -928,10 +890,46 @@ namespace Group1_OOP
                 {
                     lineTimetable += c.CourseIndex + ";" + c.ProfessorID_or_NameOfClass + ";" + c.Subject + ";" + c.Attendance + ";" + c.Number_of_times + ";";
                 }
-                lineTimetable += s.Class + ";";
+                lineTimetable += s.Class;
                 fichEcrTimetableStudents.WriteLine(lineTimetable);
             }
             fichEcrTimetableStudents.Close();
+
+
+            //Save changes for Tutors list
+            StreamWriter fichEcrTutors = new StreamWriter("Tutors.csv");
+            string firstLineTutors = "Tutor's ID" + ";" + "Student 1" + ";" + "Student 2" + ";" + "Student 3" + ";" + "Student 4" + ";" + "Student 5" + ";" + "Student 6" + ";" + "Student 7" + ";" + "Student 8" + ";" + "Student 9" + ";" + "Student 10";
+            fichEcrTutors.WriteLine(firstLineTutors);
+            foreach (Professor p in professorList)
+            {
+                if (p.Tutor == true)
+                {
+                    string lineTutors = p.ID + ";";
+                    foreach (Student s in p.TutorStudentList)
+                    {
+                        lineTutors += s.ID + ";";
+                    }
+                    fichEcrTutors.WriteLine(lineTutors);
+                }
+            }
+            fichEcrTutors.Close();
+
+
+            //Save changes for Academic Calendar
+            StreamWriter fichEcrAcademCalendar = new StreamWriter("AcademicCalendar.csv");
+            string firstLineAcademCalendar = "Date" + ";" + "Event1" + ";" + "Event 2" + ";" + "Event 3" + ";" + "Event 5";
+            fichEcrAcademCalendar.WriteLine(firstLineAcademCalendar);
+            foreach (KeyValuePair<DateTime, List<string>> Event in AcademicCalendar.Calendar)
+            {
+                string lineAcademCalendar = Event.Key.ToShortDateString() + ";";
+                foreach (string e in Event.Value)
+                {
+                    lineAcademCalendar += e + ";";
+                }
+                fichEcrAcademCalendar.WriteLine(lineAcademCalendar);
+            }
+            fichEcrAcademCalendar.Close();
+
 
             Console.ReadKey();
         }

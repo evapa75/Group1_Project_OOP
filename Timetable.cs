@@ -15,7 +15,6 @@ namespace Group1_OOP
         // 23207 Théo GALLAIS
         // 23025 Romain LANDRAUD
 
-
         public List<Course> Courses { get; set; }
         public string[] tab_save_subject { get; set; }
 
@@ -54,14 +53,12 @@ namespace Group1_OOP
         public Course CourseF4 { get; set; }
         public Course CourseF5 { get; set; }
 
-
         public Timetable(List<Course> courses)
         {
             Courses = courses;
 
             SaveSubjects();
 
-            //Courses on Monday
             CourseM1 = courses[0];
             CourseM2 = courses[1];
             CourseM3 = courses[2];
@@ -96,7 +93,6 @@ namespace Group1_OOP
             CourseF4 = courses[23];
             CourseF5 = courses[24];
         }
-
 
         public void ShowTimetableStudent()
         {

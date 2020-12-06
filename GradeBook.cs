@@ -16,11 +16,9 @@ namespace Group1_OOP
         // 23207 Théo GALLAIS
         // 23025 Romain LANDRAUD
 
-
         public List<string> Subjects { get; set; }
         public List<string> GradesAssignements { get; set; }
         public List<string> GradesExams { get; set; }
-        //public SortedList<string, List<string>> Gradebook {get;set;}
 
         public GradeBook(string studID, string Class, List<Course> Courses)
         {
@@ -48,12 +46,10 @@ namespace Group1_OOP
                     for (int i = 1; i < datas.Length; i++)
                     {
                         l.Add(datas[i]);
-                        //Console.WriteLine(studentID + " " + datas[i]);
                     }
                     list.Add(studentID, l);
                 }
                 counter = 1;
-                //Console.WriteLine();
             }
             fichLect.Close();
 
@@ -64,28 +60,11 @@ namespace Group1_OOP
                 ListSubjects.Add(list.ElementAt(key).Value[i]);
                 ListGradesAssignements.Add(list.ElementAt(key).Value[i + 1]);
                 ListGradesExams.Add(list.ElementAt(key).Value[i + 2]);
-                //Console.WriteLine(list.ElementAt(key).Value[i] + " " + list.ElementAt(key).Value[i + 1] + " " + list.ElementAt(key).Value[i + 2]);
             }
 
             Subjects = ListSubjects;
             GradesAssignements = ListGradesAssignements;
             GradesExams = ListGradesExams;
         }
-
-        //public List<string> FindSubjects(List<string> ListProfID, List<Course> Courses)
-        //{
-        //    List<string> Subjects = new List<string>();
-        //    foreach (string profID in ListProfID)
-        //    {
-        //        Course c = Courses.Find(x => x.TeacherID_or_NameOfClass.Contains(profID));
-        //        Console.WriteLine(c.Subject);
-        //        if (c.Subject != "Free")
-        //        {
-        //            Subjects.Add(c.Subject);
-        //        }
-        //    }
-        //    return Subjects;
-        //}
-
     }
 }

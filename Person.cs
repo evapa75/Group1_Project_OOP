@@ -28,6 +28,7 @@ namespace Group1_OOP
         public string PhoneNumber { get; set; }
         public string Adress { get; set; }
 
+
         public Person(string id, string firstName, string name, string gender, string birthdate, string persoEmailAdress, string phoneNumber, string adress, string password)
         {
             ID = id;
@@ -42,7 +43,6 @@ namespace Group1_OOP
             Adress = adress;
             Password = password;
         }
-
 
 
         public override string ToString()
@@ -76,9 +76,7 @@ namespace Group1_OOP
             return Birthdate;
         }
 
-
         public abstract string SchoolEmailAdress();
-
 
     }
 }

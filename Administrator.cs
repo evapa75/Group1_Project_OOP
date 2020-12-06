@@ -17,13 +17,10 @@ namespace Group1_OOP
         // 23207 Théo GALLAIS
         // 23025 Romain LANDRAUD
 
-
         public List<Student> StudentList { get; set; }
         public List<Professor> ProfessorList { get; set; }
         public List<Administrator> AdminList { get; set; }
         public List<ApplicationForCourse> ApplicationForCourseList { get; set; }
-
-
         public Administrator(string id, string firstName, string name, string gender, string birthdate, string persoEmailAdress, string phoneNumber, string adress, string password, List<Student> studentList, List<Professor> professorList, List<Administrator> adminList)
             : base(id, firstName, name, gender, birthdate, persoEmailAdress, phoneNumber, adress, password)
         {
@@ -62,7 +59,7 @@ namespace Group1_OOP
             while (finish == false)
             {
                 Console.Clear();
-                Console.WriteLine($"Administrator Profile {FirstName} { Name.ToUpper()} \n\n");
+                Console.WriteLine($"\nAdministrator Profile {FirstName} { Name.ToUpper()} \n\n");
                 Console.WriteLine("Personal identifying information : \n\n" +
                     FirstName + " " + Name.ToUpper() +
                     $"\nID : {ID}" +
@@ -143,10 +140,16 @@ namespace Group1_OOP
                 while (complete == false)
                 {
                     Console.Clear();
-                    for (int j = 0; j < 90; j++) { Console.Write(" "); }
-                    Console.WriteLine("ADD A NEW STUDENT \n\n");
+                    for (int j = 0; j < 95; j++) { Console.Write(" "); }
+                    Console.Write("____________________");
+                    Console.WriteLine("\n");
+                    for (int j = 0; j < 95; j++) { Console.Write(" "); }
+                    Console.Write("| ADD A NEW STUDENT |");
+                    Console.WriteLine("");
+                    for (int j = 0; j < 95; j++) { Console.Write(" "); }
+                    Console.Write("____________________\n\n");
 
-                    Console.WriteLine("Let's complete the registration of a new student. \n\nPlease complete the following information :");
+                    Console.WriteLine("\n\nLet's complete the registration of a new student. \n\nPlease complete the following information :");
 
                     Console.WriteLine(" \nFirst Name :");
                     firstName = Console.ReadLine();
@@ -163,8 +166,6 @@ namespace Group1_OOP
                     Console.WriteLine("\nIn which year do you want to register this student ? (1, 2, 3, 4 or 5 ?)");
                     int year = Convert.ToInt32(Console.ReadLine());
                     _class = ChooseClass(year, "s");
-                    CompleteTimetableNewStudent(id, _class);
-                    CompleteGradebookNewStudent(id, _class);
 
                     Console.WriteLine(" \nPersonal email adress :");
                     personalEmailAdress = Console.ReadLine();
@@ -179,22 +180,26 @@ namespace Group1_OOP
                     while (test == false)
                     {
                         Console.Clear();
-                        Console.WriteLine("\nChoose a new tutor for the student in the following list (max 10 students for a tutor) :");
+                        Console.WriteLine("\nChoose a new tutor for the student in the following list (max 10 students for a tutor) :\n\n");
                         foreach (Professor p in tutors)
                         {
                             Console.WriteLine($"\n{p.FirstName} {p.Name} - {p.Subject} Professor ID : {p.ID} - Number of students tutored: " + p.TutorStudentList.Count);
                         }
-                        Console.WriteLine("ID of the new tutor : ");
+                        Console.WriteLine("\n\n\nID of the new tutor : ");
                         string answer = Console.ReadLine();
                         if (tutors.Contains(tutors.Find(x => x.ID.Contains(answer))))
                         {
                             tutorID = answer;
+
+                            test = true;
                         }
                     }
 
                     if (tutorID != null && firstName != null && name != null && gender != null && _class != null && birthdate != null && personalEmailAdress != null && phoneNumber != null && adress != null)
                     {
                         complete = true;
+                        CompleteTimetableNewStudent(id, _class);
+                        CompleteGradebookNewStudent(id, _class);
                     }
                     else
                     {
@@ -207,7 +212,6 @@ namespace Group1_OOP
                 Console.WriteLine("The form is complete.");
 
                 Student student = new Student(id, firstName, name, gender, birthdate, _class, personalEmailAdress, phoneNumber, adress, password, tutorID, fees, StudentList);
-                //Console.WriteLine(student.ID, student.FirstName, student.Name, student.Gender, student.Birthdate, student.Class, student.PersoEmail, student.PhoneNumber, student.Adress, student.Password, student.TutorID, student.Fees);
                 StudentList.Add(student);
 
                 ProfessorList.Find(x => x.ID.Contains(tutorID)).TutorStudentList.Add(student);
@@ -601,7 +605,7 @@ namespace Group1_OOP
             StreamReader fichLect = new StreamReader("GradeBookClass" + _class + ".csv");
             char[] sep = new char[1] { ';' };
             string line = "";
-            string[] datas = new string[21];
+            string[] datas = new string[31];
             while (fichLect.Peek() > 0)
             {
                 line = fichLect.ReadLine();
@@ -620,14 +624,18 @@ namespace Group1_OOP
             fichLect.Close();
 
 
-            string[] tab = new string[21];
+            string[] tab = new string[32];
             list[0].CopyTo(tab);
             for (int i = 0; i < tab.Length; i++)
             {
                 GradebookNewStudent.Add(tab[i]);
             }
             GradebookNewStudent[0] = id;
-            for (int i = 2; i < GradebookNewStudent.Count; i = i + 2)
+            for (int i = 2; i < GradebookNewStudent.Count; i = i + 3)
+            {
+                GradebookNewStudent[i] = " ";
+            }
+            for (int i = 3; i < GradebookNewStudent.Count; i = i + 3)
             {
                 GradebookNewStudent[i] = " ";
             }
@@ -674,9 +682,16 @@ namespace Group1_OOP
                 while (complete == false)
                 {
                     Console.Clear();
-                    for (int j = 0; j < 90; j++) { Console.Write(" "); }
-                    Console.WriteLine("ADD A NEW PROFESSOR \n\n");
-                    Console.WriteLine("Let's complete the registration of a new professor. \n\nPlease complete the following information about this professor:");
+                    for (int j = 0; j < 95; j++) { Console.Write(" "); }
+                    Console.Write("_______________________");
+                    Console.WriteLine("\n");
+                    for (int j = 0; j < 95; j++) { Console.Write(" "); }
+                    Console.Write("| ADD A NEW PROFESSOR |");
+                    Console.WriteLine("");
+                    for (int j = 0; j < 95; j++) { Console.Write(" "); }
+                    Console.Write("_______________________\n\n");
+
+                    Console.WriteLine("\n\nLet's complete the registration of a new professor. \n\nPlease complete the following information about this professor:");
 
                     Console.WriteLine(" \nFirst Name :");
                     firstName = Console.ReadLine();
@@ -819,7 +834,7 @@ namespace Group1_OOP
                                             s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index1))).Number_of_times = 0;
                                             s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index1))).Attendance = 0;
 
-                                            //Update the gradebook of the class concerned
+                                            //Mettre à jour le gradebook de la classe concernée
                                             int counter = 0;
                                             for (int j = 0; j < s.Gradebook.Subjects.Count; j++)
                                             {
@@ -980,7 +995,7 @@ namespace Group1_OOP
 
                 Professor professor = new Professor(id, firstName, name, gender, birthdate, personalEmailAdress, phoneNumber, adress, password, subject, tutor, name_class1, name_class2, name_class3, name_class4, StudentList);
                 ProfessorList.Add(professor);
-                //AddCoursePlan(professor);
+                AddCourse(professor);
                 if (name_class1 != "")
                 {
                     CoursePlan coursePlan = new CoursePlan(id, name_class1, StudentList, ProfessorList, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
@@ -1099,31 +1114,6 @@ namespace Group1_OOP
 
             return indexfile;
         }
-        //public void AddCoursePlan(Professor professor)
-        //{
-        //    foreach(string c in professor.NameClasses)
-        //    {
-        //        if (c != "")
-        //        {
-        //            StreamWriter fichEcr = new StreamWriter("CoursePlan" + c + ".csv", true);
-        //            string line1 = "";
-        //            string line2 = "Professor ID" + ";" + "Semester1 Week1" + ";" + "S1W2" + ";" + "S1W3" + ";" + "S1W4" + ";" + "S1W5" + ";" + "S1W6" + ";" + "S1W7" + ";" + "S1W8" + ";" + "S1W9" + ";" + "S1W10" + ";" + "S1W11" + ";" + "S1W12" + ";" + "Semester2 Week1" + ";" + "S2W2" + ";" + "S2W3" + ";" + "S2W4" + ";" + "S2W5" + ";" + "S2W6" + ";" + "S2W7" + ";" + "S2W8" + ";" + "S2W9" + ";" + "S2W10" + ";" + "S2W11" + ";" + "S2W12";
-        //            string line3 = professor.ID + ";";
-        //            string line4 = "Exams" + ";";
-        //            string line5 = "";
-        //            string line6 = "Assignements" + ";";
-        //            string line7 = "";
-        //            fichEcr.WriteLine(line1);
-        //            fichEcr.WriteLine(line2);
-        //            fichEcr.WriteLine(line3);
-        //            fichEcr.WriteLine(line4);
-        //            fichEcr.WriteLine(line5);
-        //            fichEcr.WriteLine(line6);
-        //            fichEcr.WriteLine(line7);
-        //            fichEcr.Close();
-        //        }
-        //    }
-        //}
         public void CompleteTimetableProfessor(string id, string subject, int nb, string name_class1, string name_class2, string name_class3, string name_class4, int indexfile1, int indexfile2, int indexfile3, int indexfile4)
         {
             List<List<string>> list = new List<List<string>>();
@@ -1158,34 +1148,34 @@ namespace Group1_OOP
                 courses.Add(tab[i]);
             }
 
-            //We change the professor's id
+            //On modifie l'ID du prof
             courses[0] = id;
 
-            //We change the  course of the professor
+            //On modifie la matière du prof
             for (int i = 3; i < courses.Count; i = i + 5)
             {
                 courses[i] = subject;
             }
 
-            //We delete the data in the Class columns
+            //On supprime les données dans les colonnes Class
             for (int i = 2; i < courses.Count; i = i + 5)
             {
                 courses[i] = " ";
             }
 
-            //Fill in the data in the columns Class
+            //On remplit les données dans les colonnes Class
             if (nb == 1) { courses[indexfile1] = name_class1; }
             if (nb == 2) { courses[indexfile1] = name_class1; courses[indexfile2] = name_class2; }
             if (nb == 3) { courses[indexfile1] = name_class1; courses[indexfile2] = name_class2; courses[indexfile3] = name_class3; }
             if (nb == 4) { courses[indexfile1] = name_class1; courses[indexfile2] = name_class2; courses[indexfile3] = name_class3; courses[indexfile4] = name_class4; }
 
-            //The data in the columns Attendance for this course are deleted
+            //On supprime les données dans les colonnes Attendance for this course
             for (int i = 4; i < courses.Count; i = i + 5)
             {
                 courses[i] = "0";
             }
 
-            //The data in the columns Number of times of this course are deleted
+            //On supprime les données dans les colonnes Number of times of this course
             for (int i = 5; i < courses.Count; i = i + 5)
             {
                 courses[i] = "0";
@@ -1201,6 +1191,14 @@ namespace Group1_OOP
             fichEcr.WriteLine(lastLine);
             fichEcr.Close();
         }
+        public void AddCourse(Professor professor)
+        {
+            StreamWriter fichEcrCourse = new StreamWriter("Courses.csv", true);
+            string lineCourse = professor.Subject + ";" + professor.ID + ";" + professor.FirstName + ";" + professor.Name;
+            fichEcrCourse.WriteLine(lineCourse);
+            fichEcrCourse.Close();
+        }
+
 
 
         // 4 - Add a new administrator
@@ -1226,9 +1224,16 @@ namespace Group1_OOP
                 while (complete == false)
                 {
                     Console.Clear();
-                    for (int j = 0; j < 70; j++) { Console.Write(" "); }
-                    Console.WriteLine("ADD A NEW ADMINISTRATOR \n\n");
-                    Console.WriteLine("Let's complete the registration of a new administrator. \n\nPlease complete the following information :");
+                    for (int j = 0; j < 95; j++) { Console.Write(" "); }
+                    Console.Write("___________________________");
+                    Console.WriteLine("\n");
+                    for (int j = 0; j < 95; j++) { Console.Write(" "); }
+                    Console.Write("| ADD A NEW ADMINISTRATOR |");
+                    Console.WriteLine("");
+                    for (int j = 0; j < 95; j++) { Console.Write(" "); }
+                    Console.Write("___________________________\n\n");
+
+                    Console.WriteLine("\n\nLet's complete the registration of a new administrator. \n\nPlease complete the following information :");
 
                     Console.WriteLine(" \nFirst Name :");
                     firstName = Console.ReadLine();
@@ -1283,9 +1288,6 @@ namespace Group1_OOP
         {
             bool finish = false;
             string subject = "";
-            string professorID = "";
-            string firstname = "";
-            string name = "";
 
             while (finish == false)
             {
@@ -1294,9 +1296,16 @@ namespace Group1_OOP
                 {
                     testSubject = ProfessorList.Count();
                     Console.Clear();
-                    for (int i = 0; i < 70; i++) { Console.Write(" "); }
-                    Console.Write("CREATE A COURSE \n\n");
-                    Console.WriteLine("What is the subject of this new course ?\n");
+                    for (int j = 0; j < 95; j++) { Console.Write(" "); }
+                    Console.Write("___________________");
+                    Console.WriteLine("\n");
+                    for (int j = 0; j < 95; j++) { Console.Write(" "); }
+                    Console.Write("| CREATE A COURSE |");
+                    Console.WriteLine("");
+                    for (int j = 0; j < 95; j++) { Console.Write(" "); }
+                    Console.Write("___________________\n\n");
+
+                    Console.WriteLine("\n\nWhat is the subject of this new course ?\n");
                     subject = Console.ReadLine();
 
                     for (int i = 0; i < ProfessorList.Count; i++)
@@ -1313,48 +1322,380 @@ namespace Group1_OOP
                     }
                 }
 
-                int testID = ProfessorList.Count();
-                while (testID != 0)
-                {
-                    testID = ProfessorList.Count();
-                    Console.Clear();
-                    for (int i = 0; i < 70; i++) { Console.Write(" "); }
-                    Console.Write("CREATE A COURSE \n\n");
-                    Console.WriteLine("Enter the ID of the professor for this course");
-                    professorID = Console.ReadLine();
 
-                    for (int i = 0; i < ProfessorList.Count; i++)
-                    {
-                        if (ProfessorList[i].ID != professorID)
-                        {
-                            testID--;
-                        }
-                    }
-                    if (testID != 0)
-                    {
-                        Console.WriteLine("This professor already has a course assigned to him. Enter the ID of another professor");
-                        System.Threading.Thread.Sleep(3000);
-                    }
-                }
+                Console.WriteLine("Let's create the professor who will teach this new course.");
 
-                Console.WriteLine("\nEnter the first name of the professor for this course");
-                firstname = Console.ReadLine();
-                Console.WriteLine("\n\nEnter the name of the professor for this course");
-                name = Console.ReadLine();
+                CreateProfessorForThisCourse(subject);
 
-
-                string filename2 = "Courses.csv";
-                StreamWriter fichEcr = new StreamWriter(filename2, true);
-                string lastLine = subject + ";" + professorID + ";" + firstname + ";" + name;
-                fichEcr.WriteLine(lastLine);
-                fichEcr.Close();
-
-                Console.WriteLine("The course has been created");
+                Console.WriteLine("\n\nThe course has been created");
                 Console.WriteLine("\n\n\nReturn to the dashboard ? \n1- YES \n2- NO");
                 int decision = Convert.ToInt32(Console.ReadLine());
                 if (decision == 1)
                 {
                     finish = true;
+                }
+            }
+        }
+        public void CreateProfessorForThisCourse(string subject)
+        {
+            bool created = false;
+            while (created == false)
+            {
+                bool complete = false;
+                string firstName = "";
+                string name = "";
+                string gender = "";
+                string birthdate = "";
+                string personalEmailAdress = "";
+                string phoneNumber = "";
+                string adress = "";
+                string password = FirstPassword();
+
+                string tutor = "no";
+                string name_class1 = "";
+                string name_class2 = "";
+                string name_class3 = "";
+                string name_class4 = "";
+
+                Professor p = ProfessorList.ElementAt(ProfessorList.Count - 1);
+                int i = Convert.ToInt32(p.ID) + 1;
+                string id = Convert.ToString(i);
+
+                while (complete == false)
+                {
+                    Console.Clear();
+                    for (int j = 0; j < 95; j++) { Console.Write(" "); }
+                    Console.Write("_______________________");
+                    Console.WriteLine("\n");
+                    for (int j = 0; j < 95; j++) { Console.Write(" "); }
+                    Console.Write("| ADD A NEW PROFESSOR |");
+                    Console.WriteLine("");
+                    for (int j = 0; j < 95; j++) { Console.Write(" "); }
+                    Console.Write("_______________________\n\n");
+
+                    Console.WriteLine("\n\nLet's complete the registration of a new professor for this course. \n\nPlease complete the following information about this professor:");
+
+                    Console.WriteLine(" \nFirst Name :");
+                    firstName = Console.ReadLine();
+
+                    Console.WriteLine(" \nName :");
+                    name = Console.ReadLine();
+
+                    Console.WriteLine(" \nGender : Female or Male");
+                    gender = Console.ReadLine();
+
+                    Console.WriteLine(" \nBirthdate : dd/mm/yyyy");
+                    birthdate = Console.ReadLine();
+
+                    Console.WriteLine(" \nPersonal email adress :");
+                    personalEmailAdress = Console.ReadLine();
+
+                    Console.WriteLine(" \nTelephone number :");
+                    phoneNumber = Console.ReadLine();
+
+                    Console.WriteLine(" \nAdress (street number, street, postal code, city) :");
+                    adress = Console.ReadLine();
+
+                    Console.WriteLine("\nNumber of class (4 maximum) ");
+                    int nb = Convert.ToInt32(Console.ReadLine());
+                    double index1 = 0;
+                    double index2 = 0;
+                    double index3 = 0;
+                    double index4 = 0;
+
+                    int indexfile1 = 0;
+                    int indexfile2 = 0;
+                    int indexfile3 = 0;
+                    int indexfile4 = 0;
+
+                    if (nb <= 4)
+                    {
+                        if (nb == 1)
+                        {
+                            Console.WriteLine("\nWhat’s the year of first class? (1, 2, 3, 4 or 5 ?)");
+                            int year = Convert.ToInt32(Console.ReadLine());
+                            name_class1 = ChooseClass(year, "p");
+
+                            if (name_class1 != "")
+                            {
+                                index1 = FindIndexCourse(name_class1);
+
+                                indexfile1 = FindIndexFile(index1);
+                            }
+                        }
+                        if (nb == 2)
+                        {
+                            Console.WriteLine("\nWhat’s the year of first class? (1, 2, 3, 4 or 5 ?)");
+                            int year = Convert.ToInt32(Console.ReadLine());
+                            name_class1 = ChooseClass(year, "p");
+                            Console.WriteLine("\n\nWhat’s the year of second class? (1, 2, 3, 4 or 5 ?)");
+                            year = Convert.ToInt32(Console.ReadLine());
+                            name_class2 = ChooseClass(year, "p");
+
+                            if (name_class1 != "" && name_class2 != "")
+                            {
+                                index1 = FindIndexCourse(name_class1);
+                                index2 = FindIndexCourse(name_class2);
+
+                                indexfile1 = FindIndexFile(index1);
+                                indexfile2 = FindIndexFile(index2);
+                            }
+                        }
+                        if (nb == 3)
+                        {
+                            Console.WriteLine("\nWhat’s the year of first class? (1, 2, 3, 4 or 5 ?)");
+                            int year = Convert.ToInt32(Console.ReadLine());
+                            name_class1 = ChooseClass(year, "p");
+                            Console.WriteLine("\n\nWhat’s the year of second class? (1, 2, 3, 4 or 5 ?)");
+                            year = Convert.ToInt32(Console.ReadLine());
+                            name_class2 = ChooseClass(year, "p");
+                            Console.WriteLine("\n\nWhat’s the year of third class? (1, 2, 3, 4 or 5 ?)");
+                            year = Convert.ToInt32(Console.ReadLine());
+                            name_class3 = ChooseClass(year, "p");
+
+                            if (name_class1 != "" && name_class2 != "" && name_class3 != "")
+                            {
+                                index1 = FindIndexCourse(name_class1);
+                                index2 = FindIndexCourse(name_class2);
+                                index3 = FindIndexCourse(name_class3);
+
+                                indexfile1 = FindIndexFile(index1);
+                                indexfile2 = FindIndexFile(index2);
+                                indexfile3 = FindIndexFile(index3);
+                            }
+                        }
+                        if (nb == 4)
+                        {
+                            Console.WriteLine("\nWhat’s the year of first class? (1, 2, 3, 4 or 5 ?)");
+                            int year = Convert.ToInt32(Console.ReadLine());
+                            name_class1 = ChooseClass(year, "p");
+                            Console.WriteLine("\n\nWhat’s the year of second class? (1, 2, 3, 4 or 5 ?)");
+                            year = Convert.ToInt32(Console.ReadLine());
+                            name_class2 = ChooseClass(year, "p");
+                            Console.WriteLine("\nWhat’s the year of third class? (1, 2, 3, 4 or 5 ?)");
+                            year = Convert.ToInt32(Console.ReadLine());
+                            name_class3 = ChooseClass(year, "p");
+                            Console.WriteLine("\n\nWhat’s the year of fourth class? (1, 2, 3, 4 or 5 ?)");
+                            year = Convert.ToInt32(Console.ReadLine());
+                            name_class4 = ChooseClass(year, "p");
+
+                            if (name_class1 != "" && name_class2 != "" && name_class3 != "" && name_class4 != "")
+                            {
+                                index1 = FindIndexCourse(name_class1);
+                                index2 = FindIndexCourse(name_class2);
+                                index3 = FindIndexCourse(name_class3);
+                                index4 = FindIndexCourse(name_class4);
+
+                                indexfile1 = FindIndexFile(index1);
+                                indexfile2 = FindIndexFile(index2);
+                                indexfile3 = FindIndexFile(index3);
+                                indexfile4 = FindIndexFile(index4);
+                            }
+                        }
+
+                    }
+                    if (subject != null && tutor != null && firstName != null && name != null && gender != null && birthdate != null && personalEmailAdress != null && phoneNumber != null && adress != null)
+                    {
+                        if (tutor == "yes" || tutor == "no")
+                        {
+                            if (name_class1 != null && name_class2 != null && name_class3 != null && name_class4 != null)
+                            {
+                                if (name_class1 != "")
+                                {
+                                    complete = true;
+                                    CompleteTimetableProfessor(id, subject, nb, name_class1, name_class2, name_class3, name_class4, indexfile1, indexfile2, indexfile3, indexfile4);
+                                    foreach (Student s in StudentList)
+                                    {
+                                        if (s.Class == name_class1)
+                                        {
+                                            s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index1))).Subject = subject;
+                                            s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index1))).ProfessorID_or_NameOfClass = id;
+                                            s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index1))).Number_of_times = 0;
+                                            s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index1))).Attendance = 0;
+
+                                            //Mettre à jour le gradebook de la classe concernée
+                                            int counter = 0;
+                                            for (int j = 0; j < s.Gradebook.Subjects.Count; j++)
+                                            {
+                                                if (s.Gradebook.Subjects[j] == "" && counter <= 0)
+                                                {
+                                                    s.Gradebook.Subjects[j] = subject;
+                                                    counter++;
+                                                }
+                                            }
+
+                                            counter = 0;
+                                            for (int j = 0; j < s.Gradebook.GradesAssignements.Count; j++)
+                                            {
+                                                if (s.Gradebook.GradesAssignements[j] == "" && counter <= 0)
+                                                {
+                                                    s.Gradebook.GradesAssignements[j] = "";
+                                                    counter++;
+                                                }
+                                            }
+
+                                            counter = 0;
+                                            for (int j = 0; j < s.Gradebook.GradesExams.Count; j++)
+                                            {
+                                                if (s.Gradebook.GradesExams[j] == "" && counter <= 0)
+                                                {
+                                                    s.Gradebook.GradesExams[j] = "";
+                                                    counter++;
+                                                }
+                                            }
+                                        }
+
+                                        if (s.Class == name_class2)
+                                        {
+                                            s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index2))).Subject = subject;
+                                            s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index2))).ProfessorID_or_NameOfClass = id;
+                                            s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index2))).Number_of_times = 0;
+                                            s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index2))).Attendance = 0;
+
+                                            int counter = 0;
+                                            for (int j = 0; j < s.Gradebook.Subjects.Count; j++)
+                                            {
+                                                if (s.Gradebook.Subjects[j] == "" && counter <= 0)
+                                                {
+                                                    s.Gradebook.Subjects[j] = subject;
+                                                    counter++;
+                                                }
+                                            }
+
+                                            counter = 0;
+                                            for (int j = 0; j < s.Gradebook.GradesAssignements.Count; j++)
+                                            {
+                                                if (s.Gradebook.GradesAssignements[j] == "" && counter <= 0)
+                                                {
+                                                    s.Gradebook.GradesAssignements[j] = "";
+                                                    counter++;
+                                                }
+                                            }
+
+                                            counter = 0;
+                                            for (int j = 0; j < s.Gradebook.GradesExams.Count; j++)
+                                            {
+                                                if (s.Gradebook.GradesExams[j] == "" && counter <= 0)
+                                                {
+                                                    s.Gradebook.GradesExams[j] = "";
+                                                    counter++;
+                                                }
+                                            }
+                                        }
+
+                                        if (s.Class == name_class3)
+                                        {
+                                            s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index3))).Subject = subject;
+                                            s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index3))).ProfessorID_or_NameOfClass = id;
+                                            s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index3))).Number_of_times = 0;
+                                            s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index3))).Attendance = 0;
+
+                                            int counter = 0;
+                                            for (int j = 0; j < s.Gradebook.Subjects.Count; j++)
+                                            {
+                                                if (s.Gradebook.Subjects[j] == "" && counter <= 0)
+                                                {
+                                                    s.Gradebook.Subjects[j] = subject;
+                                                    counter++;
+                                                }
+                                            }
+
+                                            counter = 0;
+                                            for (int j = 0; j < s.Gradebook.GradesAssignements.Count; j++)
+                                            {
+                                                if (s.Gradebook.GradesAssignements[j] == "" && counter <= 0)
+                                                {
+                                                    s.Gradebook.GradesAssignements[j] = "";
+                                                    counter++;
+                                                }
+                                            }
+
+                                            counter = 0;
+                                            for (int j = 0; j < s.Gradebook.GradesExams.Count; j++)
+                                            {
+                                                if (s.Gradebook.GradesExams[j] == "" && counter <= 0)
+                                                {
+                                                    s.Gradebook.GradesExams[j] = "";
+                                                    counter++;
+                                                }
+                                            }
+                                        }
+
+                                        if (s.Class == name_class4)
+                                        {
+                                            s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index4))).Subject = subject;
+                                            s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index4))).ProfessorID_or_NameOfClass = id;
+                                            s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index4))).Number_of_times = 0;
+                                            s.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(index4))).Attendance = 0;
+
+                                            int counter = 0;
+                                            for (int j = 0; j < s.Gradebook.Subjects.Count; j++)
+                                            {
+                                                if (s.Gradebook.Subjects[j] == "" && counter <= 0)
+                                                {
+                                                    s.Gradebook.Subjects[j] = subject;
+                                                    counter++;
+                                                }
+                                            }
+
+                                            counter = 0;
+                                            for (int j = 0; j < s.Gradebook.GradesAssignements.Count; j++)
+                                            {
+                                                if (s.Gradebook.GradesAssignements[j] == "" && counter <= 0)
+                                                {
+                                                    s.Gradebook.GradesAssignements[j] = "";
+                                                    counter++;
+                                                }
+                                            }
+
+                                            counter = 0;
+                                            for (int j = 0; j < s.Gradebook.GradesExams.Count; j++)
+                                            {
+                                                if (s.Gradebook.GradesExams[j] == "" && counter <= 0)
+                                                {
+                                                    s.Gradebook.GradesExams[j] = "";
+                                                    counter++;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Your form is incomplete or incorrectly completed. Please, complete it again");
+                        System.Threading.Thread.Sleep(3000);
+                    }
+                }
+                Console.Clear();
+                Console.WriteLine("The form is complete.");
+                System.Threading.Thread.Sleep(2000);
+                created = true;
+
+                Professor professor = new Professor(id, firstName, name, gender, birthdate, personalEmailAdress, phoneNumber, adress, password, subject, tutor, name_class1, name_class2, name_class3, name_class4, StudentList);
+                ProfessorList.Add(professor);
+                AddCourse(professor);
+                if (name_class1 != "")
+                {
+                    CoursePlan coursePlan = new CoursePlan(id, name_class1, StudentList, ProfessorList, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+                    professor.CoursePlan.Add(coursePlan);
+                }
+                if (name_class2 != "")
+                {
+                    CoursePlan coursePlan = new CoursePlan(id, name_class2, StudentList, ProfessorList, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+                    professor.CoursePlan.Add(coursePlan);
+                }
+                if (name_class3 != "")
+                {
+                    CoursePlan coursePlan = new CoursePlan(id, name_class3, StudentList, ProfessorList, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+                    professor.CoursePlan.Add(coursePlan);
+                }
+                if (name_class4 != "")
+                {
+                    CoursePlan coursePlan = new CoursePlan(id, name_class4, StudentList, ProfessorList, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+                    professor.CoursePlan.Add(coursePlan);
                 }
             }
         }
@@ -1368,9 +1709,16 @@ namespace Group1_OOP
             while (finish == false)
             {
                 Console.Clear();
-                for (int i = 0; i < 70; i++) { Console.Write(" "); }
-                Console.Write("MANAGE APPLICATIONS FOR COURSES \n\n");
-                Console.WriteLine("Here is the list of pending applications :\n");
+                for (int j = 0; j < 90; j++) { Console.Write(" "); }
+                Console.Write("__________________________________");
+                Console.WriteLine("\n");
+                for (int j = 0; j < 90; j++) { Console.Write(" "); }
+                Console.Write("| MANAGE APPLICATIONS FOR COURSES |");
+                Console.WriteLine("");
+                for (int j = 0; j < 90; j++) { Console.Write(" "); }
+                Console.Write("__________________________________\n\n");
+
+                Console.WriteLine("\n\nHere is the list of pending applications :\n");
                 List<ApplicationForCourse> listApplications = ListApplications();
                 if (listApplications.Count == 0)
                 {
@@ -1392,7 +1740,7 @@ namespace Group1_OOP
                     if (Console.ReadLine() == "1")
                     {
                         Console.Clear();
-                        Console.WriteLine("The student has the possibility to follow the requested course with one of the following classes \nChoose one of them :");
+                        Console.WriteLine("\nThe student has the possibility to follow the requested course with one of the following classes \nChoose one of them :\n");
                         Console.WriteLine(ProfessorList.Find(x => x.ID.Contains(listApplications[index - 1].ProfID)).NameClass1);
                         if (ProfessorList.Find(x => x.ID.Contains(listApplications[index - 1].ProfID)).NameClass2 != "")
                         {
@@ -1414,7 +1762,7 @@ namespace Group1_OOP
                         StudentList.Find(x => x.ID.Contains(listApplications[index - 1].StudentID)).Gradebook.GradesExams.Add(" ");
                         StudentList.Find(x => x.ID.Contains(listApplications[index - 1].StudentID)).ShowGradeBook(2);
                         Console.Clear();
-                        Console.WriteLine("Request accepted");
+                        Console.WriteLine("\nRequest accepted");
                         listApplications[index - 1].RemoveApplication();
                         listApplications.Remove(listApplications[index - 1]);
 
@@ -1422,7 +1770,7 @@ namespace Group1_OOP
                     else
                     {
                         Console.Clear();
-                        Console.WriteLine("Request refused");
+                        Console.WriteLine("\nRequest refused");
                         listApplications[index - 1].RemoveApplication();
                         listApplications.Remove(listApplications[index - 1]);
                     }
@@ -1480,7 +1828,7 @@ namespace Group1_OOP
             string[] datas = new string[127];
             while (fichLect.Peek() > 0)
             {
-                line = fichLect.ReadLine();
+                line = fichLect.ReadLine(); //Lecture d'une ligne
                 if (counter == 1)
                 {
                     datas = line.Split(sep);
@@ -1495,7 +1843,7 @@ namespace Group1_OOP
             }
             fichLect.Close();
 
-            //We retrieve the line of one of the pupils who is in the chosen class.
+            //On récupère la ligne d'un des élèves qui est dans la classe choisie
             bool one = false;
             List<string> listClass = new List<string>();
             foreach (List<string> l in list)
@@ -1506,7 +1854,7 @@ namespace Group1_OOP
                 }
             }
 
-            //We retrieve the index with the teacher's ID in the retrieved student's line.
+            //On récupère l'index auquel se trouve l'ID du prof dans la ligne de l'élève récupérée
             int index = 0;
             for (int i = 0; i < listClass.Count; i++)
             {
@@ -1516,7 +1864,7 @@ namespace Group1_OOP
                 }
             }
 
-            //The line of the student who wants to follow the new course is filled in. 
+            //On remplit la ligne de l'élève qui veut suivre le nouveau cours 
             foreach (List<string> l in list)
             {
                 if (l[0] == studentID)
@@ -1528,7 +1876,7 @@ namespace Group1_OOP
                 }
             }
 
-            //The .csv file is rewritten with the modifications.
+            //On réécrit le fichier .csv avec les modifs
             StreamWriter fichEcr = new StreamWriter("Timetables_Students.csv");
             string firstLine = "StudentID" + ";" + "CourseM1 index" + ";" + "ProfID" + ";" + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseM2 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseM3 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseM4 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseM5 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseT1 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseT2 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseT3 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseT4 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseT5 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseW1 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseW2 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseW3 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseW4 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseW5 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseTH1 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseTH2 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseTH3 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseTH4 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseTH5 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseF1 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseF2 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseF3 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseF4 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "CourseF5 index" + "; " + "ProfID" + "; " + "Subject" + "; " + "Attendance at this course" + "; " + "Number of this course" + "; " + "Class";
             fichEcr.WriteLine(firstLine);
@@ -1556,15 +1904,22 @@ namespace Group1_OOP
             {
                 Console.Clear();
                 string _class = "";
-                for (int i = 0; i < 80; i++) { Console.Write(" "); }
-                Console.Write("MANAGE TIMETABLES \n\n");
-                Console.WriteLine("Do you want to modify the timetable of a professor or of a class of students ? :\n1- Professor  \n2- Class of students");
+                for (int j = 0; j < 90; j++) { Console.Write(" "); }
+                Console.Write("_____________________");
+                Console.WriteLine("\n");
+                for (int j = 0; j < 90; j++) { Console.Write(" "); }
+                Console.Write("| MANAGE TIMETABLES |");
+                Console.WriteLine("");
+                for (int j = 0; j < 90; j++) { Console.Write(" "); }
+                Console.Write("_____________________\n\n");
+
+                Console.WriteLine("\n\nDo you want to modify the timetable of a professor or of a class of students ? :\n\n1- Professor  \n\n2- Class of students");
                 switch (Console.ReadLine())
                 {
                     case "1":
                         Professor professor = ChooseProfessor();
                         professor.Timetable.ShowTimetableProfessor();
-                        Console.WriteLine("Here is the timetable of " + professor.FirstName + " " + professor.Name + " :");
+                        Console.WriteLine("\n\n\n\nHere is the timetable of " + professor.FirstName + " " + professor.Name + " :");
 
                         bool classCorrect = false;
                         while (classCorrect == false)
@@ -1601,7 +1956,7 @@ namespace Group1_OOP
                         Console.WriteLine("old index course = " + oldIndexCourse + "\nold index file = " + oldIndexFile);
 
                         StudentList.Find(x => x.Class.Contains(_class)).Timetable.ShowTimetableStudent();
-                        Console.WriteLine("Here is the timetable of class " + _class);
+                        Console.WriteLine("\n\n\n\nHere is the timetable of class " + _class);
 
                         //Choice of a timeslot
                         double newIndexCourse = ChooseIndexCourse();
@@ -1621,31 +1976,25 @@ namespace Group1_OOP
                             ModifyTimetableProfessor(professor, _class, c, oldIndexFile, newIndexFile);
                             professor.Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(oldIndexCourse))).ModifyCourseIndex(newIndexCourse);
 
-                            //Console.Clear();
-                            //professor.Timetable.ShowTimetableProfessor();
-                            //Console.WriteLine("Here is the new timetable of " + professor.FirstName + " " + professor.Name + " :");
 
-                            //StudentList.Find(x => x.Class.Contains(_class)).Timetable.ShowTimetableStudent();
-                            //Console.WriteLine("Here is the new timetable of class " + _class);
-
-                            Console.WriteLine("Timetables updated");
+                            Console.WriteLine("\n\nTimetables updated");
                         }
 
                         else
                         {
-                            Console.WriteLine("This timeslot is not available.");
+                            Console.WriteLine("\n\nThis timeslot is not available.");
                         }
                         break;
 
 
 
                     case "2":
-                        Console.WriteLine("What's the year of this class ? (1, 2, 3, 4 or 5)");
+                        Console.WriteLine("\n\nWhat's the year of this class ? (1, 2, 3, 4 or 5)");
                         int year = Convert.ToInt32(Console.ReadLine());
                         _class = ChooseClass(year, "p");
 
                         StudentList.Find(x => x.Class.Contains(_class)).Timetable.ShowTimetableStudent();
-                        Console.WriteLine("Here is the timetable of class " + _class);
+                        Console.WriteLine("\n\n\n\nHere is the timetable of class " + _class);
 
                         bool nameCorrect = false;
                         string courseName = "";
@@ -1659,7 +2008,7 @@ namespace Group1_OOP
                             }
                             else
                             {
-                                Console.WriteLine("You didn't enter the course name correctly.");
+                                Console.WriteLine("\nYou didn't enter the course name correctly.");
                             }
                         }
 
@@ -1668,7 +2017,7 @@ namespace Group1_OOP
                         int oldIndexFile2 = FindIndexFile(oldIndexCourse2);
 
                         ProfessorList.Find(x => x.Subject.Contains(c2.Subject)).Timetable.ShowTimetableProfessor();
-                        Console.WriteLine("Here is the timetable of the professor for this course");
+                        Console.WriteLine("\n\n\n\nHere is the timetable of the professor for this course");
 
                         //Choice of a timeslot
                         double newIndexCourse2 = ChooseIndexCourse();
@@ -1688,19 +2037,12 @@ namespace Group1_OOP
                             ModifyTimetableProfessor(ProfessorList.Find(x => x.Subject.Contains(c2.Subject)), _class, c2, oldIndexFile2, newIndexFile2);
                             ProfessorList.Find(x => x.Subject.Contains(c2.Subject)).Courses.Find(x => x.CourseIndex.Contains(Convert.ToString(oldIndexCourse2))).CourseIndex = Convert.ToString(newIndexCourse2);
 
-                            //Console.Clear();
-                            //StudentList.Find(x => x.Class.Contains(_class)).Timetable.ShowTimetableStudent();
-                            //Console.WriteLine("Here is the new timetable of class " + _class);
-
-                            //ProfessorList.Find(x => x.Subject.Contains(c2.Subject)).Timetable.ShowTimetableProfessor();
-                            //Console.WriteLine("Here is the new timetable of " + ProfessorList.Find(x => x.Subject.Contains(c2.Subject)).FirstName + ProfessorList.Find(x => x.Subject.Contains(c2.Subject)).Name + " :");
-
-                            Console.WriteLine("Timetables updated");
+                            Console.WriteLine("\n\nTimetables updated");
                         }
 
                         else
                         {
-                            Console.WriteLine("This timeslot is not available.");
+                            Console.WriteLine("\n\nThis timeslot is not available.");
                         }
                         break;
                 }
@@ -1888,123 +2230,142 @@ namespace Group1_OOP
             while (finish == false)
             {
                 Console.Clear();
-                for (int i = 0; i < 70; i++) { Console.Write(" "); }
-                Console.Write("MANAGE STUDENT INFORMATION\n\n");
+                for (int j = 0; j < 85; j++) { Console.Write(" "); }
+                Console.Write("_____________________________");
+                Console.WriteLine("\n");
+                for (int j = 0; j < 85; j++) { Console.Write(" "); }
+                Console.Write("| MANAGE STUDENT INFORMATION |");
+                Console.WriteLine("");
+                for (int j = 0; j < 85; j++) { Console.Write(" "); }
+                Console.Write("_____________________________\n\n");
+
+
                 Student student = ChooseStudent();
 
-                Console.Clear();
-                Console.WriteLine($"Student Profile {student.FirstName} {student.Name.ToUpper()} \n\n");
-                Console.WriteLine("Personal identifying information : \n\n" +
-                    student.FirstName + " " + student.Name.ToUpper() +
-                    $"\nID : {student.ID}" +
-                    $"\nGender : {student.Gender}" +
-                    $"\nBirthdate : {student.Birthdate.ToShortDateString()}\n\n");
-                Console.WriteLine("Contact information : \n\n" +
-                    $"Adress : {student.Adress}" +
-                    $"\nPhone Number : {student.PhoneNumber}" +
-                    $"\nSchool email adress : {student.SchoolEmail}" +
-                    $"\nPersonnal email adress : {student.PersoEmail}\n\n");
-                Console.WriteLine("School information : \n" +
-                    $"\n Year of study : {student.Year}" +
-                    $"\nClass : {student.Class}" +
-                    $"\nTutorID : {student.TutorID}" +
-                    $"\nFees to pay : {student.Fees}\n\n\n");
-
-                Console.WriteLine("Do you want to change any of the student's information? ");
-                Console.WriteLine("0 - Nothing\n" +
-                    "1 - First Name\n" +
-                    "2 - Name\n" +
-                    "3 - Gender\n" +
-                    "4 - Birthdate\n" +
-                    "5 - Adress\n" +
-                    "6 - Phone number\n" +
-                    "7 - Personal email adress\n" +
-                    "8 - TutorID\n" +
-                    "9 - Fees\n");
-
-                switch (Console.ReadLine())
+                bool finish2 = false;
+                while (finish2 == false)
                 {
-                    case "0":
-                        finish = true;
-                        break;
+                    Console.Clear();
+                    Console.WriteLine($"\nStudent Profile {student.FirstName} {student.Name.ToUpper()} \n\n");
+                    Console.WriteLine("Personal identifying information : \n\n" +
+                        student.FirstName + " " + student.Name.ToUpper() +
+                        $"\nID : {student.ID}" +
+                        $"\nGender : {student.Gender}" +
+                        $"\nBirthdate : {student.Birthdate.ToShortDateString()}\n\n");
+                    Console.WriteLine("Contact information : \n\n" +
+                        $"Adress : {student.Adress}" +
+                        $"\nPhone Number : {student.PhoneNumber}" +
+                        $"\nSchool email adress : {student.SchoolEmail}" +
+                        $"\nPersonnal email adress : {student.PersoEmail}\n\n");
+                    Console.WriteLine("School information : \n" +
+                        $"\nYear of study : {student.Year}" +
+                        $"\nClass : {student.Class}" +
+                        $"\nTutorID : {student.TutorID}" +
+                        $"\nFees to pay : {student.Fees}\n");
 
-                    case "1":
-                        Console.WriteLine("\nEnter the new first name of the student");
-                        student.FirstName = Console.ReadLine();
-                        break;
+                    Console.WriteLine("\n\nDo you want to change any of the student's information? ");
+                    Console.WriteLine("0 - Nothing\n" +
+                        "1 - First Name\n" +
+                        "2 - Name\n" +
+                        "3 - Gender\n" +
+                        "4 - Birthdate\n" +
+                        "5 - Adress\n" +
+                        "6 - Phone number\n" +
+                        "7 - Personal email adress\n" +
+                        "8 - TutorID\n" +
+                        "9 - Fees\n");
 
-                    case "2":
-                        Console.WriteLine("\nEnter the new name of the student");
-                        student.Name = Console.ReadLine();
-                        break;
+                    switch (Console.ReadLine())
+                    {
+                        case "0":
+                            finish2 = true;
+                            break;
 
-                    case "3":
-                        Console.WriteLine("\nEnter the new gender of the student");
-                        student.Adress = Console.ReadLine();
-                        break;
+                        case "1":
+                            Console.WriteLine("\nEnter the new first name of the student");
+                            student.FirstName = Console.ReadLine();
+                            break;
 
-                    case "4":
-                        Console.WriteLine("\nEnter the new birthdate of the student (dd/mm/yyyy)");
-                        string birthdate = Console.ReadLine();
-                        student.Birthdate = student.BirthdateCalculation(birthdate);
-                        break;
+                        case "2":
+                            Console.WriteLine("\nEnter the new name of the student");
+                            student.Name = Console.ReadLine();
+                            break;
 
-                    case "5":
-                        Console.WriteLine("\nEnter the new address of the student");
-                        student.Adress = Console.ReadLine();
-                        break;
+                        case "3":
+                            Console.WriteLine("\nEnter the new gender of the student");
+                            student.Adress = Console.ReadLine();
+                            break;
 
-                    case "6":
-                        Console.WriteLine("\nEnter the new phone number of the student");
-                        student.PhoneNumber = Console.ReadLine();
-                        break;
+                        case "4":
+                            Console.WriteLine("\nEnter the new birthdate of the student (dd/mm/yyyy)");
+                            string birthdate = Console.ReadLine();
+                            student.Birthdate = student.BirthdateCalculation(birthdate);
+                            break;
 
-                    case "7":
-                        Console.WriteLine("\nEnter the new personal email adress of the student");
-                        student.PersoEmail = Console.ReadLine();
-                        break;
+                        case "5":
+                            Console.WriteLine("\nEnter the new address of the student");
+                            student.Adress = Console.ReadLine();
+                            break;
 
-                    case "8":
-                        string tutorID = "";
-                        List<Professor> tutors = new List<Professor>();
-                        foreach (Professor p in ProfessorList)
-                        {
-                            if (p.Tutor == true)
+                        case "6":
+                            Console.WriteLine("\nEnter the new phone number of the student");
+                            student.PhoneNumber = Console.ReadLine();
+                            break;
+
+                        case "7":
+                            Console.WriteLine("\nEnter the new personal email adress of the student");
+                            student.PersoEmail = Console.ReadLine();
+                            break;
+
+                        case "8":
+                            string tutorID = "";
+                            List<Professor> tutors = new List<Professor>();
+                            foreach (Professor p in ProfessorList)
                             {
-                                tutors.Add(p);
-                            }
-                        }
-                        bool test = false;
-                        while (test == false)
-                        {
-                            Console.Clear();
-                            Console.WriteLine("\nChoose a new tutor for the student in the following list (max 10 students for a tutor) : \n");
-                            foreach (Professor p in tutors)
-                            {
-                                Console.WriteLine($"\n{p.FirstName} {p.Name} - {p.Subject} Professor ID : {p.ID} - Number of students tutored: " + p.TutorStudentList.Count);
-                            }
-                            Console.WriteLine("\n\nID of the new tutor : ");
-                            tutorID = Console.ReadLine();
-                            if (tutors.Contains(tutors.Find(x => x.ID.Contains(tutorID))))
-                            {
-                                if (tutorID != student.TutorID)
+                                if (p.Tutor == true)
                                 {
-                                    ModifyTutor(student, tutorID);
-                                    student.TutorID = tutorID;
-                                    test = true;
+                                    tutors.Add(p);
                                 }
                             }
-                        }
+                            bool test = false;
+                            while (test == false)
+                            {
+                                Console.Clear();
+                                Console.WriteLine("\nChoose a new tutor for the student in the following list (max 10 students for a tutor) : \n");
+                                foreach (Professor p in tutors)
+                                {
+                                    Console.WriteLine($"\n{p.FirstName} {p.Name} - {p.Subject} Professor ID : {p.ID} - Number of students tutored: " + p.TutorStudentList.Count);
+                                }
+                                Console.WriteLine("\n\nID of the new tutor : ");
+                                tutorID = Console.ReadLine();
+                                if (tutors.Contains(tutors.Find(x => x.ID.Contains(tutorID))))
+                                {
+                                    if (tutorID != student.TutorID)
+                                    {
+                                        ModifyTutor(student, tutorID);
+                                        student.TutorID = tutorID;
+                                        test = true;
+                                    }
+                                }
+                            }
 
 
-                        break;
+                            break;
 
-                    case "9":
-                        Console.WriteLine("Enter the new amount that the student will have to pay");
-                        student.Fees = Convert.ToDouble(Console.ReadLine());
-                        break;
+                        case "9":
+                            Console.WriteLine("Enter the new amount that the student will have to pay");
+                            student.Fees = Convert.ToDouble(Console.ReadLine());
+                            break;
+                    }
+
+                    Console.WriteLine("The changes have been taken into account \n\n");
+
+                    Console.WriteLine("Do you want to modify something else ? \n1- YES \n2- NO");
+                    if (Console.ReadLine() == "2")
+                    {
+                        finish2 = true;
+                    }
                 }
-                Console.WriteLine("The changes have been taken into account \n\n");
                 Console.WriteLine("\n\n\nReturn to the dashboard ? \n1- YES \n2- NO");
                 int decision = Convert.ToInt32(Console.ReadLine());
                 if (decision == 1)
@@ -2091,112 +2452,105 @@ namespace Group1_OOP
             while (finish == false)
             {
                 Console.Clear();
-                for (int i = 0; i < 70; i++) { Console.Write(" "); }
-                Console.Write("MANAGE PROFESSOR INFORMATION\n\n");
+                for (int j = 0; j < 85; j++) { Console.Write(" "); }
+                Console.Write("_______________________________");
+                Console.WriteLine("\n");
+                for (int j = 0; j < 85; j++) { Console.Write(" "); }
+                Console.Write("| MANAGE PROFESSOR INFORMATION |");
+                Console.WriteLine("");
+                for (int j = 0; j < 85; j++) { Console.Write(" "); }
+                Console.Write("_______________________________\n\n");
+
                 Professor professor = ChooseProfessor();
 
-                Console.Clear();
-                Console.WriteLine($"Student Profile {professor.FirstName} {professor.Name.ToUpper()} \n\n");
-                Console.WriteLine("Personal identifying information : \n\n" +
-                    professor.FirstName + " " + professor.Name.ToUpper() +
-                    $"\nID : {professor.ID}" +
-                    $"\nGender : {professor.Gender}" +
-                    $"\nBirthdate : {professor.Birthdate.ToShortDateString()}\n\n");
-                Console.WriteLine("Contact information : \n" +
-                    $"\nAdress : {professor.Adress}" +
-                    $"\nPhone Number : {professor.PhoneNumber}" +
-                    $"\nSchool email adress : {professor.SchoolEmail}" +
-                    $"\nPersonnal email adress : {professor.PersoEmail}\n\n");
-                Console.WriteLine("School information : \n" +
-                    $"\nSubject : {professor.Subject}" +
-                    $"\nClasses : {professor.NameClass1} {professor.NameClass2} {professor.NameClass3} {professor.NameClass4} ");
-                if (professor.Tutor == true)
+                bool finish2 = false;
+                while (finish2 == false)
                 {
-                    Console.WriteLine("\nTutor of : ");
-                    for (int i = 0; i < professor.TutorStudentList.Count; i++)
+                    Console.Clear();
+                    Console.WriteLine($"\nProfessor Profile {professor.FirstName} {professor.Name.ToUpper()} \n\n");
+                    Console.WriteLine("Personal identifying information : \n\n" +
+                        professor.FirstName + " " + professor.Name.ToUpper() +
+                        $"\nID : {professor.ID}" +
+                        $"\nGender : {professor.Gender}" +
+                        $"\nBirthdate : {professor.Birthdate.ToShortDateString()}\n\n");
+                    Console.WriteLine("Contact information : \n" +
+                        $"\nAdress : {professor.Adress}" +
+                        $"\nPhone Number : {professor.PhoneNumber}" +
+                        $"\nSchool email adress : {professor.SchoolEmail}" +
+                        $"\nPersonnal email adress : {professor.PersoEmail}\n\n");
+                    Console.WriteLine("School information : \n" +
+                        $"\nSubject : {professor.Subject}" +
+                        $"\nClasses : {professor.NameClass1} {professor.NameClass2} {professor.NameClass3} {professor.NameClass4} ");
+                    if (professor.Tutor == true)
                     {
-                        Console.WriteLine("- " + professor.TutorStudentList[i].FirstName + " " + professor.TutorStudentList[i].Name);
+                        Console.WriteLine("\nTutor of : ");
+                        for (int i = 0; i < professor.TutorStudentList.Count; i++)
+                        {
+                            Console.WriteLine("- " + professor.TutorStudentList[i].FirstName + " " + professor.TutorStudentList[i].Name);
+                        }
                     }
-                }
 
-                Console.WriteLine("Do you want to change any of the student's information? ");
-                Console.WriteLine("0 - Nothing\n" +
-                    "1 - First Name\n" +
-                    "2 - Name\n" +
-                    "3 - Gender\n" +
-                    "4 - Birthdate\n" +
-                    "5 - Adress\n" +
-                    "6 - Phone number\n" +
-                    "7 - Personal email adress\n");
-                if (professor.Tutor == true)
-                {
-                    Console.Write("8 - Take this professor off the tutor's list");
-                }
-                else
-                {
-                    Console.Write("8 - Add this professor to the list of tutors");
-                }
+                    Console.WriteLine("\n\n\nDo you want to change any of the professor's information? ");
+                    Console.WriteLine("0 - Nothing\n" +
+                        "1 - First Name\n" +
+                        "2 - Name\n" +
+                        "3 - Gender\n" +
+                        "4 - Birthdate\n" +
+                        "5 - Adress\n" +
+                        "6 - Phone number\n" +
+                        "7 - Personal email adress");
 
-                switch (Console.ReadLine())
-                {
-                    case "0":
-                        finish = true;
-                        break;
+                    switch (Console.ReadLine())
+                    {
+                        case "0":
+                            finish = true;
+                            break;
 
-                    case "1":
-                        Console.WriteLine("\nEnter the new first name of the student");
-                        professor.FirstName = Console.ReadLine();
-                        break;
+                        case "1":
+                            Console.WriteLine("\nEnter the new first name of the professor");
+                            professor.FirstName = Console.ReadLine();
+                            break;
 
-                    case "2":
-                        Console.WriteLine("\nEnter the new name of the student");
-                        professor.Name = Console.ReadLine();
-                        break;
+                        case "2":
+                            Console.WriteLine("\nEnter the new name of the professor");
+                            professor.Name = Console.ReadLine();
+                            break;
 
-                    case "3":
-                        Console.WriteLine("\nEnter the new gender of the student");
-                        professor.Adress = Console.ReadLine();
-                        break;
+                        case "3":
+                            Console.WriteLine("\nEnter the new gender of the professor");
+                            professor.Adress = Console.ReadLine();
+                            break;
 
-                    case "4":
-                        Console.WriteLine("\nEnter the new birthdate of the student (dd/mm/yyyy)");
-                        string birthdate = Console.ReadLine();
-                        professor.Birthdate = professor.BirthdateCalculation(birthdate);
-                        break;
+                        case "4":
+                            Console.WriteLine("\nEnter the new birthdate of the professor (dd/mm/yyyy)");
+                            string birthdate = Console.ReadLine();
+                            professor.Birthdate = professor.BirthdateCalculation(birthdate);
+                            break;
 
-                    case "5":
-                        Console.WriteLine("\nEnter the new address of the student");
-                        professor.Adress = Console.ReadLine();
-                        break;
+                        case "5":
+                            Console.WriteLine("\nEnter the new address of the professor");
+                            professor.Adress = Console.ReadLine();
+                            break;
 
-                    case "6":
-                        Console.WriteLine("\nEnter the new phone number of the student");
-                        professor.PhoneNumber = Console.ReadLine();
-                        break;
+                        case "6":
+                            Console.WriteLine("\nEnter the new phone number of the professor");
+                            professor.PhoneNumber = Console.ReadLine();
+                            break;
 
-                    case "7":
-                        Console.WriteLine("\nEnter the new personal email adress of the student");
-                        professor.PersoEmail = Console.ReadLine();
-                        break;
+                        case "7":
+                            Console.WriteLine("\nEnter the new personal email adress of the professor");
+                            professor.PersoEmail = Console.ReadLine();
+                            break;
+                    }
 
-                    case "8":
-                        if (professor.Tutor == true)
-                        {
-                            RemoveProfessorFromTutorsList(professor);
-                            for (int i = 0; i < professor.StudentList.Count; i++)
-                            {
-                                ModifyTutor(professor.StudentList[i], professor.ID);
-                            }
-                            professor.Tutor = false;
-                            Console.WriteLine("The professor has been taken off the list of tutors ");
-                        }
-                        else
-                        {
-                            AddProfessorToTutorsList(professor);
-                            professor.Tutor = true;
-                            Console.WriteLine("The professor has been added to the list of tutors ");
-                        }
-                        break;
+                    Console.WriteLine("\n\nThe changes have been taken into account");
+
+                    Console.WriteLine(" \n\nDo you want to modify something else ? \n1- YES \n2- NO");
+                    if (Console.ReadLine() == "2")
+                    {
+                        finish2 = true;
+                    }
+
                 }
                 Console.WriteLine("\n\n\nReturn to the dashboard ? \n1- YES \n2- NO");
                 int decision = Convert.ToInt32(Console.ReadLine());
@@ -2217,86 +2571,6 @@ namespace Group1_OOP
             Professor p = ProfessorList.Find(x => x.FirstName.ToLower().Contains(firstname.ToLower()) && x.Name.ToLower().Contains(name.ToLower()));
 
             return p;
-        }
-        public void RemoveProfessorFromTutorsList(Professor p)
-        {
-            List<List<string>> list = new List<List<string>>();
-
-            int counter = 0;
-            StreamReader fichLect = new StreamReader("Tutors.csv");
-            char[] sep = new char[1] { ';' };
-            string line = "";
-            string[] datas = new string[11];
-            while (fichLect.Peek() > 0)
-            {
-                line = fichLect.ReadLine();
-                if (counter == 1)
-                {
-                    datas = line.Split(sep);
-                    List<string> l = new List<string>();
-                    for (int i = 0; i < datas.Length; i++)
-                    {
-                        l.Add(datas[i]);
-                    }
-                    list.Add(l);
-                }
-                counter = 1;
-            }
-            fichLect.Close();
-
-            foreach (List<string> l in list)
-            {
-                if (l[0] == p.ID)
-                {
-                    list.Remove(l);
-                    Console.WriteLine("removed");
-                }
-            }
-
-            StreamWriter fichEcr = new StreamWriter("Tutors.csv");
-            string firstLine = "Tutor's ID" + ";" + "Student 1" + ";" + "Student 2" + ";" + "Student 3" + ";" + "Student 4" + ";" + "Student 5" + ";" + "Student 6" + ";" + "Student 7" + ";" + "Student 8" + ";" + "Student 9" + ";" + "Student 10";
-            fichEcr.WriteLine(firstLine);
-            foreach (List<string> l in list)
-            {
-                string Line = "";
-                foreach (string word in l)
-                {
-                    Line += word + ";";
-                }
-                fichEcr.WriteLine(Line);
-            }
-            fichEcr.Close();
-        }
-        public void AddProfessorToTutorsList(Professor p)
-        {
-            StreamWriter fichEcr = new StreamWriter("Tutors.csv", true);
-            string line = p.ID + ";";
-            fichEcr.WriteLine(line);
-
-            fichEcr.Close();
-        }
-
-
-        //10 - Manage the academic calendar
-        public void ManageAcademicCalendar(AcademicCalendar academicCalendar)
-        {
-            Console.WriteLine("Would you like to see or modify the academic calendar?\n1 - Show the calendar\n2 - Add an event\n3 - Delete an event");
-            int nb = Convert.ToInt16(Console.ReadLine());
-            switch(nb)
-            {
-                case 1:
-                    academicCalendar.ShowAcademicCalendar();
-                    break;
-
-                case 2:
-                    academicCalendar.AddAnEvent();
-                    break;
-
-                case 3:
-                    academicCalendar.DeleteAnEvent();
-                    break;
-            }
-
         }
     }
 }
