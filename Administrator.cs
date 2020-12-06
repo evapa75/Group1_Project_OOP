@@ -2445,7 +2445,7 @@ namespace Group1_OOP
         }
 
 
-        // 9 - Manage professor information (contact, tutoring)
+        // 9 - Manage professor information (contact)
         public void ManageProfessorInformation()
         {
             bool finish = false;

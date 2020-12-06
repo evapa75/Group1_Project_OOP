@@ -360,7 +360,7 @@ namespace Group1_OOP
                                     Console.WriteLine(c + "\n");
                                 }
                                 _class = Console.ReadLine().ToUpper();
-                                professor.CoursePlan.Find(x => x.Class.Contains(_class)).ModifyAssignementSection();
+                                professor.CoursePlan.Find(x => x.Class.Contains(_class)).ModifyAssignmentSection();
                                 break;
                         }
                         break;
@@ -510,6 +510,7 @@ namespace Group1_OOP
             List<Professor> professorList = new List<Professor>();
             List<Administrator> adminList = new List<Administrator>();
 
+            // Academic Calendar
             AcademicCalendar AcademicCalendar = new AcademicCalendar();
 
             // List of students
@@ -761,8 +762,8 @@ namespace Group1_OOP
             }
 
 
+            //Connection to the student, professor or administrator portal
             Connection(studentList, professorList, adminList, AcademicCalendar);
-
 
 
             // Save changes for Students

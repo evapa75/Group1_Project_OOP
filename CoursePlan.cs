@@ -177,7 +177,7 @@ namespace Group1_OOP
                 ShowExams();
 
                 Console.WriteLine("\n\n\n");
-                ShowAssignements();
+                ShowAssignments();
             }
             else
             {
@@ -228,7 +228,7 @@ namespace Group1_OOP
                     ShowExams();
 
                     Console.WriteLine("\n\n\n");
-                    ShowAssignements();
+                    ShowAssignments();
 
                     Console.WriteLine("\n\n\nDo you want to close the course plan ? \n1 - YES \n2 - NO");
                     if (Console.ReadLine() == "1")
@@ -250,9 +250,9 @@ namespace Group1_OOP
 
         }
 
-        public void ShowAssignements()
+        public void ShowAssignments()
         {
-            Console.WriteLine("\nASSIGNEMENT SECTION");
+            Console.WriteLine("\nASSIGNMENT SECTION");
             foreach (string assign in Assignments)
             {
                 Console.WriteLine("\n\n" + assign);
@@ -577,13 +577,13 @@ namespace Group1_OOP
             }
         }
 
-        public void ModifyAssignementSection()
+        public void ModifyAssignmentSection()
         {
             bool finish = false;
             while (finish == false)
             {
                 Console.Clear();
-                ShowAssignements();
+                ShowAssignments();
                 Console.WriteLine("\n\nWhat do you want to do with your assignement ?\n1 - Add\n2 - Modify \n3 - Delete \n4 - Exit");
                 switch (Console.ReadLine())
                 {

@@ -25,7 +25,7 @@ namespace Group1_OOP
             string nomFichier = "GradeBookClass" + Class + ".csv";
 
             List<string> ListSubjects = new List<string>();
-            List<string> ListGradesAssignements = new List<string>();
+            List<string> ListGradesAssignments = new List<string>();
             List<string> ListGradesExams = new List<string>();
 
             SortedList<string, List<string>> list = new SortedList<string, List<string>>();
@@ -58,12 +58,12 @@ namespace Group1_OOP
             for (int i = 0; i < datas.Length - 3; i = i + 3)
             {
                 ListSubjects.Add(list.ElementAt(key).Value[i]);
-                ListGradesAssignements.Add(list.ElementAt(key).Value[i + 1]);
+                ListGradesAssignments.Add(list.ElementAt(key).Value[i + 1]);
                 ListGradesExams.Add(list.ElementAt(key).Value[i + 2]);
             }
 
             Subjects = ListSubjects;
-            GradesAssignements = ListGradesAssignements;
+            GradesAssignements = ListGradesAssignments;
             GradesExams = ListGradesExams;
         }
     }

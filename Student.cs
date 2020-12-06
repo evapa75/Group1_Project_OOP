@@ -19,7 +19,6 @@ namespace Group1_OOP
         public int Year { get; set; }
         public string Class { get; set; }
         public double Fees { get; set; }
-        public string ModePayment { get; set; }
         public string TutorID { get; set; }
         public List<Course> Courses { get; set; }
         public List<string> CoursesName { get; set; }
@@ -373,7 +372,7 @@ namespace Group1_OOP
                     Console.WriteLine("\n" + FirstName + " " + Name + " " + Class + "\n\n");
                     for (int i = 0; i < Gradebook.Subjects.Count; i++)
                     {
-                        Console.WriteLine(Gradebook.Subjects[i] + " : " + "\n -> Assignements : " + Gradebook.GradesAssignements[i] + "\n -> Exams : " + Gradebook.GradesExams[i] + "\n");
+                        Console.WriteLine(Gradebook.Subjects[i] + " : " + "\n -> Assignments : " + Gradebook.GradesAssignements[i] + "\n -> Exams : " + Gradebook.GradesExams[i] + "\n");
                     }
 
                     Console.WriteLine("\n\n\nReturn to the dashboard ? \n1- YES \n2- NO");
@@ -398,7 +397,7 @@ namespace Group1_OOP
                 Console.WriteLine("\n" + FirstName + " " + Name + " " + Class + "\n\n");
                 for (int i = 0; i < Gradebook.Subjects.Count; i++)
                 {
-                    Console.WriteLine(Gradebook.Subjects[i] + " : " + "\n -> Assignements : " + Gradebook.GradesAssignements[i] + "\n -> Exams : " + Gradebook.GradesExams[i] + "\n");
+                    Console.WriteLine(Gradebook.Subjects[i] + " : " + "\n -> Assignments : " + Gradebook.GradesAssignements[i] + "\n -> Exams : " + Gradebook.GradesExams[i] + "\n");
                 }
             }
         }
